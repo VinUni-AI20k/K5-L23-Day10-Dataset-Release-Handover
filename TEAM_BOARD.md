@@ -17,5 +17,11 @@
 | Nguyễn Quốc Hưng | `2A202603324` | `@Soraxolo` | Security (`security.md`), Hidden-test Prep & Reporting | P6 | `#8` | Chưa nhận |
 
 <!-- TEAM_PROGRESS_START -->
-_Chưa có dữ liệu đồng bộ tự động từ GitHub API. Sau khi push workflow `team-progress.yml`, bảng chi tiết theo Issue/PR sẽ tự động cập nhật tại đây._
+_Cập nhật tự động từ GitHub API lúc 2026-11-19 09:41 UTC_
+
+| # | Issue | Assignees | Labels | State |
+|---|---|---|---|---|
+| [#1](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/1) | P0 — Setup repository & Team Onboarding | @hungpixi | `phase:P0`, `type:docs`, `priority:P0`, `status:done` | OPEN |
+
+**Pull Requests:** 0 total (0 open, 0 merged)
 <!-- TEAM_PROGRESS_END -->
