@@ -28,6 +28,7 @@ _Cập nhật tự động từ GitHub API lúc 2026-11-19 09:41 UTC_
 | [#5](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/5) | P3 — Release Gate (2% Threshold) & Lineage | _Chưa assign_ | `phase:P3`, `type:qc`, `priority:P1`, `status:ready` | OPEN |
 | [#6](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/6) | P4 — Dataset v2, Manifest & Handover (check_handover.py) | _Chưa assign_ | `phase:P4`, `type:code`, `type:qc`, `priority:P0`, `status:ready` | OPEN |
 | [#7](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/7) | P5 — Ticket Traceability (tier_a, tier_b, notify) | _Chưa assign_ | `phase:P5`, `type:code`, `priority:P1`, `status:ready` | OPEN |
+| [#8](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/8) | P6 — Security (security.md), Hidden-test Prep & Reporting | @Soraxolo | `phase:P6`, `type:docs`, `type:qc`, `priority:P1`, `status:ready` | OPEN |
 
 **Pull Requests:** 0 total (0 open, 0 merged)
 <!-- TEAM_PROGRESS_END -->
