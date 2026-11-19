@@ -33,7 +33,6 @@ image,scene_id,split,job_id,annotator,reviewer,guideline
 000000002587,scene_303,train,J02,A03,Q01,v1.2
 000000002592,scene_303,train,J02,A03,Q01,v1.2
 000000002685,scene_303,train,J02,A03,Q01,v1.2
-000000002923,scene_303,train,J02,A03,Q01,v1.2
 000000003156,scene_763,val,J02,A03,Q01,v1.2
 000000003255,scene_763,val,J02,A03,Q01,v1.2
 000000003501,scene_763,val,J02,A03,Q01,v1.2
