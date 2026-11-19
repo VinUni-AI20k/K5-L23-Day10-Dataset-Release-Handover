@@ -1,0 +1,174 @@
+{
+  "candidates": [
+    {
+      "image": "000000000872",
+      "target": "000000000872",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 12234672,
+      "det_class": null,
+      "pan_class": "person",
+      "area": 47692,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'person' (47692px, 12.00% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "000000001818",
+      "target": "000000001818",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 8092282,
+      "det_class": null,
+      "pan_class": "zebra",
+      "area": 120106,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'zebra' (120106px, 44.16% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "000000007511",
+      "target": "000000007511",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 3026996,
+      "det_class": null,
+      "pan_class": "person",
+      "area": 14530,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'person' (14530px, 4.73% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "000000007795",
+      "target": "000000007795",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 7435899,
+      "det_class": null,
+      "pan_class": "bed",
+      "area": 70150,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'bed' (70150px, 25.67% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "000000009483",
+      "target": "000000009483",
+      "type": "class_mismatch",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "segment_id": 9270375,
+      "det_class": "laptop",
+      "pan_class": "tv",
+      "area": 10757,
+      "seg_in_box": 1.0,
+      "bbox_iou": 0.993,
+      "detail": "DET='laptop' vs PAN='tv' (IoU=0.99, seg_in_box=1.00, area=10757px)"
+    },
+    {
+      "image": "000000012748",
+      "target": "000000012748",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 4079972,
+      "det_class": null,
+      "pan_class": "person",
+      "area": 56935,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'person' (56935px, 18.53% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "000000013291",
+      "target": "000000013291",
+      "type": "instance_merge",
+      "suggested_types": [
+        "instance_merge"
+      ],
+      "segment_id": 13419440,
+      "pan_class": "frisbee",
+      "det_class": "frisbee",
+      "area": 2394,
+      "seg_in_box": 0.629,
+      "union_cov": 1.0,
+      "min_excl_ratio": 0.371,
+      "detail": "1 segment 'frisbee' (2394px) phủ 2 box cùng lớp (cov1=0.63, cov2=0.37, union=1.00, excl=0.37)"
+    },
+    {
+      "image": "000000019742",
+      "target": "000000019742",
+      "type": "class_mismatch",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "segment_id": 1257078,
+      "det_class": "vase",
+      "pan_class": "baseball bat",
+      "area": 34436,
+      "seg_in_box": 1.0,
+      "bbox_iou": 0.995,
+      "detail": "DET='vase' vs PAN='baseball bat' (IoU=0.99, seg_in_box=1.00, area=34436px)"
+    },
+    {
+      "image": "000000022589",
+      "target": "000000022589",
+      "type": "bbox_drift",
+      "suggested_types": [
+        "bbox_drift"
+      ],
+      "segment_id": 6189719,
+      "det_class": "sheep",
+      "pan_class": "sheep",
+      "area": 14660,
+      "seg_in_box": 0.849,
+      "bbox_iou": 0.609,
+      "detail": "Box 'sheep' lệch mask: chỉ 0.85 pixel mask trong box (2207px tràn ngoài, IoU=0.61)"
+    },
+    {
+      "image": "000000023272",
+      "target": "000000023272",
+      "type": "class_mismatch",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "segment_id": 7369075,
+      "det_class": "bus",
+      "pan_class": "car",
+      "area": 127847,
+      "seg_in_box": 1.0,
+      "bbox_iou": 0.999,
+      "detail": "DET='bus' vs PAN='car' (IoU=1.00, seg_in_box=1.00, area=127847px)"
+    },
+    {
+      "image": "000000023781",
+      "target": "000000023781",
+      "type": "class_mismatch",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "segment_id": 5595317,
+      "det_class": "carrot",
+      "pan_class": "motorcycle",
+      "area": 3257,
+      "seg_in_box": 1.0,
+      "bbox_iou": 0.99,
+      "detail": "DET='carrot' vs PAN='motorcycle' (IoU=0.99, seg_in_box=1.00, area=3257px)"
+    }
+  ]
+}

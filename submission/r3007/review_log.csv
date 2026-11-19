@@ -1,0 +1,12 @@
+image,type,verdict,note
+000000000872,missing_box,rejected,"[TV1-Hoa] Nguoi ngoi xa hau canh trong xe, thuoc dien background khong gan nhan COCO"
+000000001818,missing_box,rejected,"[TV1-Hoa] Ngua van khuat sau bui cay, ranh gioi mo nhat khong du dieu kien dong box"
+000000007511,missing_box,confirmed,[TV2-Manh] Nguoi dung ro net o giua khung hinh bi thieu box detection hoan toan
+000000007795,missing_box,confirmed,[TV2-Manh] Chiec giuong ngu lon chiem 25% dien tich anh bi bo sot khong gan box
+000000009483,class_swap,confirmed,[TV3-Phach] Man hinh TV tren ban lam viec bi gan nhan nham thanh laptop trong detection
+000000012748,missing_box,rejected,"[TV3-Phach] Bong nguoi o ria anh bi cat cut qua 70%, khong gan nhan detection theo guideline"
+000000013291,instance_merge,confirmed,[TV4-Phuc] Mot dia nem frisbee bi gop chung mask panoptic phu len hai vat the doc lap
+000000019742,category_swap,confirmed,[TV4-Phuc] Binh hoa trang tri tren ban bi gan nham thanh gay bong chay trong panoptic
+000000022589,bbox_drift,confirmed,[TV5-Vuong] Box detection cua con cuu bi truot lech hon 2200 pixel ra ngoai vien vat the
+000000023272,class_swap,confirmed,[TV5-Vuong] Xe o to con gia dinh bi gan nhan nham thanh xe bus cong cong trong file nhan
+000000023781,category_swap,confirmed,[TV5-Vuong] Cu ca rot nho canh bong cai xanh bi panoptic gan nham thanh xe may cuc ky phi ly
