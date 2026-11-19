@@ -52,6 +52,18 @@ def main() -> int:
     print(f"{len(errors)} lỗi -> {out}")
     for kind, n in sorted(Counter(t for t, _ in found).items()):
         print(f"  {kind}: {n}")
+    if args.candidates:
+        try:
+            import cross_check
+            cands = cross_check.extract_candidates(delivery)
+            cand_path = Path(args.candidates)
+            cand_path.parent.mkdir(parents=True, exist_ok=True)
+            cand_path.write_text(json.dumps({"candidates": cands}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+            print(f"Trích xuất {len(cands)} ứng viên gán nhãn -> {cand_path}")
+        except Exception:
+            print("[LỖI] Trích xuất candidates thất bại:", file=sys.stderr)
+            traceback.print_exc()
+
     if failed:
         print(f"CẢNH BÁO: {out} THIẾU kết quả của module: {', '.join(failed)}", file=sys.stderr)
         return 1
