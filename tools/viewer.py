@@ -138,11 +138,34 @@ def as_list(v):
     return v if isinstance(v, list) else [v]
 
 
-def label(draw, xy, text, color, f):
-    x, y = xy
-    l, t, r, b = draw.textbbox((x, y), text, font=f)
-    draw.rectangle((l - 2, t - 1, r + 2, b + 1), fill=(0, 0, 0))
-    draw.text((x, y), text, fill=color, font=f)
+def draw_labels(img, items, f) -> int:
+    """Vẽ chữ, tự né nhau: thử dịch lên/xuống, chỗ nào cũng đè thì bỏ. Trả về số nhãn bị bỏ."""
+    d = ImageDraw.Draw(img)
+    placed, skipped = [], 0
+    for (x, y), text, color in items:
+        l, t, r, b = d.textbbox((0, 0), text, font=f)
+        w, h = r - l + 4, b - t + 2
+        for dy in (0, h, -h, 2 * h, -2 * h, 3 * h):
+            box = (x, y + dy, x + w, y + dy + h)
+            if box[1] < 0 or box[3] > img.height:
+                continue
+            if not any(box[0] < p[2] and p[0] < box[2] and box[1] < p[3] and p[1] < box[3] for p in placed):
+                placed.append(box)
+                d.rectangle(box, fill=(0, 0, 0))
+                d.text((box[0] + 2 - l, box[1] + 1 - t), text, fill=color, font=f)
+                break
+        else:
+            skipped += 1
+    return skipped
+
+
+def caption(img, text, f):
+    """Thêm dải tiêu đề phía trên một khung."""
+    bar = 30
+    out = Image.new("RGB", (img.width, img.height + bar), (40, 40, 46))
+    ImageDraw.Draw(out).text((8, 5), text, fill=(235, 235, 235), font=f)
+    out.paste(img, (0, bar))
+    return out
 
 
 def render(dv: Delivery, stem: str, cand: dict | None, show_stuff: bool) -> Image.Image:
@@ -185,26 +208,19 @@ def render(dv: Delivery, stem: str, cand: dict | None, show_stuff: bool) -> Imag
         overlay.putdata(out)
     elif m is not None:
         err = (err + "; " if err else "") + f"mask {m.size} khác ảnh {(W, H)}"
-    ann_img = base.convert("RGBA")
-    ann_img.alpha_composite(overlay.resize(ann_img.size, Image.NEAREST))
-    d = ImageDraw.Draw(ann_img)
-    f = font(max(14, S(12)))
+    big_overlay = overlay.resize(base.size, Image.NEAREST)
+    f = font(max(13, S(10)))
     lw = max(2, S(2))
 
-    texts = []  # (xy, chữ, màu): vẽ sau cùng, để khung phóng to không bị chữ đè
+    # --- 4 lớp riêng: detection / panoptic / chồng cả hai (không chữ)
+    det_img = base.copy()
+    pan_img = base.convert("RGBA")
+    pan_img.alpha_composite(big_overlay)
+    pan_img = pan_img.convert("RGB")
+    both = pan_img.copy()
+    dd, db = ImageDraw.Draw(det_img), ImageDraw.Draw(both)
 
-    # nhãn panoptic (góc dưới-trái bbox segment)
-    for sid, s in segs.items():
-        cat = dv.cats.get(s["category_id"], {})
-        if not show_stuff and not cat.get("isthing"):
-            continue
-        x, y, w, h = s["bbox"]
-        name = cat.get("name", f"?{s['category_id']}")
-        tag = f"P:{name}" + (" crowd" if s.get("iscrowd") else "")
-        col = HL_COLOR if sid in hl_segs else seg_color[sid]
-        texts.append(((S(x) + 2, S(y + h) - f.size - 4), tag, col))
-
-    # box detection
+    det_texts, pan_texts = [], []
     focus = [tuple(segs[s]["bbox"]) for s in hl_segs if s in segs]  # vùng bị nghi (x, y, w, h) px gốc
     for b in dv.boxes(stem):
         x, y, w, h = b["xywh"]
@@ -213,24 +229,21 @@ def render(dv: Delivery, stem: str, cand: dict | None, show_stuff: bool) -> Imag
         if hl:
             focus.append((x0, y0, x1 - x0, y1 - y0))
         col = HL_COLOR if hl else DET_COLOR
-        d.rectangle((S(x0), S(y0), S(x1), S(y1)), outline=col, width=lw * (2 if hl else 1))
-        texts.append(((S(x0) + 2, S(y0) + 2), f"D{b['idx']}:{b['name']}", col))
+        for dr in (dd, db):
+            dr.rectangle((S(x0), S(y0), S(x1), S(y1)), outline=col, width=lw * (2 if hl else 1))
+        det_texts.append(((S(x0) + 2, S(y0) + 2), f"D{b['idx']}:{b['name']}", col))
+    for sid, s in segs.items():
+        cat = dv.cats.get(s["category_id"], {})
+        if not show_stuff and not cat.get("isthing"):
+            continue
+        x, y, w, h = s["bbox"]
+        tag = cat.get("name", f"?{s['category_id']}") + (" (crowd)" if s.get("iscrowd") else "")
+        pan_texts.append(((S(x) + 2, S(y) + 2), tag, HL_COLOR if sid in hl_segs else seg_color[sid]))
 
-    plain = ann_img.convert("RGB")  # bản chỉ có khung + viền, không chữ: dùng cho khung phóng to
-    for xy, t, col in texts:
-        label(d, xy, t, col, f)
+    plain_both = both.copy()  # cho khung phóng to: không chữ
+    skip = draw_labels(det_img, det_texts, f) + draw_labels(pan_img, pan_texts, f)
 
-    # ghép 2 khung + dòng tiêu đề
-    head = font(18)
-    meta = dv.meta.get(stem, {})
-    lines = [f"{stem}   {cand.get('type', '')}   scene={meta.get('scene_id', '?')} job={meta.get('job_id', '?')} "
-             f"split={meta.get('split', '?')}   (đỏ = detection D#, màu khác = panoptic P, vàng = bị nghi)"]
-    why = cand.get("note") or cand.get("reason")
-    if why:
-        lines.append(f"validator: {why}")
-    if err:
-        lines.append(f"!! {err}")
-    # khung thứ 3: phóng to quanh vật bị nghi (khi candidates có "box"/"segment")
+    # --- phóng to quanh vật bị nghi (khi candidates có "box"/"segment")
     zoom = None
     if focus:
         x0 = min(f_[0] for f_ in focus); y0 = min(f_[1] for f_ in focus)
@@ -238,20 +251,43 @@ def render(dv: Delivery, stem: str, cand: dict | None, show_stuff: bool) -> Imag
         pad = max(40, 0.5 * max(x1 - x0, y1 - y0))  # chừa ngữ cảnh, tránh phóng quá to vật tí hon
         box = (max(0, S(x0 - pad)), max(0, S(y0 - pad)), min(base.width, S(x1 + pad)), min(base.height, S(y1 + pad)))
         if box[2] > box[0] and box[3] > box[1]:
-            crop = plain.crop(box)
-            k = base.height / crop.height
-            zoom = crop.resize((max(1, int(crop.width * k)), base.height), Image.LANCZOS)
+            k = min(base.width / (box[2] - box[0]), base.height / (box[3] - box[1]))
+            size = (max(1, int((box[2] - box[0]) * k)), max(1, int((box[3] - box[1]) * k)))
+            zoom = (base.crop(box).resize(size, Image.LANCZOS), plain_both.crop(box).resize(size, Image.LANCZOS))
 
+    # --- ghép lưới 2 cột
+    cf = font(17)
+    cells = [caption(base, "1. ẢNH GỐC: vật thật là gì?", cf),
+             caption(both, "2. CHỒNG CẢ HAI: viền màu có nằm gọn trong khung đỏ?", cf),
+             caption(det_img, "3. DETECTION (khung đỏ D#)", cf),
+             caption(pan_img, "4. PANOPTIC (tô màu)", cf)]
+    if zoom:
+        cells += [caption(zoom[0], "5. PHÓNG TO: ảnh gốc", cf), caption(zoom[1], "6. PHÓNG TO: chồng cả hai", cf)]
+    head = font(18)
+    meta = dv.meta.get(stem, {})
+    lines = [f"{stem}   {cand.get('type', '')}   scene={meta.get('scene_id', '?')} job={meta.get('job_id', '?')} "
+             f"split={meta.get('split', '?')}   (đỏ = detection, màu khác = panoptic, vàng = bị nghi)"]
+    why = cand.get("note") or cand.get("reason")
+    if why:
+        lines.append(f"validator: {why}")
+    if skip:
+        lines.append(f"({skip} nhãn quá chật không vẽ chữ được: xem danh sách in ở terminal)")
+    if err:
+        lines.append(f"!! {err}")
     top = 10 + 26 * len(lines)
-    width = base.width * 2 + 10 + (zoom.width + 10 if zoom else 0)
-    canvas = Image.new("RGB", (width, base.height + top), (25, 25, 25))
+    gap = 10
+    cw = max(c.width for c in cells)
+    rows = [cells[i:i + 2] for i in range(0, len(cells), 2)]
+    heights = [max(c.height for c in r) for r in rows]
+    canvas = Image.new("RGB", (cw * 2 + gap, top + sum(heights) + gap * (len(rows) - 1)), (25, 25, 25))
     cd = ImageDraw.Draw(canvas)
     for k, t in enumerate(lines):
         cd.text((10, 6 + 26 * k), t, fill=(255, 120, 120) if t.startswith("!!") else (230, 230, 230), font=head)
-    canvas.paste(base, (0, top))
-    canvas.paste(ann_img.convert("RGB"), (base.width + 10, top))
-    if zoom:
-        canvas.paste(zoom, (base.width * 2 + 20, top))
+    y = top
+    for r, h in zip(rows, heights):
+        for j, c in enumerate(r):
+            canvas.paste(c, (j * (cw + gap), y))
+        y += h + gap
     return canvas
 
 
@@ -318,6 +354,7 @@ label.v{padding:4px 10px;border-radius:6px;border:1px solid var(--line)}
  <label>Người xem: <select id="who"><option value="">(tất cả)</option></select></label>
  <label><input type="checkbox" id="todo"> chỉ ảnh chưa xem</label>
  <button class="primary" id="dl">Tải review_log.csv</button>
+ <span class="muted">Mở CSV bằng VS Code/Notepad. KHÔNG lưu bằng Excel (mất số 0 đầu tên ảnh, hỏng dấu).</span>
  <span class="warn" id="warn"></span>
 </header>
 <main id="list"></main>
@@ -359,7 +396,7 @@ function draw() {
     const n = c.querySelector(".n");
     const upd = () => {
       const v = c.querySelector("input[type=radio]:checked");
-      state[id(r)] = { verdict: v ? v.value : "", note: ta.value.trim(), type: t.value };
+      state[id(r)] = { verdict: v ? v.value : "", note: ta.value.replace(/\s+/g, " ").trim(), type: t.value };
       c.className = "card" + (v ? " done-" + v.value : "");
       n.textContent = ta.value.trim().length < 20 ? `ghi chú ${ta.value.trim().length}/20 ký tự` : "";
       save(); stats();
