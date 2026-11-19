@@ -17,11 +17,11 @@
 | Nguyễn Quốc Hưng | `2A202603324` | `@Soraxolo` | Security (`security.md`), Hidden-test Prep & Reporting | P6 | `#8` | Chưa nhận |
 
 <!-- TEAM_PROGRESS_START -->
-_Cập nhật tự động từ GitHub API lúc 2026-11-19 09:42 UTC_
+_Cập nhật tự động từ GitHub API lúc 2026-11-19 09:43 UTC_
 
 | # | Issue | Assignees | Labels | State |
 |---|---|---|---|---|
-| [#1](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/1) | P0 — Setup repository & Team Onboarding | @hungpixi | `phase:P0`, `type:docs`, `priority:P0`, `status:done` | OPEN |
+| [#1](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/1) | P0 — Setup repository & Team Onboarding | @hungpixi | `phase:P0`, `type:docs`, `priority:P0`, `status:done` | DONE |
 | [#2](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/2) | P1 — Implement & Verify 9 Validator Rules | @hungpixi | `phase:P1`, `type:code`, `priority:P0`, `status:in-progress` | OPEN |
 | [#3](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/3) | P2 — Detection/Panoptic Cross-check & Candidates Tuning | _Chưa assign_ | `phase:P2`, `type:code`, `priority:P0`, `status:ready` | OPEN |
 | [#4](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/4) | P2 — Human Visual Review & QC (review_log.csv) | _Chưa assign_ | `phase:P2`, `type:review`, `type:qc`, `priority:P0`, `status:ready` | OPEN |
