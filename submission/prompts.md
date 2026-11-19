@@ -21,3 +21,49 @@
   3. Giá trị guideline trong `truyvet.csv` nếu lấy từ metadata của ảnh sẽ bị sai khi gặp lỗi `guideline_mismatch`. Đã sửa để guideline luôn truy xuất từ `jobs.csv` làm single source of truth (đạt H10).
 - **Cách kiểm lại:** Viết unit tests (`tests/test_release_gate.py`, `tests/test_handover_builder.py` 4/4 PASS), chạy thực tế trên `runs/r9007`, xác nhận `python scripts/check_handover.py --run runs/r9007` đạt tuyệt đối 15/15 PASS ở các tiêu chí H1–H15.
 
+## 4. P6 — Security, Hidden-test Prep & Reporting (Nguyễn Quốc Hưng, `2A202603324`)
+
+Công cụ: Claude Code (Opus 5), ngày 19/11/2026. **Không dán ảnh nào của lô vào công cụ AI.**
+
+### 4.1 Kiểm điều kiện H17 bằng mã nguồn, không tin mô tả
+
+- **Prompt:** *"Phần P6 của tôi (security.md, chuẩn bị đề ẩn, REPORT.md) có phải đợi P1–P5 không?"*
+- **AI trả lời:** `security.md` chỉ cần lô v1 tồn tại, không phụ thuộc pha nào.
+- **Chỗ AI thiếu:** không nói ra điều kiện tên ảnh phải nằm trong `manifest.json` của lô v1.
+- **Cách kiểm lại:** đọc thẳng `scripts/check_handover.py` dòng 243–249, rồi **chạy lại đúng đoạn logic
+  H17 đó** trên file đã viết: ≥ 3 mục `##` mỗi mục ≥ 80 ký tự sau khi bỏ khoảng trắng, mục "khuôn mặt"
+  chứa chữ "hold", nêu tên ảnh có trong manifest v1, không còn chuỗi `<<` → PASS trước khi commit.
+
+### 4.2 Nhờ AI viết `tools/review_viewer.py` — 4 chỗ sai
+
+Tìm ra bằng cách render rồi **mở ảnh ra nhìn**, không tin "code chạy xong là đúng":
+
+1. **Cỡ chữ nhân theo hệ số phóng** — ảnh nhỏ phóng ×9 thì nhãn cao 64 px, che gần hết vật.
+   Sửa: kẹp cỡ chữ theo chiều cao panel.
+2. **Nhãn ở mép phải bị cắt chữ.** Sửa: kéo nhãn vào trong khung trước khi vẽ.
+3. **Panel "phóng to" cắt từ ảnh trần**, không có box lẫn viền segment — vô dụng đúng chỗ cần nhìn kỹ
+   nhất. Sửa: cắt từ ảnh đã vẽ, và cắt quanh **vật bị nghi** (lấy tên lớp từ `evidence` của ứng viên).
+4. **Văng `KeyError: 126` trên ảnh `000000009590`.** Code tra `self.cat[seg["category_id"]]["name"]`,
+   mà ảnh này có segment `category_id=126` không nằm trong `categories` — chính là lỗi
+   `invalid_category_id` validator vừa bắt. Nghĩa là công cụ **im lặng bỏ qua đúng những ảnh đang có
+   lỗi**. Sửa: tra bằng `.get()` và in `category_id 126 (KHÔNG có trong categories)` lên nhãn.
+   Lỗi này chỉ lộ ra khi chạy trên lô thật — bộ fixture tự tạo không có ca đó.
+
+- **Cách kiểm lại:** đối chiếu số box vẽ ra với số dòng trong `labels/<ảnh>.txt`, số segment vẽ ra với
+  `segments_info` của ảnh đó trong `panoptic.json` (lọc `isthing`). Verdict trong
+  `review_log_todo.csv` để **trống** — công cụ không tự chấm.
+
+### 4.3 Số liệu trong `REPORT.md`
+
+Không nhờ AI đoán số. Prompt dùng là *"chạy các lệnh này rồi dán kết quả nguyên văn"*, không phải
+*"REPORT.md nên ghi F1 khoảng bao nhiêu"*. Mọi con số đối chiếu với `runs/r9007/report.md` và output
+của `python3 tools/qc_factory.py benchmark`.
+
+### 4.4 Ba điểm AI phát hiện khi đọc code của nhóm (đã ghi ở `REPORT.md` mục 6)
+
+- Review UI gửi `pan_boxes` lấy từ `seg["bbox"]` → người xem đang so hai hình chữ nhật, trong khi GUIDE
+  Pha 2 nói IoU hai bbox không đủ để phân biệt `bbox_drift` / `instance_merge`.
+- Cùng seed 9007 nhưng hai máy ra `release_id` khác nhau, dù mọi số đếm trùng khít.
+- Ứng viên `class_swap` ở `000000013774` có `evidence` ghi `box=` rỗng; kiểm lại nhãn thấy dòng
+  `80 ...` — `class_id` ngoài 0–79, ảnh đã bị bắt `invalid_class`, nên ứng viên này nhiều khả năng là
+  báo thừa.
