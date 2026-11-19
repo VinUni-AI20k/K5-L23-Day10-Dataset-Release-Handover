@@ -1,7 +1,7 @@
-# Nhóm Day 10 — Dataset Release & Handover
+# Nhóm sIx4Nhd0cTh4n — Day 10 Dataset Release & Handover
 
 - Seed luyện tập: `9007` (lô sạch đối chứng: `clean` / seed `5`)
-- Repo: https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover
+- Repo: https://github.com/phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release
 
 | Họ và tên | MSHV | Tài khoản GitHub | Phần chính | Thư mục phụ trách |
 |---|---|---|---|---|

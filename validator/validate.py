@@ -46,6 +46,19 @@ def stem(name: str) -> str:
     return Path(name).stem
 
 
+def _safe_rel_path(delivery: Path, rel: str) -> Path | None:
+    """Resolve relative path inside delivery; return None on traversal or symlink escape."""
+    if not rel or Path(rel).is_absolute():
+        return None
+    try:
+        base = delivery.resolve()
+        target = (delivery / rel).resolve()
+        target.relative_to(base)
+        return target
+    except (OSError, ValueError):
+        return None
+
+
 def load_json(path: Path, errors_out: list, default):
     try:
         return json.loads(path.read_text(encoding="utf-8"))
@@ -147,9 +160,9 @@ def check_rules(delivery: Path) -> list[dict]:
             rel = entry.get(path_key)
             if not rel:
                 continue
-            path = delivery / rel
-            if not path.is_file():
-                add("missing_image", name, f"thiếu file {kind}: {rel}")
+            path = _safe_rel_path(delivery, rel)
+            if path is None or not path.is_file():
+                add("missing_image", name, f"thiếu file hoặc đường dẫn không hợp lệ {kind}: {rel}")
                 break
             expected = entry.get(hash_key)
             if expected and sha256_file(path) != expected:
@@ -283,15 +296,29 @@ def cross_check_candidates(delivery: Path) -> list[dict]:
             return box[0] <= x < box[2] and box[1] <= y < box[3]
 
         covered_seg: set[int] = set()
+        seg_boxes: dict[int, tuple[float, float, float, float]] = {}
+        for sid, info in seg_info.items():
+            sb = info.get("bbox", [0, 0, 0, 0])
+            seg_boxes[sid] = (sb[0], sb[1], sb[0] + sb[2], sb[1] + sb[3])
+
+        seg_matched_boxes: dict[int, list[tuple[str, tuple[float, float, float, float]]]] = defaultdict(list)
+
+        def _boxes_overlap(a: tuple[float, float, float, float], b: tuple[float, float, float, float]) -> bool:
+            return a[0] < b[2] and a[2] > b[0] and a[1] < b[3] and a[3] > b[1]
+
         for cls, box in boxes:
             det_name = class_names.get(cls, "")
             box_area = max(1.0, (box[2] - box[0]) * (box[3] - box[1]))
             best_sid, best_frac = None, 0.0
             for sid, info in seg_info.items():
+                if not _boxes_overlap(box, seg_boxes[sid]):
+                    continue
                 px = seg_pixels.get(sid, [])
                 if not px:
                     continue
                 inter = sum(1 for p in px if inside(p, box))
+                if inter > 0 and inter / box_area >= 0.5:
+                    seg_matched_boxes[sid].append((det_name, box))
                 # IoU mask-vs-box: segment nhỏ nằm gọn trong box lớn không được ghép
                 mask_iou = inter / (len(px) + box_area - inter)
                 if mask_iou > best_frac:
@@ -300,8 +327,7 @@ def cross_check_candidates(delivery: Path) -> list[dict]:
                 continue
             covered_seg.add(best_sid)
             seg_name = cat_name[seg_info[best_sid]["category_id"]]
-            seg_box = seg_info[best_sid]["bbox"]
-            seg_pix_box = (seg_box[0], seg_box[1], seg_box[0] + seg_box[2], seg_box[1] + seg_box[3])
+            seg_pix_box = seg_boxes[best_sid]
             if seg_name != det_name:
                 candidates.append({"type": "class_swap", "target": name, "score": round(best_frac, 3),
                                    "evidence": f"box={det_name}, segment={seg_name}"})
@@ -309,11 +335,32 @@ def cross_check_candidates(delivery: Path) -> list[dict]:
                 candidates.append({"type": "bbox_drift", "target": name, "score": round(1 - iou(box, seg_pix_box), 3),
                                    "evidence": f"lớp {det_name}, IoU box/segment thấp"})
 
+        # instance_merge: một segment bao >= 2 box cùng lớp (không tính box trùng lặp)
+        for sid, mboxes in seg_matched_boxes.items():
+            if len(mboxes) < 2:
+                continue
+            seg_name = cat_name[seg_info[sid]["category_id"]]
+            same_cls = [b for dname, b in mboxes if dname == seg_name]
+            if len(same_cls) >= 2:
+                # Loại trừ trường hợp 2 box gần như trùng hệt nhau (duplicate_box)
+                distinct = []
+                for b in same_cls:
+                    if not any(iou(b, prev) > 0.85 for prev in distinct):
+                        distinct.append(b)
+                if len(distinct) >= 2:
+                    covered_seg.add(sid)
+                    candidates.append({
+                        "type": "instance_merge",
+                        "target": name,
+                        "score": round(min(1.0, len(distinct) / 3.0), 3),
+                        "evidence": f"segment {seg_name} bao {len(distinct)} box riêng biệt cùng lớp",
+                    })
+
         # Segment được coi là "có box" nếu có ÍT NHẤT một box chứa >= 50% pixel của nó
         # (không chỉ box được ghép IoU). Tránh báo missing_box cho vật đã có box lệch nhẹ.
         for sid, info in seg_info.items():
             px = seg_pixels.get(sid, [])
-            if px and any(sum(1 for p in px if inside(p, b)) >= 0.5 * len(px) for _, b in boxes):
+            if px and any(_boxes_overlap(b, seg_boxes[sid]) and sum(1 for p in px if inside(p, b)) >= 0.5 * len(px) for _, b in boxes):
                 covered_seg.add(sid)
         for sid, info in seg_info.items():
             if sid not in covered_seg and info["area"] >= MISSING_BOX_MIN_FRAC * width * height:
