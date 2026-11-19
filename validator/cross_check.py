@@ -54,14 +54,15 @@ def extract_candidates(delivery_dir: Path) -> list[dict]:
         img_w, img_h = im_info["width"], im_info["height"]
         ann = pan_annotations.get(im_info["id"], {})
         
-        # Đọc box YOLO
+        # Đọc box YOLO kèm số dòng (1-based)
         yolo_boxes = []
-        for line in label_path.read_text(encoding="utf-8").splitlines():
+        for line_no, line in enumerate(label_path.read_text(encoding="utf-8").splitlines(), start=1):
             if line.strip():
                 parts = line.split()
                 cls_id = int(float(parts[0]))
                 if 0 <= cls_id < len(classes_names):
-                    yolo_boxes.append(yolo_to_pixel([cls_id] + [float(p) for p in parts[1:5]], img_w, img_h))
+                    _, bx1, by1, bx2, by2 = yolo_to_pixel([cls_id] + [float(p) for p in parts[1:5]], img_w, img_h)
+                    yolo_boxes.append((line_no, cls_id, bx1, by1, bx2, by2))
 
         # Đọc segments thing từ panoptic
         thing_segs = [s for s in ann.get("segments_info", []) if s["category_id"] in thing_cats and not s.get("iscrowd")]
@@ -78,7 +79,7 @@ def extract_candidates(delivery_dir: Path) -> list[dict]:
                 py = (idx // 3) // width
                 seg_pixels.setdefault(sid, []).append((px, py))
 
-                # --- A. Kiểm tra instance_merge (2 box YOLO tách biệt bị gộp chung 1 mask panoptic) ---
+        # --- A. Kiểm tra instance_merge (2 box YOLO tách biệt bị gộp chung 1 mask panoptic) ---
         for seg in thing_segs:
             sid = seg["id"]
             pts = seg_pixels.get(sid, [])
@@ -87,30 +88,32 @@ def extract_candidates(delivery_dir: Path) -> list[dict]:
             seg_name = thing_cats[seg["category_id"]]
             
             box_matches = []
-            for b_idx, box in enumerate(yolo_boxes):
-                c_id, bx1, by1, bx2, by2 = box
+            for box in yolo_boxes:
+                b_line, c_id, bx1, by1, bx2, by2 = box
                 if classes_names[c_id] == seg_name:
                     in_box = sum(1 for (px, py) in pts if bx1 <= px <= bx2 and by1 <= py <= by2)
                     box_area = (bx2 - bx1) * (by2 - by1)
                     if in_box >= 0.20 * len(pts) and in_box >= 0.35 * box_area:
-                        box_matches.append((b_idx, in_box, (bx1, by1, bx2, by2)))
+                        box_matches.append((b_line, in_box, (bx1, by1, bx2, by2)))
             
             for i in range(len(box_matches)):
                 for j in range(i + 1, len(box_matches)):
-                    b1_idx, in1, b1_coords = box_matches[i]
-                    b2_idx, in2, b2_coords = box_matches[j]
+                    b1_line, in1, b1_coords = box_matches[i]
+                    b2_line, in2, b2_coords = box_matches[j]
                     # Hai box tách rời nhau nhưng tổng pixel chiếm > 70% mask
                     if bbox_iou(b1_coords, b2_coords) < 0.25 and (in1 + in2) >= 0.70 * len(pts):
                         candidates.append({
-                            "image": stem,
+                            "target": stem,
                             "type": "instance_merge",
-                            "reason": f"Hai box {seg_name} tách biệt bị gộp chung 1 segment (id {sid})."
+                            "box": [b1_line, b2_line],
+                            "segment": sid,
+                            "note": f"Hai box {seg_name} tách biệt (dòng {b1_line}, {b2_line}) bị gộp chung 1 segment (id {sid})."
                         })
 
         # --- B. Ghép cặp Box ↔ Segment để bắt class_swap, category_swap, bbox_drift ---
         matched_seg_ids = set()
-        for b_idx, box in enumerate(yolo_boxes):
-            c_id, bx1, by1, bx2, by2 = box
+        for box in yolo_boxes:
+            b_line, c_id, bx1, by1, bx2, by2 = box
             b_name = classes_names[c_id]
             b_area = (bx2 - bx1) * (by2 - by1)
             
@@ -133,9 +136,11 @@ def extract_candidates(delivery_dir: Path) -> list[dict]:
                 # 1. Trùng vị trí nhưng khác class -> class_swap hoặc category_swap
                 if b_name != seg_name and best_iou > 0.4:
                     candidates.append({
-                        "image": stem,
-                        "type": "class_swap",  # hoặc category_swap (Phạm Huỳnh xem ảnh sẽ chốt)
-                        "reason": f"Lệch lớp: YOLO={b_name} vs Panoptic={seg_name} (IoU={best_iou:.2f})"
+                        "target": stem,
+                        "type": "class_swap",
+                        "box": b_line,
+                        "segment": best_seg["id"],
+                        "note": f"Lệch lớp tại dòng {b_line}: YOLO={b_name} vs Panoptic={seg_name} (IoU={best_iou:.2f})"
                     })
                 
                 # 2. Cùng class nhưng lệch vị trí / pixel tràn ra ngoài -> bbox_drift
@@ -145,9 +150,11 @@ def extract_candidates(delivery_dir: Path) -> list[dict]:
                     # Nếu mask là đối tượng rõ ràng nhưng box chỉ ôm được < 70% hoặc IoU < 0.65
                     if (coverage < 0.70 or best_iou < 0.60) and b_area > (0.005 * img_w * img_h):
                         candidates.append({
-                            "image": stem,
+                            "target": stem,
                             "type": "bbox_drift",
-                            "reason": f"Box {b_name} lệch: IoU={best_iou:.2f}, tỷ lệ pixel trong box={coverage:.2f}"
+                            "box": b_line,
+                            "segment": best_seg["id"],
+                            "note": f"Box {b_name} tại dòng {b_line} lệch: IoU={best_iou:.2f}, tỷ lệ pixel trong box={coverage:.2f}"
                         })
 
         # --- C. Kiểm tra missing_box (Segment thing lớn nhưng không có box YOLO nào) ---
@@ -158,9 +165,11 @@ def extract_candidates(delivery_dir: Path) -> list[dict]:
                 if seg_area_ratio > 0.01 and len(pts) >= 1024:
                     seg_name = thing_cats[seg["category_id"]]
                     candidates.append({
-                        "image": stem,
+                        "target": stem,
                         "type": "missing_box",
-                        "reason": f"Thiếu box detection cho {seg_name} (diện tích {len(pts)} px)"
+                        "box": None,
+                        "segment": seg["id"],
+                        "note": f"Thiếu box detection cho {seg_name} (id {seg['id']}, diện tích {len(pts)} px)"
                     })
 
     return candidates
