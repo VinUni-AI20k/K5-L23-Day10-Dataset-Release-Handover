@@ -1,69 +1,62 @@
-"""Validator nhóm 30.
+#!/usr/bin/env python3
+"""validate.py <delivery> --out errors.json [--candidates candidates.json]
 
-python validator/validate.py <thư_mục_delivery> --out <errors.json> [--candidates <candidates.json>]
-
-Gộp các module kiểm:
-- checks_file_detection.py : file + detection     (Đỗ Quang Tùng)
-- checks_meta_panoptic.py  : metadata + panoptic  (Đặng Thu Hương)
-- candidates.py            : đối chiếu det <-> panoptic (Nguyễn Quốc Việt)
-Module nào chưa có thì bỏ qua.
+Chỉ đọc thư mục delivery được truyền vào. Chỉ dùng thư viện chuẩn.
 """
-
 from __future__ import annotations
 
 import argparse
 import importlib
 import json
 import sys
+import traceback
+from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-
-RULE_MODULES = ["checks_file_detection", "checks_meta_panoptic"]
-
-
-def _optional(name: str):
-    try:
-        return importlib.import_module(name)
-    except ModuleNotFoundError as exc:
-        if exc.name != name:
-            raise
-        print(f"[validate] chưa có module {name}, bỏ qua", file=sys.stderr)
-        return None
+MODULES = ["rules_file_det", "rules_meta_pan"]  # Tùng, Hương
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser(description="Validator nhóm 30")
-    ap.add_argument("delivery", type=Path)
-    ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--candidates", type=Path)
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Validator của nhóm 30")
+    ap.add_argument("delivery")
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--candidates", help="phần đối chiếu detection-panoptic (Việt), chưa có")
     args = ap.parse_args()
-
-    errors: list[dict] = []
-    for name in RULE_MODULES:
-        mod = _optional(name)
-        if mod is not None:
-            errors += mod.check(args.delivery)
-
-    # mỗi cặp (type, target) một lần
-    seen, unique = set(), []
-    for e in errors:
-        key = (e["type"], e["target"])
-        if key not in seen:
-            seen.add(key)
-            unique.append(e)
-
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps({"errors": unique}, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"{len(unique)} lỗi luật -> {args.out}")
-
-    if args.candidates:
-        mod = _optional("candidates")
-        cands = mod.candidates(args.delivery) if mod is not None else []
-        args.candidates.parent.mkdir(parents=True, exist_ok=True)
-        args.candidates.write_text(json.dumps({"candidates": cands}, ensure_ascii=False, indent=1), encoding="utf-8")
-        print(f"{len(cands)} ứng viên -> {args.candidates}")
+    delivery = Path(args.delivery)
+    if not (delivery / "manifest.json").is_file():
+        raise SystemExit(f"{delivery} không có manifest.json: không phải thư mục delivery")
+    found = set()
+    failed = []
+    for name in MODULES:
+        try:
+            mod = importlib.import_module(name)
+        except ModuleNotFoundError as exc:
+            if exc.name != name:
+                raise
+            print(f"[bỏ qua] chưa có module {name}", file=sys.stderr)
+            continue
+        try:
+            results = mod.check(delivery)
+        except Exception:
+            print(f"[LỖI] module {name} bị crash, bỏ qua kết quả của nó:", file=sys.stderr)
+            traceback.print_exc()
+            failed.append(name)
+            continue
+        for e in results:
+            found.add((e["type"], e["target"]))
+    errors = [{"type": t, "target": g} for t, g in sorted(found)]
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({"errors": errors}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"{len(errors)} lỗi -> {out}")
+    for kind, n in sorted(Counter(t for t, _ in found).items()):
+        print(f"  {kind}: {n}")
+    if failed:
+        print(f"CẢNH BÁO: {out} THIẾU kết quả của module: {', '.join(failed)}", file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
