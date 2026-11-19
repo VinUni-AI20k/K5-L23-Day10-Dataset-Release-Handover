@@ -1,0 +1,203 @@
+{
+  "candidates": [
+    {
+      "image": "img_0028",
+      "target": "img_0028",
+      "type": "class_mismatch",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "segment_id": 4740142,
+      "det_class": "bicycle",
+      "pan_class": "motorcycle",
+      "area": 76437,
+      "seg_in_box": 1.0,
+      "bbox_iou": 0.996,
+      "detail": "DET='bicycle' vs PAN='motorcycle' (IoU=1.00, seg_in_box=1.00, area=76437px)"
+    },
+    {
+      "image": "img_0036",
+      "target": "img_0036",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 13887852,
+      "det_class": null,
+      "pan_class": "person",
+      "area": 10894,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'person' (10894px, 3.55% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0045",
+      "target": "img_0045",
+      "type": "bbox_drift",
+      "suggested_types": [
+        "bbox_drift"
+      ],
+      "segment_id": 6972559,
+      "det_class": "keyboard",
+      "pan_class": "keyboard",
+      "area": 3524,
+      "seg_in_box": 0.945,
+      "bbox_iou": 0.714,
+      "detail": "Box 'keyboard' lệch mask: chỉ 0.95 pixel mask trong box (193px tràn ngoài, IoU=0.71)"
+    },
+    {
+      "image": "img_0061",
+      "target": "img_0061",
+      "type": "class_mismatch",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "segment_id": 15218723,
+      "det_class": "cake",
+      "pan_class": "donut",
+      "area": 8742,
+      "seg_in_box": 1.0,
+      "bbox_iou": 0.992,
+      "detail": "DET='cake' vs PAN='donut' (IoU=0.99, seg_in_box=1.00, area=8742px)"
+    },
+    {
+      "image": "img_0079",
+      "target": "img_0079",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 15473703,
+      "det_class": null,
+      "pan_class": "cat",
+      "area": 38450,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'cat' (38450px, 14.07% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0104",
+      "target": "img_0104",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 10182443,
+      "det_class": null,
+      "pan_class": "book",
+      "area": 634,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'book' (634px, 0.34% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0117",
+      "target": "img_0117",
+      "type": "bbox_drift",
+      "suggested_types": [
+        "bbox_drift"
+      ],
+      "segment_id": 11860669,
+      "det_class": "elephant",
+      "pan_class": "elephant",
+      "area": 10308,
+      "seg_in_box": 0.93,
+      "bbox_iou": 0.485,
+      "detail": "Box 'elephant' lệch mask: chỉ 0.93 pixel mask trong box (723px tràn ngoài, IoU=0.48)"
+    },
+    {
+      "image": "img_0131",
+      "target": "img_0131",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 5134262,
+      "det_class": null,
+      "pan_class": "motorcycle",
+      "area": 3530,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'motorcycle' (3530px, 1.24% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0171",
+      "target": "img_0171",
+      "type": "instance_merge",
+      "suggested_types": [
+        "instance_merge"
+      ],
+      "segment_id": 15964588,
+      "pan_class": "backpack",
+      "det_class": "backpack",
+      "area": 1624,
+      "seg_in_box": 0.521,
+      "union_cov": 1.0,
+      "min_excl_ratio": 0.479,
+      "detail": "1 segment 'backpack' (1624px) phủ 2 box cùng lớp (cov1=0.52, cov2=0.48, union=1.00, excl=0.48)"
+    },
+    {
+      "image": "img_0178",
+      "target": "img_0178",
+      "type": "bbox_drift",
+      "suggested_types": [
+        "bbox_drift"
+      ],
+      "segment_id": 642217,
+      "det_class": "car",
+      "pan_class": "car",
+      "area": 3859,
+      "seg_in_box": 0.869,
+      "bbox_iou": 0.613,
+      "detail": "Box 'car' lệch mask: chỉ 0.87 pixel mask trong box (505px tràn ngoài, IoU=0.61)"
+    },
+    {
+      "image": "img_0199",
+      "target": "img_0199",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 14282982,
+      "det_class": null,
+      "pan_class": "person",
+      "area": 2986,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'person' (2986px, 1.02% ảnh) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0238",
+      "target": "img_0238",
+      "type": "class_mismatch",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "segment_id": 9343047,
+      "det_class": "bench",
+      "pan_class": "chair",
+      "area": 832,
+      "seg_in_box": 1.0,
+      "bbox_iou": 0.972,
+      "detail": "DET='bench' vs PAN='chair' (IoU=0.97, seg_in_box=1.00, area=832px)"
+    },
+    {
+      "image": "img_0245",
+      "target": "img_0245",
+      "type": "missing_box",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "segment_id": 6388878,
+      "det_class": null,
+      "pan_class": "toilet",
+      "area": 30816,
+      "seg_in_box": 0.0,
+      "bbox_iou": 0.0,
+      "detail": "Segment thing 'toilet' (30816px, 10.03% ảnh) không có box detection tương ứng"
+    }
+  ]
+}

@@ -56,4 +56,29 @@
 
 ## 6. Ghi chú kỹ thuật & Tối ưu hóa
 - **Tối ưu tốc độ tải COCO:** Khi tải từ AWS S3 qua kênh đơn luồng tiêu chuẩn (`urllib`), tốc độ thường bị nghẽn mạng ở mức 15–30 KB/s. Nhóm đã xây dựng cơ chế tải phân đoạn đa luồng song song (HTTP Range Requests, 24 luồng) giúp tăng tốc độ tải lên 4.5 MB/s, hoàn tất trọn vẹn bộ ảnh mẫu trong hơn 8 phút mà không làm gián đoạn bài làm.
-- **Tối ưu bảng Review Board:** Công cụ `render_review.py` của TV3 đã được bổ sung cơ chế tính toán ranh giới nhãn thông minh (bounding label calculations) tránh đè chữ lên bounding box, và xuất giao diện HTML tự chứa CSS/JS trực quan giúp cả nhóm duyệt 11 ứng viên nhanh chóng và chính xác.
+- **Tối ưu bảng Review Board:** Công cụ `render_review.py` của TV3 đã được bổ sung cơ chế tính toán ranh giới nhãn thông minh (bounding label calculations) tránh đè chữ lên bounding box, và xuất giao diện HTML tự chứa CSS/JS trực quan giúp cả nhóm duyệt ứng viên nhanh chóng và chính xác.
+
+## 7. Kết quả triển khai Đề ẩn (de_an_13 — Release ID: lab250_62d7641abb98)
+- **Lỗi luật phát hiện (12 lỗi):**
+  - `bbox_out_of_bounds`: `img_0060`, `img_0119`
+  - `duplicate_box`: `img_0023`, `img_0165`
+  - `guideline_mismatch`: `img_0019`, `img_0069`
+  - `invalid_class`: `img_0063`
+  - `missing_image`: `img_0093`
+  - `scene_leak`: `scene_857`
+  - `thing_overlap`: `img_0034`
+  - `wrong_hash`: `img_0106`, `img_0151`
+- **Đối chiếu pixel & Visual Review (13 ứng viên):**
+  - **9 lỗi gán nhãn confirmed:**
+    - `class_swap`: `img_0028` (`motorcycle` $\rightarrow$ `bicycle`), `img_0061` (`donut` $\rightarrow$ `cake`), `img_0238` (`chair` $\rightarrow$ `bench`)
+    - `missing_box`: `img_0036` (người thứ 2 trong phòng khách), `img_0079` (mèo trên bồn cầu), `img_0245` (bồn cầu trong phòng vệ sinh)
+    - `bbox_drift`: `img_0117` (con voi bị lệch 35px), `img_0178` (xe ô tô lệch 500px)
+    - `instance_merge`: `img_0171` (2 ba lô bị gộp chung mask)
+  - **4 ứng viên rejected:** `img_0045` (bàn phím lệch nhẹ tự nhiên 193px), `img_0104` (sách nhỏ hậu cảnh), `img_0131` (xe máy xa ngã tư), `img_0199` (người ngoài biên sân cỏ).
+- **Tổng lỗi nộp (`submission/de_an/errors.json`):** 21 lỗi.
+- **Truy vết Ticket AI (`submission/de_an/trace.json`):**
+  - Ticket báo lỗi: Lớp `truck` (ID: 7), quy tắc guideline v1.2 vs v1.3.
+  - Cảnh team AI nêu: `scene_100` và `scene_777`.
+  - Tier A (3 ảnh): `img_0146`, `img_0157`, `img_0240`.
+  - Tier B (3 ảnh): `img_0019`, `img_0084`, `img_0169`.
+  - Notify (4 người): `A01`, `A02`, `Q01`, `Q03`.

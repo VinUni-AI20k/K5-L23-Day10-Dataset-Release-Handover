@@ -1,0 +1,14 @@
+image,type,verdict,note
+img_0028,class_swap,confirmed,[TV1-Hoa] Xe mô tô phân khối lớn có mèo ngồi lên yên xe nhưng file nhãn detection lại gán nhầm thành bicycle
+img_0036,missing_box,confirmed,[TV1-Hoa] Người thứ hai ngồi cạnh người xem TV bên trái phòng khách bị bỏ sót hoàn toàn không có bounding box
+img_0045,bbox_drift,rejected,[TV2-Manh] Bàn phím máy tính góc nghiêng 3D mask panoptic bám theo viền phím lệch nhẹ tự nhiên dưới 200px
+img_0061,class_swap,confirmed,[TV2-Manh] Chiếc bánh donut phủ sô cô la trên bàn ăn bị file nhãn detection gán nhầm thành lớp cake
+img_0079,missing_box,confirmed,[TV3-Phach] Con mèo lông vàng ngồi rất rõ trên nắp bồn cầu trong nhà tắm bị bỏ sót hoàn toàn không gán nhãn
+img_0104,missing_box,rejected,[TV3-Phach] Mép gáy sách nhỏ xíu trong chồng sách lớn thuộc diện vật thể nền hậu cảnh của tập gốc COCO
+img_0117,bbox_drift,confirmed,[TV4-Phuc] Box detection của con voi trên đồng cỏ bị trượt lệch hẳn sang trái và mở rộng sai lệch vật thể
+img_0131,missing_box,rejected,[TV4-Phuc] Xe máy mờ nhỏ ở khoảng cách xa ngã tư đường phố thuộc diện hậu cảnh không đủ điều kiện đóng box
+img_0171,instance_merge,confirmed,[TV5-Vuong] Hai chiếc ba lô đặt cạnh người đi bộ trên phố bị mask panoptic gộp chung lại thành một vùng
+img_0178,bbox_drift,confirmed,[TV5-Vuong] Bounding box chiếc xe ô tô con trên đường phố bị trượt lệch tọa độ ra ngoài viền thân xe hơn 500px
+img_0199,missing_box,rejected,[TV5-Vuong] Bóng người đứng xa ngoài đường biên sân cỏ chơi đĩa ném frisbee thuộc hậu cảnh không gán box
+img_0238,class_swap,confirmed,[TV3-Phach] Chiếc ghế đơn xếp ngoài trời trong quán ăn bị file nhãn detection gán nhầm thành ghế dài bench
+img_0245,missing_box,confirmed,[TV2-Manh] Bồn cầu màu trắng chiếm diện tích lớn trong nhà vệ sinh bị bỏ sót hoàn toàn không có bounding box

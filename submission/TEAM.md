@@ -1,6 +1,7 @@
 # Nhóm 03
 
 - Seed luyện tập: 3007
+- Mã đề ẩn đã chọn & nộp bài: de_an_13 (Release ID: `lab250_62d7641abb98`)
 - Repo: https://github.com/Zeus-AIE/K5-L23A-Day10-NhomLaThaiHoa-Release
 
 | Họ và tên | MSHV | Tài khoản GitHub | Phần chính |
