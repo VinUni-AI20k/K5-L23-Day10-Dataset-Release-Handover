@@ -1,7 +1,7 @@
 # Nhóm 03
 
 - Seed luyện tập: 3007
-- Repo: https://github.com/Zeus-AIE/K5-L23A-Day10-LaThaiHoa-2A202603069-Dataset-Release-Handover
+- Repo: https://github.com/Zeus-AIE/K5-L23A-Day10-NhomLaThaiHoa-Release
 
 | Họ và tên | MSHV | Tài khoản GitHub | Phần chính |
 |---|---|---|---|
