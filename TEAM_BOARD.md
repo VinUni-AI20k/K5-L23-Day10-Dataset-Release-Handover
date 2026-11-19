@@ -17,7 +17,7 @@
 | Nguyễn Quốc Hưng | `2A202603324` | `@Soraxolo` | Security (`security.md`), Hidden-test Prep & Reporting | P6 | `#8` | Chưa nhận |
 
 <!-- TEAM_PROGRESS_START -->
-_Cập nhật tự động từ GitHub API lúc 2026-11-19 09:43 UTC_
+_Cập nhật tự động từ GitHub API lúc 2026-11-19 09:59 UTC_
 
 | # | Issue | Assignees | Labels | State |
 |---|---|---|---|---|
@@ -35,7 +35,7 @@ _Cập nhật tự động từ GitHub API lúc 2026-11-19 09:43 UTC_
 | [#12](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/12) | Individual contribution evidence — Đỗ Anh Hoàng (2A202604061) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
 | [#13](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/13) | Individual contribution evidence — Bùi Văn Thịnh (2A202604040) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
 | [#14](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/14) | Individual contribution evidence — Nguyễn Xuân Việt (2A202604045) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
-| [#15](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/15) | Individual contribution evidence — Hoàng Trọng Trà (2A202603342) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
+| [#15](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/15) | Individual contribution evidence — Hoàng Trọng Trà (2A202603342) | @trahoangdev | `type:qc`, `status:ready` | OPEN |
 | [#16](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/16) | Individual contribution evidence — Nguyễn Quốc Hưng (2A202603324) | @Soraxolo | `type:qc`, `status:ready` | OPEN |
 
 **Pull Requests:** 0 total (0 open, 0 merged)
