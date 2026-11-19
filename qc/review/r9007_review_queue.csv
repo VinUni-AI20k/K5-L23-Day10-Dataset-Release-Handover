@@ -2,7 +2,7 @@ image,candidate_type,evidence,assigned_to,verdict,note
 000000023781,bbox_drift,"lớp carrot, IoU box/segment thấp",Pham Phu Nguyen Hung (2A202604062),rejected,mo anh xem thay cu ca rot tren dia bi che khuat mot phan boi rau cu khac; box bao quanh van dung vi tri thuc te
 000000002923,class_swap,"box=broccoli, segment=boat",Do Anh Hoang (2A202604061),confirmed,mo anh xem thay ro rang thuyen tren mat nuoc nhung nhan detection lai gan nhan broccoli thay vi boat; panoptic ghi boat dung
 000000006723,class_swap,"box=truck, segment=bus",Bui Van Thinh (2A202604040),rejected,"mo anh xem thay duong pho co ca xe tai va xe buyt chay canh nhau; hop bao quanh dung xe tai, khong phai loi class_swap"
-000000009590,class_swap,"box=cup, segment=bowl",Nguyen Xuan Viet (2A202604045),rejected,"mo anh xem thay tren ban an co ca bat va coc dat sat nhau; nhan detection gan dung cho coc nuoc, lech do goc khuat"
+000000009590,class_swap,"box=cup, segment=bowl",Nguyen Xuan Viet (2A202604045),rejected,ban an co nhieu nguoi dang ngoi an va dung cu an uong tren ban
 000000009914,class_swap,"box=hot dog, segment=sandwich",Hoang Trong Tra (2A202603342),rejected,"mo anh xem thay dia do an co ca hotdog va sandwich; hop detection gan dung chiec hotdog o ria dia, khong phai loi"
 000000012639,class_swap,"box=dog, segment=person",Nguyen Quoc Hung (2A202603324),confirmed,mo anh xem thay cau thu tren san bong la nguoi that nhung nhan detection ghi nham thanh dog; panoptic ghi person dung
 000000013774,class_swap,"box=, segment=frisbee",Pham Phu Nguyen Hung (2A202604062),rejected,mo anh xem thay nguoi choi tren bai bien cam dia bay frisbee; box bao quanh hop ly khong bi thieu hay nham lan
