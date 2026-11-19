@@ -2,4 +2,5 @@
 
 | # | Ai dùng | Công cụ | Prompt (tóm tắt) | AI sai ở đâu | Nhóm kiểm lại thế nào |
 |---|---|---|---|---|---|
-| 1 | <<>> | <<>> | <<>> | <<>> | <<>> |
+| 1 | Lã Thái Hòa (`Zeus-AIE`) | Gemini / Antigravity | Phân tích yêu cầu Lab Day 10, chia việc 5 thành viên theo từng pha và tạo bảng theo dõi HTML offline (`docs/team-tracker.html`) | Lần kiểm thử đầu còn 1 lỗi accessibility thiếu `aria-label` ở checkbox bảng H1–H17, thụt lề dòng đầu trong ô lệnh HTML và xuống dòng lệnh Git trên Windows PowerShell | Chạy `verify_ui_accessibility.js` (0 lỗi) và kiểm tra trực quan trực tiếp trên Chrome (0 lỗi console) trước khi đưa vào repo |
+| 2 | Lã Thái Hòa (`Zeus-AIE`) | Gemini / Antigravity | Hỗ trợ thiết kế khung CLI `validator/validate.py` và module `validator/det_rules.py` bắt 7 lỗi luật Detection/Metadata chỉ dùng thư viện chuẩn | Phải kiểm soát kỹ điều kiện `duplicate_box` (nếu dùng IoU đơn thuần hoặc dung sai rộng quá sẽ bắt nhầm box chồng tự nhiên trong COCO) và đảm bảo bỏ qua kiểm `wrong_hash` khi ảnh đã dính `missing_image` | Kiểm tra từng dòng code không import thư viện ngoài / không đọc `_private/` hay `data_source/`; chạy kiểm chứng đạt **0 lỗi** trên lô sạch `runs/clean` và `lỗi luật ≈ 0.9` trên `r3007`, `r11`, `r22` (chờ ghép thêm 2 lỗi panoptic của TV2) |
