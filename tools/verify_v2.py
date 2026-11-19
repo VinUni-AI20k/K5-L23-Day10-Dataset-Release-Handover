@@ -62,10 +62,39 @@ def verify_v2(v2_dir: Path) -> bool:
 
 def main():
     parser = argparse.ArgumentParser(description="Kiểm tra tính toàn vẹn lô bàn giao v2")
-    parser.add_argument("--v2", required=True, help="Đường dẫn thư mục lô v2")
+    parser.add_argument("--v2", default=None, help="Đường dẫn thư mục lô v2")
+    parser.add_argument("--run", default=None, help="Đường dẫn thư mục run (chứa handover/*_v2)")
     args = parser.parse_args()
-    success = verify_v2(Path(args.v2))
-    raise SystemExit(0 if success else 1)
+
+    targets: list[Path] = []
+    if args.v2:
+        targets.append(Path(args.v2))
+    elif args.run:
+        run_path = Path(args.run)
+        rel_json = run_path / "delivery" / "release.json"
+        if rel_json.is_file():
+            import json
+            rid = json.loads(rel_json.read_text(encoding="utf-8")).get("release_id", "")
+            target_v2 = run_path / "handover" / f"{rid}_v2"
+            if target_v2.is_dir():
+                targets.append(target_v2)
+        if not targets:
+            handover_dir = run_path / "handover"
+            if handover_dir.is_dir():
+                targets.extend([p for p in handover_dir.iterdir() if p.is_dir() and p.name.endswith("_v2")])
+        if not targets:
+            print(f"[FAIL] Không tìm thấy thư mục *_v2 nào trong {args.run}")
+            raise SystemExit(1)
+    else:
+        print("[FAIL] Cần cung cấp --v2 <thư_mục_v2> hoặc --run <thư_mục_run>")
+        raise SystemExit(1)
+
+    all_ok = True
+    for t in targets:
+        if not verify_v2(t):
+            all_ok = False
+
+    raise SystemExit(0 if all_ok else 1)
 
 
 if __name__ == "__main__":
