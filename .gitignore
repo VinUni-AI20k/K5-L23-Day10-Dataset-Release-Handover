@@ -8,3 +8,9 @@ __pycache__/
 *.zip
 /hidden
 /delivery
+_private/
+**/_private/
+.env
+.env.*
+*.pem
+*.key

@@ -1,0 +1,69 @@
+name: Submission Gate — Pre-Submission Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "submission/**"
+      - "validator/**"
+
+jobs:
+  submission-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Audit submission readiness (never fake PASS)
+        run: |
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          blockers = []
+
+          # 1. Required base files
+          for p in ["validator/validate.py", "submission/TEAM.md", "submission/REPORT.md", "submission/prompts.md"]:
+              if not Path(p).is_file():
+                  blockers.append(f"Missing required file: {p}")
+
+          # 2. Check seed submission folders (r<seed>)
+          sub_dir = Path("submission")
+          seed_dirs = [d for d in sub_dir.iterdir() if d.is_dir() and d.name.startswith("r")]
+          if not seed_dirs:
+              blockers.append("BLOCKED/INCOMPLETE: No submission/r<seed>/ directory found yet.")
+          else:
+              for sd in seed_dirs:
+                  for req in ["errors.json", "review_log.csv", "trace.json", "security.md"]:
+                      if not (sd / req).is_file():
+                          blockers.append(f"Missing {sd / req}")
+                  if not (sd / "handover").is_dir():
+                      blockers.append(f"Missing {sd / 'handover'}")
+
+          # 3. Check de_an folder
+          de_an = sub_dir / "de_an"
+          if not de_an.is_dir():
+              blockers.append("BLOCKED/INCOMPLETE: submission/de_an/ not submitted yet.")
+
+          # 4. Check lineage.jsonl
+          if not (sub_dir / "lineage.jsonl").is_file():
+              blockers.append("BLOCKED/INCOMPLETE: submission/lineage.jsonl not found.")
+
+          # 5. Print contributor commit counts (rubric requires >= 2 meaningful commits per member)
+          out = subprocess.check_output(["git", "shortlog", "-sne", "HEAD"], text=True)
+          print("=== Git Contributors ===")
+          print(out.strip())
+
+          if blockers:
+              print("\n=== SUBMISSION GATE: BLOCKED/INCOMPLETE ===")
+              for b in blockers:
+                  print(" -", b)
+              raise SystemExit(1)
+          print("\n=== SUBMISSION GATE: READY ===")
+          PY

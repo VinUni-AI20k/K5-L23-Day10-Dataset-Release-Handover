@@ -1,0 +1,43 @@
+name: CI — Validator & Structure Check
+
+on:
+  pull_request:
+    branches: [main, team/day10-integration]
+  push:
+    branches: [main, team/day10-integration]
+
+jobs:
+  test-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check mandatory repository structure
+        run: |
+          python -c "
+          from pathlib import Path
+          required = [
+              'README.md',
+              'TEAM_BOARD.md',
+              'TEAM_GUIDE.md',
+              'CONTRIBUTING.md',
+              'validator/validate.py',
+              'submission/TEAM.md',
+              'submission/REPORT.md',
+              'submission/prompts.md',
+          ]
+          missing = [p for p in required if not Path(p).is_file()]
+          assert not missing, f'Missing mandatory files: {missing}'
+          print('Structure OK:', len(required), 'files verified')
+          "
+
+      - name: Syntax check validator
+        run: python -m py_compile validator/validate.py
+
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v

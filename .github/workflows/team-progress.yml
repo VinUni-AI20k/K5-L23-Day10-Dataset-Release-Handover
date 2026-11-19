@@ -1,0 +1,94 @@
+name: Team Progress — Sync TEAM_BOARD.md
+
+on:
+  issues:
+    types: [opened, edited, closed, reopened, assigned, unassigned, labeled, unlabeled]
+  pull_request:
+    types: [opened, closed, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: read
+  pull-requests: read
+
+jobs:
+  sync-board:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Update TEAM_BOARD.md from GitHub API
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          repo = os.environ["REPO"]
+          token = os.environ["GH_TOKEN"]
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+          }
+
+          def gh_get(path):
+              req = urllib.request.Request(f"https://api.github.com{path}", headers=headers)
+              with urllib.request.urlopen(req, timeout=20) as resp:
+                  return json.loads(resp.read().decode("utf-8"))
+
+          issues = [i for i in gh_get(f"/repos/{repo}/issues?state=all&per_page=100") if "pull_request" not in i]
+          prs = gh_get(f"/repos/{repo}/pulls?state=all&per_page=100")
+
+          now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+          lines = [
+              "<!-- TEAM_PROGRESS_START -->",
+              f"_Cập nhật tự động từ GitHub API lúc {now}_",
+              "",
+              "| # | Issue | Assignees | Labels | State |",
+              "|---|---|---|---|---|",
+          ]
+          for i in sorted(issues, key=lambda x: x["number"]):
+              assignees = ", ".join(f"@{a['login']}" for a in i.get("assignees", [])) or "_Chưa assign_"
+              labels = ", ".join(f"`{l['name']}`" for l in i.get("labels", [])) or "-"
+              state = "DONE" if i["state"] == "closed" else "OPEN"
+              lines.append(f"| [#{i['number']}]({i['html_url']}) | {i['title']} | {assignees} | {labels} | {state} |")
+
+          lines.extend([
+              "",
+              f"**Pull Requests:** {len(prs)} total ({sum(1 for p in prs if p['state'] == 'open')} open, {sum(1 for p in prs if p.get('merged_at'))} merged)",
+              "<!-- TEAM_PROGRESS_END -->",
+          ])
+          block = "\n".join(lines)
+
+          board_path = Path("TEAM_BOARD.md")
+          text = board_path.read_text(encoding="utf-8")
+          start_tag = "<!-- TEAM_PROGRESS_START -->"
+          end_tag = "<!-- TEAM_PROGRESS_END -->"
+          if start_tag in text and end_tag in text:
+              pre = text.split(start_tag)[0]
+              post = text.split(end_tag)[1]
+              new_text = f"{pre}{block}{post}"
+              if new_text != text:
+                  board_path.write_text(new_text, encoding="utf-8")
+          PY
+
+      - name: Commit updated TEAM_BOARD.md if changed
+        run: |
+          if [ -n "$(git status --porcelain TEAM_BOARD.md)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add TEAM_BOARD.md
+            git commit -m "chore(board): sync TEAM_BOARD.md from GitHub Issues [skip ci]"
+            git push
+          else
+            echo "No changes to TEAM_BOARD.md"
+          fi

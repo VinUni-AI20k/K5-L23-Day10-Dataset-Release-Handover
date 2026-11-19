@@ -14,6 +14,15 @@
 
 > **Không có đáp án để so.** Nhóm phải tự bắt lỗi, quyết định lô có được train không, bàn giao bản sửa mà không ghi đè bản cũ, và chỉ ra ai cần sửa khi team AI báo lỗi.
 
+## Không gian làm việc nhóm (Team Collaboration)
+
+- **Bảng tiến độ thực tế:** [TEAM_BOARD.md](TEAM_BOARD.md)
+- **Hướng dẫn cho mọi thành viên (cả người không rành Git):** [TEAM_GUIDE.md](TEAM_GUIDE.md)
+- **Danh sách thành viên & phân công:** [submission/TEAM.md](submission/TEAM.md)
+- **GitHub Issues:** https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues
+- **Pull Requests:** https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/pulls
+- **GitHub Actions (CI & Gate):** https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/actions
+
 ## Bạn sẽ làm gì
 
 Nhóm nhận một lô 250 ảnh có cả nhãn **detection** và **panoptic**, cùng giấy tờ đi kèm (người gán, người kiểm, guideline, ticket của team AI). Trong lô có lỗi được gài theo seed. **Số lỗi mỗi loại thay đổi theo seed** và lô **không kèm nhãn gốc**.
