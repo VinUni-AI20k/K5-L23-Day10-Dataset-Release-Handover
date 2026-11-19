@@ -1,5 +1,14 @@
 # Dùng AI
 
+## Bổ sung ngày 19/11/2026 — Data Validation
+
+- Người yêu cầu: thành viên phụ trách Data Validation (chưa xác nhận danh tính trong chat).
+- Công cụ: Codex. Prompt: “tôi là người thực hiện phần data_validation. Bạn hãy đọc folder và roadmap-nhóm rồi thực hiện làm phần bài làm của tôi vào trong folder đi”.
+- AI triển khai 9 kiểm tra luật, CLI, 13 unit tests, hướng dẫn tích hợp và rules.json.
+- Điểm cần lưu ý: chưa tích hợp candidates của Người 2; không coi rules.json là kết quả review cuối cùng. Lệnh chạy script ban đầu thiếu -X utf8 gây lỗi in tiếng Việt trên Windows; đã đổi cách gọi, không sửa script lab.
+- AI kiểm tra: 13/13 unit tests đạt; seed 12007 có 12 lỗi luật, seed 12008 có 13, F1 lỗi luật của cả hai ≈ 1.0 theo bộ chấm làm tròn; lô sạch calib seed 5 có 0 lỗi luật. Chi tiết ở DATA_VALIDATION.md.
+- Nhóm cần tự đọc code, chạy lại và xác nhận kết quả; các kiểm thử trên do AI chạy, không phải bằng chứng nhóm đã review bằng mắt. AI không tạo review confirmed/rejected.
+
 Bảng dưới ghi lại việc sử dụng AI trong cuộc trò chuyện chuẩn bị lab. Tên thành viên và kết quả kiểm tra của nhóm cần được bổ sung trung thực; việc AI đọc tài liệu không có nghĩa là nhóm đã tự kiểm tra hoặc chạy validator.
 
 | # | Ai dùng | Công cụ | Prompt (tóm tắt) | AI sai ở đâu / điểm cần lưu ý | Nhóm kiểm lại thế nào |

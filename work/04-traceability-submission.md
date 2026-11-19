@@ -1,4 +1,4 @@
-# Người 4: Truy vết, bảo mật và nộp bài
+# Người 4: Truy vết, bảo mật và nộp bài - Nguyễn Trường Giang
 
 ## Mục tiêu
 
