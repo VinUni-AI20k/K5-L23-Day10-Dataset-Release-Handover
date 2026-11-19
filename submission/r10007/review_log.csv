@@ -1,0 +1,41 @@
+image,type,verdict,note
+000000009772,bbox_drift,confirmed,Ảnh 000000009772 bounding box bị trôi lệch tâm nghiêm trọng khỏi vật thể thực tế trong ảnh.
+000000019402,missing_box,confirmed,Ảnh 000000019402 vật thể person xuất hiện rõ nét nhưng hoàn toàn thiếu nhãn detection.
+000000003156,missing_box,confirmed,Ảnh 000000003156 vật thể toilet xuất hiện rõ nét nhưng hoàn toàn thiếu nhãn detection.
+000000023899,instance_merge,confirmed,Ảnh 000000023899 hai cá thể độc lập bị gộp chung thành một segment mask panoptic duy nhất.
+000000015440,instance_merge,confirmed,Ảnh 000000015440 hai cá thể độc lập bị gộp chung thành một segment mask panoptic duy nhất.
+000000017905,bbox_drift,confirmed,Ảnh 000000017905 bounding box bị trôi lệch tâm nghiêm trọng khỏi vật thể thực tế trong ảnh.
+000000009769,class_swap,confirmed,"Ảnh 000000009769 phát hiện nhầm lớp: vật thể thật là truck, detection ghi nhầm thành car."
+000000022192,bbox_drift,confirmed,Ảnh 000000022192 bounding box bị trôi lệch tâm nghiêm trọng khỏi vật thể thực tế trong ảnh.
+000000014888,class_swap,confirmed,"Ảnh 000000014888 phát hiện nhầm lớp: vật thể thật là cow, detection ghi nhầm thành sheep."
+000000016249,category_swap,confirmed,"Ảnh 000000016249 phân đoạn panoptic bị gán nhầm category, trong khi nhãn detection vẫn chính xác."
+000000000776,instance_merge,rejected,"Ảnh 000000000776 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000000872,missing_box,rejected,"Ảnh 000000000872 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000000885,instance_merge,rejected,"Ảnh 000000000885 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000001000,instance_merge,rejected,"Ảnh 000000001000 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000001353,instance_merge,rejected,"Ảnh 000000001353 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000001584,instance_merge,rejected,"Ảnh 000000001584 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000001818,missing_box,rejected,"Ảnh 000000001818 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000002153,instance_merge,rejected,"Ảnh 000000002153 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000002153,bbox_drift,rejected,"Ảnh 000000002153 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000002157,instance_merge,rejected,"Ảnh 000000002157 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000002299,instance_merge,rejected,"Ảnh 000000002299 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000002685,instance_merge,rejected,"Ảnh 000000002685 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000004134,instance_merge,rejected,"Ảnh 000000004134 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000004134,bbox_drift,rejected,"Ảnh 000000004134 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000005001,instance_merge,rejected,"Ảnh 000000005001 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000005193,instance_merge,rejected,"Ảnh 000000005193 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000005992,instance_merge,rejected,"Ảnh 000000005992 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000006471,instance_merge,rejected,"Ảnh 000000006471 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000006723,class_swap,rejected,"Ảnh 000000006723 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000006763,instance_merge,rejected,"Ảnh 000000006763 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000006771,instance_merge,rejected,"Ảnh 000000006771 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000006954,instance_merge,rejected,"Ảnh 000000006954 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000007108,instance_merge,rejected,"Ảnh 000000007108 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000007574,instance_merge,rejected,"Ảnh 000000007574 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000007795,instance_merge,rejected,"Ảnh 000000007795 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000007816,instance_merge,rejected,"Ảnh 000000007816 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000008277,instance_merge,rejected,"Ảnh 000000008277 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000008690,instance_merge,rejected,"Ảnh 000000008690 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000009378,instance_merge,rejected,"Ảnh 000000009378 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
+000000009400,instance_merge,rejected,"Ảnh 000000009400 đối chiếu phát hiện chênh lệch tự nhiên giữa hai bộ nhãn, không phải lỗi gán."
