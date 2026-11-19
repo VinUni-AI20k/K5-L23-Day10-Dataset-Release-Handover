@@ -124,6 +124,7 @@ def detection_panel(
     canvas = image.copy()
     draw = ImageDraw.Draw(canvas)
     font = load_font(max(12, canvas.width // 50))
+    label_bounds: list[tuple[int, int, int, int]] = []
     if label_path.is_file():
         for line_number, line in enumerate(label_path.read_text(encoding="utf-8").splitlines(), start=1):
             if not line.strip():
@@ -142,7 +143,18 @@ def detection_panel(
             y2 = round((center_y + height / 2) * canvas.height)
             draw.rectangle((x1, y1, x2, y2), outline=(255, 55, 55), width=max(2, canvas.width // 320))
             label = class_names.get(class_id, f"class {class_id}")
-            add_label(draw, x1, max(0, y1 - font.size - 5), f"DET: {label}", (190, 25, 35), font)
+            text = f"DET: {label}"
+            label_y = max(0, y1 - font.size - 5)
+            left, top, right, bottom = draw.textbbox((x1, label_y), text, font=font)
+            bounds = (left - 2, top - 1, right + 3, bottom + 2)
+            if any(
+                bounds[0] < other[2] and bounds[2] > other[0]
+                and bounds[1] < other[3] and bounds[3] > other[1]
+                for other in label_bounds
+            ):
+                continue
+            add_label(draw, x1, label_y, text, (190, 25, 35), font)
+            label_bounds.append(bounds)
     return canvas
 
 
