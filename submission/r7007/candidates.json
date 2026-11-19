@@ -1,0 +1,29 @@
+{
+ "candidates": [
+  {
+   "image": "000000000785",
+   "type": "missing_box",
+   "note": "segment skis area 3828 không có box"
+  },
+  {
+   "image": "000000001818",
+   "type": "bbox_drift",
+   "note": "zebra: chỉ 50% pixel segment trong box (IoU 0.72)"
+  },
+  {
+   "image": "000000006471",
+   "type": "class_or_category_swap",
+   "note": "segment couch ↔ box bench (IoU 0.98)"
+  },
+  {
+   "image": "000000013177",
+   "type": "class_or_category_swap",
+   "note": "segment bicycle ↔ box motorcycle (IoU 1.00)"
+  },
+  {
+   "image": "000000015079",
+   "type": "instance_merge",
+   "note": "segment sandwich trải trên 2 box sandwich, box lớn nhất giữ 70%"
+  }
+ ]
+}

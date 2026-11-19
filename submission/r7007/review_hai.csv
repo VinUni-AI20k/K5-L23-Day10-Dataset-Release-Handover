@@ -1,0 +1,7 @@
+image,type,verdict,note
+000000000785,missing_box,confirmed,Trong ảnh có hai ván trượt tuyết dưới chân người. Panoptic có nhãn skis nhưng detection không có box skis. Mask còn thiếu một đoạn nhỏ của ván.
+000000001818,bbox_drift,rejected,"Hai con ngựa vằn đứng sát nhau. Hai chân ở giữa thuộc con bên trái, nhưng mask lại tính sang con bên phải. Box detection không bị lệch."
+000000006471,category_swap,confirmed,Khu vực ngồi phía sau sân bóng chày là ghế băng bench. Detection ghi bench phù hợp hơn panoptic ghi couch.
+000000013177,class_swap,confirmed,"Bánh xe phía sau thuộc xe đạp bicycle, không phải xe máy motorcycle. Detection gán nhầm motorcycle cho vùng này."
+000000015079,bbox_drift,rejected,"Hai phần sandwich có box detection riêng. Sai khác độ phủ có thể do panoptic gộp hai vật, chưa đủ căn cứ kết luận box detection bị lệch."
+000000015079,instance_merge,confirmed,"Quan sát thấy hai phần sandwich riêng biệt, detection có hai box nhưng panoptic sử dụng chung một segment sandwich."

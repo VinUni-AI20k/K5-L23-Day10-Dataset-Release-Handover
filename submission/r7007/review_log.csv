@@ -1,0 +1,6 @@
+image,type,verdict,note
+000000000785,missing_box,confirmed,mở ảnh thấy cặp ván trượt rõ dưới chân người trượt tuyết; panoptic có skis nhưng detection thiếu box skis
+000000001818,bbox_drift,rejected,"mở ảnh thấy 2 con ngựa vằn đứng chồng nhau; box detection khớp khít con bên phải, không phải lỗi lệch box"
+000000006471,category_swap,confirmed,"mở ảnh sân bóng chày thấy hàng ghế băng dugout; detection ghi bench đúng, panoptic ghi nhầm thành couch"
+000000013177,class_swap,confirmed,"mở ảnh thấy phía sau người thợ là xe đạp bánh nhỏ phuộc mảnh; panoptic ghi bicycle đúng, detection ghi nhầm motorcycle"
+000000015079,instance_merge,confirmed,"mở ảnh thấy trên đĩa có hai phần sandwich tách rời; detection tách 2 box đúng, panoptic gộp chung thành 1 segment"
