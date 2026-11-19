@@ -1,11 +1,16 @@
-"""Hai luật kiểm file và hàng đợi gợi ý bất đồng lớp. Chỉ dùng thư viện chuẩn."""
+"""Validate delivery files, detection labels, panoptic segments and release metadata."""
 import argparse
+import csv
 import hashlib
 import json
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from itertools import combinations
 from pathlib import Path
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from pngutil import read_rgb
 
 
 def inside(root, name):
@@ -38,6 +43,72 @@ def overlap(a, b):
     area = max(0, min(x+w, u+s)-max(x, u)) * max(0, min(y+h, v+t)-max(y, v))
     union = w*h + s*t - area
     return area / union if union > 0 else 0
+
+
+def label_errors(path, classes, width, height):
+    issues = set()
+    groups = defaultdict(list)
+    # YOLO stores six decimal places. Allow rounding at the image border.
+    epsilon = 0.000002
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        label, *coordinates = line.split()
+        if label not in classes:
+            issues.add("invalid_class")
+        cx, cy, w, h = map(float, coordinates)
+        if not (w > 0 and h > 0 and cx-w/2 >= -epsilon and cy-h/2 >= -epsilon
+                and cx+w/2 <= 1+epsilon and cy+h/2 <= 1+epsilon):
+            issues.add("bbox_out_of_bounds")
+        for x, y, other_w, other_h in groups[label]:
+            if (abs(w-other_w) <= epsilon and abs(h-other_h) <= epsilon
+                    and abs(cx-x)*width <= 2.001 and abs(cy-y)*height <= 2.001):
+                issues.add("duplicate_box")
+                break
+        groups[label].append((cx, cy, w, h))
+    return issues
+
+
+def metadata_errors(root):
+    with inside(root, "jobs.csv").open(encoding="utf-8-sig", newline="") as stream:
+        guidelines = {row["job_id"]: row["guideline"] for row in csv.DictReader(stream)}
+    errors = []
+    splits = defaultdict(set)
+    for row in read_json(inside(root, "metadata.json"))["items"]:
+        splits[row["scene_id"]].add(row["split"])
+        if row["guideline_version"] != guidelines[row["job_id"]]:
+            errors.append({"type": "guideline_mismatch", "target": row["image"]})
+    errors.extend({"type": "scene_leak", "target": scene}
+                  for scene, values in splits.items() if len(values) > 1)
+    return errors
+
+
+def validate_rules(root, manifest):
+    pan = read_json(inside(root, "panoptic.json"))
+    images = {i["id"]: i for i in pan["images"]}
+    categories = {c["id"]: c for c in pan["categories"]}
+    annotations = {a["file_name"]: a for a in pan["annotations"]}
+    classes = {line.split()[0] for line in inside(root, "classes.txt").read_text().splitlines() if line.strip()}
+    errors = metadata_errors(root)
+    for target, item in manifest.items():
+        errors.extend(file_errors(root, target, item))
+        ann = annotations[Path(item["mask"]).name]
+        im = images[ann["image_id"]]
+        issues = label_errors(inside(root, item["label"]), classes, im["width"], im["height"])
+        _, _, rgb = read_rgb(inside(root, item["mask"]))
+        pixels = iter(rgb)
+        counts = Counter(zip(pixels, pixels, pixels))
+        for segment in ann["segments_info"]:
+            category = categories.get(segment["category_id"])
+            if category is None:
+                issues.add("invalid_category_id")
+            elif category["isthing"] and segment["id"] and not segment.get("iscrowd"):
+                key = segment["id"]
+                actual_area = counts[(key & 255, key >> 8 & 255, key >> 16 & 255)]
+                if actual_area < segment["area"]:
+                    issues.add("thing_overlap")
+        errors.extend({"type": issue, "target": target} for issue in sorted(issues))
+    return errors
 
 
 def mask_samples(width, height, rgb, segment_ids):
@@ -87,8 +158,6 @@ def region_hint(segment, name, points, detections):
 
 
 def suggest(root, manifest):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-    from pngutil import read_rgb
     pan = read_json(inside(root, "panoptic.json"))
     images = {i["id"]: i for i in pan["images"]}
     categories = {c["id"]: c for c in pan["categories"]}
@@ -151,12 +220,10 @@ def main():
     if len(set(outputs)) != len(outputs) or any(p.is_relative_to(root) for p in outputs):
         parser.error("Use distinct output files outside delivery")
     manifest = read_json(inside(root, "manifest.json"))["items"]
-    errors = []
-    for target, item in manifest.items():
-        errors.extend(file_errors(root, target, item))
+    errors = validate_rules(root, manifest)
     queue = suggest(root, manifest) if args.candidates else []
     write_json(args.out, {"errors": errors})
-    print(f"{len(manifest)} images; {len(errors)} missing_image/wrong_hash")
+    print(f"{len(manifest)} images; {len(errors)} rule findings")
     if args.candidates:
         write_json(args.candidates, {"candidates": queue})
         print(f"{len(queue)} images for visual review")
