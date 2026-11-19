@@ -2,7 +2,8 @@
 
 ## 1. Branch & Pull Request Workflow
 
-- Nhánh tích hợp chính của nhóm: `team/day10-integration` (từ `main`).
+- **Repo làm việc & nộp bài:** Chỉ push và mở Pull Request trên **fork của nhóm** (`origin`: `https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover`), **tuyệt đối không** push hoặc mở PR lên repo gốc `VinUni-AI20k` (`upstream`).
+- Nhánh chính của fork: `main` (và nhánh tích hợp `team/day10-integration`).
 - Mỗi thành viên tạo nhánh riêng theo mẫu:
   - `feat/<github-username>-p1-validator`
   - `feat/<github-username>-p2-crosscheck`
@@ -10,7 +11,7 @@
   - `feat/<github-username>-p3-p4-handover`
   - `feat/<github-username>-p5-trace`
   - `feat/<github-username>-p6-security`
-- Mở Pull Request nhắm vào `team/day10-integration` và gắn link Issue (`Closes #<issue_number>`).
+- Mở Pull Request nhắm vào `main` (hoặc `team/day10-integration`) **trên fork `hungpixi/K5-L23-Day10-Dataset-Release-Handover`** và gắn link Issue (`Closes #<issue_number>`).
 
 ## 2. Commit Rules (Rubric Compliance)
 
