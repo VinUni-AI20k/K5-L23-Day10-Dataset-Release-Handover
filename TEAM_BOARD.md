@@ -32,6 +32,7 @@ _Cập nhật tự động từ GitHub API lúc 2026-11-19 09:42 UTC_
 | [#9](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/9) | Integration + Regression Verification | @hungpixi | `phase:P6`, `type:code`, `type:qc`, `priority:P0`, `status:ready` | OPEN |
 | [#10](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/10) | Final Handover + Presentation & LMS Submission | @hungpixi | `phase:P6`, `type:docs`, `priority:P0`, `status:ready` | OPEN |
 | [#11](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/11) | Individual contribution evidence — Phạm Phú Nguyễn Hưng (2A202604062) | @hungpixi | `type:qc`, `status:ready` | OPEN |
+| [#12](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/12) | Individual contribution evidence — Đỗ Anh Hoàng (2A202604061) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
 
 **Pull Requests:** 0 total (0 open, 0 merged)
 <!-- TEAM_PROGRESS_END -->
