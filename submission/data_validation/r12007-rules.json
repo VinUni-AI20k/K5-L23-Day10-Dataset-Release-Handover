@@ -1,0 +1,52 @@
+{
+  "errors": [
+    {
+      "type": "bbox_out_of_bounds",
+      "target": "000000002431"
+    },
+    {
+      "type": "bbox_out_of_bounds",
+      "target": "000000017115"
+    },
+    {
+      "type": "duplicate_box",
+      "target": "000000006771"
+    },
+    {
+      "type": "duplicate_box",
+      "target": "000000015079"
+    },
+    {
+      "type": "guideline_mismatch",
+      "target": "000000009378"
+    },
+    {
+      "type": "guideline_mismatch",
+      "target": "000000015751"
+    },
+    {
+      "type": "invalid_class",
+      "target": "000000003501"
+    },
+    {
+      "type": "missing_image",
+      "target": "000000021839"
+    },
+    {
+      "type": "scene_leak",
+      "target": "scene_801"
+    },
+    {
+      "type": "thing_overlap",
+      "target": "000000007795"
+    },
+    {
+      "type": "thing_overlap",
+      "target": "000000012748"
+    },
+    {
+      "type": "wrong_hash",
+      "target": "000000005600"
+    }
+  ]
+}
