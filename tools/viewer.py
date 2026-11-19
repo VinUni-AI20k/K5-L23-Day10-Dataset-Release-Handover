@@ -35,6 +35,7 @@ import argparse
 import csv
 import html
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -46,8 +47,8 @@ except ImportError:  # pragma: no cover
 DET_COLOR = (255, 40, 40)
 HL_COLOR = (255, 230, 0)
 # màu panoptic: KHÔNG có vàng/cam/đỏ, vì đỏ = detection, vàng = bị nghi
-PALETTE = [(0, 200, 255), (0, 255, 120), (255, 120, 255), (120, 120, 255), (0, 255, 255),
-           (160, 220, 255), (170, 110, 255), (0, 170, 120), (255, 170, 230), (90, 160, 255)]
+PALETTE = [(0, 150, 255), (0, 230, 120), (255, 90, 255), (240, 240, 240), (150, 110, 255),
+           (0, 220, 220), (255, 170, 220), (0, 140, 110), (120, 190, 255), (200, 150, 255)]
 SEMANTIC = {"class_swap", "bbox_drift", "missing_box", "category_swap", "instance_merge"}
 MIN_SIDE = 800  # phóng ảnh nhỏ (vd 240x320) lên để dễ nhìn
 
@@ -317,7 +318,12 @@ def load_candidates(path: Path) -> list[dict]:
     for c in items:
         stem = Path(str(c.get("target") or c.get("image") or "")).stem
         if stem:
-            out.append({**c, "target": stem, "type": c.get("type", "")})
+            c = {**c, "target": stem, "type": c.get("type", "")}
+            if "segment" not in c:  # lấy "(id 123456)" trong reason/note nếu validator ghi ở đó
+                ids = re.findall(r"\bid\s*(\d+)", str(c.get("reason") or c.get("note") or ""))
+                if ids:
+                    c["segment"] = [int(i) for i in ids]
+            out.append(c)
     return out
 
 
@@ -390,7 +396,8 @@ function draw() {
     const img = c.querySelector("img"); img.onclick = () => img.classList.toggle("big");
     const t = c.querySelector("select.t");
     ["class_swap","bbox_drift","missing_box","category_swap","instance_merge"].forEach(x => t.add(new Option(x, x)));
-    t.value = s.type || (t.querySelector(`option[value="${r.type}"]`) ? r.type : "class_swap");
+    const first = (r.type || "").split("/")[0];
+    t.value = s.type || (t.querySelector(`option[value="${first}"]`) ? first : "class_swap");
     c.querySelectorAll("input[type=radio]").forEach(x => { x.checked = x.value === s.verdict; });
     const ta = c.querySelector("textarea"); ta.value = s.note || "";
     const n = c.querySelector(".n");
@@ -466,6 +473,27 @@ def main() -> int:
     if not queue:
         ap.error("chưa chọn ảnh: đưa tên ảnh, --scene, --candidates hoặc --all")
 
+    # gộp các mục cùng ảnh (mỗi ảnh mang nhiều nhất một lỗi): một thẻ, một người xem
+    merged: dict[str, dict] = {}
+    for c in queue:
+        m = merged.get(c["target"])
+        if m is None:
+            merged[c["target"]] = {**c, "types": [c["type"]] if c["type"] else [],
+                                   "whys": [str(c.get("reason") or c.get("note") or "")]}
+            continue
+        if c["type"] and c["type"] not in m["types"]:
+            m["types"].append(c["type"])
+        m["whys"].append(str(c.get("reason") or c.get("note") or ""))
+        for k in ("box", "segment"):
+            if c.get(k) is not None:
+                m[k] = as_list(m.get(k)) + as_list(c[k])
+    queue = []
+    for m in merged.values():
+        m["type"] = "/".join(m["types"])
+        m["note"] = " | ".join(w for w in dict.fromkeys(m["whys"]) if w)
+        m.pop("reason", None)
+        queue.append(m)
+
     people = [p.strip() for p in (args.assign or "").split(",") if p.strip()]
     rows = []
     for i, c in enumerate(queue):
@@ -473,7 +501,7 @@ def main() -> int:
         if stem not in dv.manifest and stem not in dv.pan:
             print(f"[bỏ qua] {stem}: không có trong lô (scene_leak? tên sai?)", file=sys.stderr)
             continue
-        png = out_dir / f"{stem}__{c['type'] or 'xem'}.png"
+        png = out_dir / f"{stem}__{(c['type'] or 'xem').replace('/', '+')}.png"
         render(dv, stem, c, args.stuff).save(png)
         if not args.quiet:
             print(describe(dv, stem))
