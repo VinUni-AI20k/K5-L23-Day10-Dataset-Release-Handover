@@ -19,9 +19,9 @@
 - **Bảng tiến độ thực tế:** [TEAM_BOARD.md](TEAM_BOARD.md)
 - **Hướng dẫn cho mọi thành viên (cả người không rành Git):** [TEAM_GUIDE.md](TEAM_GUIDE.md)
 - **Danh sách thành viên & phân công:** [submission/TEAM.md](submission/TEAM.md)
-- **GitHub Issues:** https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues
-- **Pull Requests:** https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/pulls
-- **GitHub Actions (CI & Gate):** https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/actions
+- **GitHub Issues:** https://github.com/phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release/issues
+- **Pull Requests:** https://github.com/phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release/pulls
+- **GitHub Actions (CI & Gate):** https://github.com/phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release/actions
 
 ## Bạn sẽ làm gì
 

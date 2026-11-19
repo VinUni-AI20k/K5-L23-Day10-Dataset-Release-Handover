@@ -6,13 +6,13 @@
 
 ## 1. Bắt đầu nhanh trong 8 bước
 
-1. **Đăng nhập GitHub** bằng tài khoản cá nhân của bạn và **Accept Invitation** (chấp nhận lời mời cộng tác vào repo `hungpixi/K5-L23-Day10-Dataset-Release-Handover`).
-2. **Mở trang Issues:** https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues
+1. **Đăng nhập GitHub** bằng tài khoản cá nhân của bạn và **Accept Invitation** (chấp nhận lời mời cộng tác vào repo `phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release`).
+2. **Mở trang Issues:** https://github.com/phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release/issues
 3. **Chọn Issue của bạn** (tìm theo tên hoặc label `phase:P0`..`phase:P6`).
 4. **Đọc kỹ Checklist** và **Acceptance Criteria** trong Issue.
 5. **Thực hiện phần việc** thuộc thư mục được phân công (xem bảng phân quyền bên dưới).
 6. **Comment kết quả và bằng chứng thật** (output lệnh, số lượng ảnh đã xem, đường dẫn file) vào Issue.
-7. **Tạo Pull Request (PR)** vào nhánh `main` (hoặc `team/day10-integration`) **trên repo fork `hungpixi/K5-L23-Day10-Dataset-Release-Handover`** nếu có thay đổi file (tuyệt đối không mở PR sang repo gốc `VinUni-AI20k`).
+7. **Tạo Pull Request (PR)** vào nhánh `main` (hoặc `team/day10-integration`) **trên repo `phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release`** nếu có thay đổi file (tuyệt đối không mở PR sang repo gốc `VinUni-AI20k`).
 8. **Tick hoàn thành checklist** trong Issue khi đã có bằng chứng và PR được review.
 
 ---
