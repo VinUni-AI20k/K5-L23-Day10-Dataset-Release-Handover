@@ -1,8 +1,14 @@
-# Nhóm <<XX>>
+# Nhóm LABUBU10 — Day 10 Lab
 
-- Seed luyện tập: <<số>>
-- Repo: <<URL>>
+- Seed luyện tập: 10007
+- Repo: https://github.com/hoangkhiem3523/K5-L23-DAY10-NHOM-LABUBU10-Release
 
 | Họ và tên | MSHV | Tài khoản GitHub | Phần chính |
 |---|---|---|---|
-| <<>> | <<>> | <<>> | <<validator luật / đối chiếu / review / bàn giao / truy vết / bảo mật>> |
+| Hoàng Thuận Thiện | 2A202603270 | Tiny208 | Thành viên 7: Bảo mật, Báo cáo & Đề ẩn |
+| Thành viên 1 | MSHV01 | github01 | Trưởng nhóm: Core Validator (Luật Detection & File) |
+| Thành viên 2 | MSHV02 | github02 | Core Validator: Luật Panoptic & Metadata |
+| Thành viên 3 | MSHV03 | github03 | Thuật toán đối chiếu Detection ↔ Panoptic (Candidates) |
+| Thành viên 4 | MSHV04 | github04 | Điều phối Review mắt người & review_log.csv |
+| Thành viên 5 | MSHV05 | github05 | Bàn giao lô v2 & Rework Queue |
+| Thành viên 6 | MSHV06 | github06 | Quyết định Lineage & Truy vết Ticket AI |
