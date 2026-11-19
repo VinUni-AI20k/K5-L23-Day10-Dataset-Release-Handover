@@ -1,0 +1,56 @@
+image_id,kind,candidate_type,difficulty_tier,difficulty_score,error_evidence_score,review_value_score,priority,assigned_reviewer,reason,handling,num_detections,num_panoptic_instances,evidence
+img_0106,rule,guideline_mismatch,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (guideline_mismatch),Validator tự động,7,7,
+img_0146,rule,wrong_hash,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (wrong_hash),Validator tự động,1,1,
+img_0161,rule,invalid_class,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (invalid_class),Validator tự động,1,1,
+img_0173,rule,invalid_category_id,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (invalid_category_id),Validator tự động,25,24,
+img_0197,rule,guideline_mismatch,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (guideline_mismatch),Validator tự động,17,17,
+img_0212,rule,bbox_out_of_bounds,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (bbox_out_of_bounds),Validator tự động,12,12,
+img_0214,rule,thing_overlap,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (thing_overlap),Validator tự động,13,12,
+img_0223,rule,wrong_hash,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (wrong_hash),Validator tự động,1,1,
+img_0243,rule,missing_image,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (missing_image),Validator tự động,1,1,
+scene_807,rule,scene_leak,EASY,0.1,1.0,0.9,0.975,,Lỗi luật tất định (scene_leak),Validator tự động,0,0,
+img_0190,semantic,class_swap,MEDIUM,0.154,0.834,0.908,0.883,Họ và tên,"class_swap tín hiệu rõ (score=0.83, diff=0.15)",Human review nhanh (overlay),4,4,"box=cow, segment=horse"
+img_0065,semantic,class_swap,MEDIUM,0.017,0.764,0.99,0.868,@hungpixi,"class_swap tín hiệu rõ (score=0.76, diff=0.02)",Human review nhanh (overlay),1,1,"box=cow, segment=horse"
+img_0215,semantic,class_swap,MEDIUM,0.142,0.79,0.84,0.85,@AnhHoangDepTrai,"class_swap tín hiệu rõ (score=0.79, diff=0.14)",Human review nhanh (overlay),3,2,"box=laptop, segment=tv"
+img_0103,semantic,class_swap,MEDIUM,0.133,0.679,0.845,0.801,@buivanthinhtxt-del,"class_swap tín hiệu rõ (score=0.68, diff=0.13)",Human review nhanh (overlay),2,2,"box=person, segment=remote"
+img_0087,semantic,class_swap,HARD,0.258,0.715,0.695,0.787,@ngxuanviet,"class_swap trong vùng phức tạp (diff=0.26, crowd=0.50, small=0.00)",Reviewer chuyên sâu / Double review,4,3,"box=dog, segment=cat"
+img_0112,semantic,instance_merge,HARD,0.158,0.667,0.905,0.77,@trahoangdev,"instance_merge trong vùng phức tạp (diff=0.16, crowd=0.00, small=0.17)",Reviewer chuyên sâu / Double review,6,6,segment person bao 2 box riêng biệt cùng lớp
+img_0147,semantic,instance_merge,HARD,0.237,0.667,0.858,0.761,@Soraxolo,"instance_merge trong vùng phức tạp (diff=0.24, crowd=0.00, small=0.20)",Reviewer chuyên sâu / Double review,10,10,segment cow bao 2 box riêng biệt cùng lớp
+img_0171,semantic,instance_merge,HARD,0.25,0.667,0.85,0.759,Họ và tên,"instance_merge trong vùng phức tạp (diff=0.25, crowd=0.00, small=0.17)",Reviewer chuyên sâu / Double review,12,11,segment cup bao 2 box riêng biệt cùng lớp
+img_0082,semantic,instance_merge,HARD,0.15,0.667,0.835,0.756,@hungpixi,"instance_merge trong vùng phức tạp (diff=0.15, crowd=0.25, small=0.00)",Reviewer chuyên sâu / Double review,3,3,segment elephant bao 2 box riêng biệt cùng lớp
+img_0249,semantic,instance_merge,HARD,0.15,0.667,0.835,0.756,@AnhHoangDepTrai,"instance_merge trong vùng phức tạp (diff=0.15, crowd=0.25, small=0.00)",Reviewer chuyên sâu / Double review,3,3,segment scissors bao 2 box riêng biệt cùng lớp
+img_0108,semantic,class_swap,MEDIUM,0.133,0.563,0.845,0.75,@buivanthinhtxt-del,"class_swap tín hiệu rõ (score=0.56, diff=0.13)",Human review nhanh (overlay),2,2,"box=laptop, segment=cat"
+img_0078,semantic,class_swap,MEDIUM,0.133,0.552,0.845,0.745,@buivanthinhtxt-del,"class_swap tín hiệu rõ (score=0.55, diff=0.13)",Human review nhanh (overlay),2,2,"box=bed, segment=cat"
+img_0161,semantic,class_swap,HARD,0.367,0.566,0.78,0.738,@ngxuanviet,"class_swap trong vùng phức tạp (diff=0.37, crowd=0.00, small=1.00)",Reviewer chuyên sâu,1,1,"box=, segment=car"
+img_0029,semantic,class_swap,MEDIUM,0.217,0.55,0.795,0.734,@trahoangdev,"class_swap tín hiệu rõ (score=0.55, diff=0.22)",Human review nhanh (overlay),7,7,"box=couch, segment=chair"
+img_0145,semantic,class_swap,HARD,0.567,0.667,0.51,0.729,@Soraxolo,"class_swap trong vùng phức tạp (diff=0.57, crowd=0.50, small=0.50)",Reviewer chuyên sâu / Double review,12,11,"box=handbag, segment=backpack"
+img_0037,semantic,class_swap,HARD,0.45,0.633,0.58,0.728,Họ và tên,"class_swap trong vùng phức tạp (diff=0.45, crowd=0.50, small=0.33)",Reviewer chuyên sâu / Double review,9,7,"box=couch, segment=chair"
+img_0096,semantic,instance_merge,HARD,0.483,0.667,0.635,0.716,@hungpixi,"instance_merge trong vùng phức tạp (diff=0.48, crowd=0.25, small=0.67)",Reviewer chuyên sâu / Double review,9,9,segment car bao 2 box riêng biệt cùng lớp
+img_0019,semantic,class_swap,HARD,0.275,0.548,0.685,0.711,@AnhHoangDepTrai,"class_swap trong vùng phức tạp (diff=0.28, crowd=0.50, small=0.00)",Reviewer chuyên sâu / Double review,5,4,"box=bottle, segment=cup"
+img_0015,semantic,instance_merge,HARD,0.58,0.667,0.577,0.705,@buivanthinhtxt-del,"instance_merge trong vùng phức tạp (diff=0.58, crowd=0.25, small=0.66)",Reviewer chuyên sâu / Double review,35,34,segment person bao 2 box riêng biệt cùng lớp
+img_0214,semantic,class_swap,MEDIUM,0.416,0.538,0.675,0.704,@trahoangdev,"class_swap tín hiệu rõ (score=0.54, diff=0.42)",Human review nhanh (overlay),13,12,"box=handbag, segment=backpack"
+img_0151,semantic,instance_merge,HARD,0.74,0.667,0.451,0.68,@ngxuanviet,"instance_merge trong vùng phức tạp (diff=0.74, crowd=0.35, small=1.00)",Reviewer chuyên sâu / Double review,19,20,segment kite bao 2 box riêng biệt cùng lớp
+img_0164,semantic,instance_merge,HARD,0.882,0.667,0.216,0.647,@trahoangdev,"instance_merge trong vùng phức tạp (diff=0.88, crowd=0.85, small=0.83)",Reviewer chuyên sâu / Double review,18,19,segment car bao 2 box riêng biệt cùng lớp
+img_0059,semantic,instance_merge,HARD,0.961,0.667,0.15,0.634,@Soraxolo,"instance_merge trong vùng phức tạp (diff=0.96, crowd=1.00, small=0.89)",Reviewer chuyên sâu / Double review,27,28,segment book bao 2 box riêng biệt cùng lớp
+img_0126,semantic,instance_merge,HARD,0.796,0.667,0.222,0.634,Họ và tên,"instance_merge trong vùng phức tạp (diff=0.80, crowd=1.00, small=0.42)",Reviewer chuyên sâu / Double review,36,36,segment bottle bao 2 box riêng biệt cùng lớp
+img_0228,semantic,instance_merge,HARD,0.796,0.667,0.222,0.634,@hungpixi,"instance_merge trong vùng phức tạp (diff=0.80, crowd=1.00, small=0.42)",Reviewer chuyên sâu / Double review,24,24,segment wine glass bao 2 box riêng biệt cùng lớp
+img_0041,semantic,missing_box,MEDIUM,0.042,0.2,0.975,0.605,@AnhHoangDepTrai,"missing_box tín hiệu rõ (score=0.01, diff=0.04)",Human review nhanh (overlay),2,3,segment knife lớn không có box
+img_0034,semantic,missing_box,HARD,0.46,0.279,0.619,0.578,@buivanthinhtxt-del,"missing_box trong vùng phức tạp (diff=0.46, crowd=0.35, small=0.20)",Reviewer chuyên sâu,20,21,segment elephant lớn không có box
+img_0118,semantic,missing_box,HARD,0.722,0.329,0.462,0.569,@AnhHoangDepTrai,"missing_box trong vùng phức tạp (diff=0.72, crowd=0.35, small=0.95)",Reviewer chuyên sâu,19,20,segment person lớn không có box
+img_0172,semantic,missing_box,HARD,0.703,0.2,0.473,0.535,@ngxuanviet,"missing_box trong vùng phức tạp (diff=0.70, crowd=0.35, small=0.90)",Reviewer chuyên sâu,38,41,segment chair lớn không có box
+img_0172,semantic,missing_box,HARD,0.703,0.2,0.473,0.535,@ngxuanviet,"missing_box trong vùng phức tạp (diff=0.70, crowd=0.35, small=0.90)",Reviewer chuyên sâu,38,41,segment dining table lớn không có box
+img_0149,semantic,missing_box,HARD,0.593,0.2,0.539,0.521,Họ và tên,"missing_box trong vùng phức tạp (diff=0.59, crowd=0.35, small=0.58)",Reviewer chuyên sâu,19,20,segment person lớn không có box
+img_0057,semantic,missing_box,HARD,0.623,0.2,0.521,0.517,@hungpixi,"missing_box trong vùng phức tạp (diff=0.62, crowd=0.35, small=0.67)",Reviewer chuyên sâu,18,19,segment book lớn không có box
+img_0095,semantic,missing_box,HARD,0.815,0.2,0.331,0.512,@buivanthinhtxt-del,"missing_box trong vùng phức tạp (diff=0.81, crowd=0.60, small=0.93)",Reviewer chuyên sâu / Double review,28,30,segment person lớn không có box
+img_0136,semantic,missing_box,HARD,0.696,0.2,0.477,0.509,@AnhHoangDepTrai,"missing_box trong vùng phức tạp (diff=0.70, crowd=0.35, small=0.88)",Reviewer chuyên sâu,24,25,segment person lớn không có box
+img_0079,semantic,missing_box,HARD,0.682,0.2,0.486,0.508,@trahoangdev,"missing_box trong vùng phức tạp (diff=0.68, crowd=0.35, small=0.86)",Reviewer chuyên sâu,14,15,segment person lớn không có box
+img_0137,semantic,missing_box,HARD,0.682,0.2,0.486,0.508,@Soraxolo,"missing_box trong vùng phức tạp (diff=0.68, crowd=0.35, small=0.83)",Reviewer chuyên sâu,18,19,segment book lớn không có box
+img_0248,semantic,missing_box,HARD,0.819,0.253,0.329,0.508,Họ và tên,"missing_box trong vùng phức tạp (diff=0.82, crowd=0.60, small=0.94)",Reviewer chuyên sâu / Double review,17,18,segment donut lớn không có box
+img_0095,semantic,missing_box,HARD,0.815,0.2,0.331,0.507,@buivanthinhtxt-del,"missing_box trong vùng phức tạp (diff=0.81, crowd=0.60, small=0.93)",Reviewer chuyên sâu / Double review,28,30,segment chair lớn không có box
+img_0231,semantic,missing_box,HARD,0.643,0.2,0.434,0.498,@hungpixi,"missing_box trong vùng phức tạp (diff=0.64, crowd=0.60, small=0.44)",Reviewer chuyên sâu / Double review,16,17,segment cow lớn không có box
+img_0164,semantic,missing_box,HARD,0.882,0.2,0.216,0.484,@trahoangdev,"missing_box trong vùng phức tạp (diff=0.88, crowd=0.85, small=0.83)",Reviewer chuyên sâu / Double review,18,19,segment car lớn không có box
+img_0090,semantic,missing_box,HARD,0.693,0.2,0.329,0.48,@AnhHoangDepTrai,"missing_box trong vùng phức tạp (diff=0.69, crowd=0.85, small=0.29)",Reviewer chuyên sâu / Double review,17,18,segment person lớn không có box
+img_0059,semantic,missing_box,HARD,0.961,0.2,0.15,0.474,@Soraxolo,"missing_box trong vùng phức tạp (diff=0.96, crowd=1.00, small=0.89)",Reviewer chuyên sâu / Double review,27,28,segment book lớn không có box
+img_0044,semantic,missing_box,HARD,0.74,0.2,0.301,0.472,@ngxuanviet,"missing_box trong vùng phức tạp (diff=0.74, crowd=0.85, small=0.43)",Reviewer chuyên sâu / Double review,28,29,segment carrot lớn không có box
+img_0004,semantic,missing_box,HARD,0.854,0.2,0.188,0.456,@trahoangdev,"missing_box trong vùng phức tạp (diff=0.85, crowd=1.00, small=0.58)",Reviewer chuyên sâu / Double review,24,25,segment person lớn không có box
+img_0168,semantic,missing_box,HARD,0.82,0.2,0.208,0.452,@Soraxolo,"missing_box trong vùng phức tạp (diff=0.82, crowd=1.00, small=0.49)",Reviewer chuyên sâu / Double review,37,40,segment chair lớn không có box

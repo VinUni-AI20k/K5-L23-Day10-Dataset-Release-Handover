@@ -1,0 +1,274 @@
+{
+  "candidates": [
+    {
+      "type": "class_swap",
+      "target": "img_0019",
+      "score": 0.548,
+      "evidence": "box=bottle, segment=cup"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0029",
+      "score": 0.55,
+      "evidence": "box=couch, segment=chair"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0037",
+      "score": 0.633,
+      "evidence": "box=couch, segment=chair"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0065",
+      "score": 0.764,
+      "evidence": "box=cow, segment=horse"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0078",
+      "score": 0.552,
+      "evidence": "box=bed, segment=cat"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0087",
+      "score": 0.715,
+      "evidence": "box=dog, segment=cat"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0103",
+      "score": 0.679,
+      "evidence": "box=person, segment=remote"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0108",
+      "score": 0.563,
+      "evidence": "box=laptop, segment=cat"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0145",
+      "score": 0.667,
+      "evidence": "box=handbag, segment=backpack"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0161",
+      "score": 0.566,
+      "evidence": "box=, segment=car"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0190",
+      "score": 0.834,
+      "evidence": "box=cow, segment=horse"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0214",
+      "score": 0.538,
+      "evidence": "box=handbag, segment=backpack"
+    },
+    {
+      "type": "class_swap",
+      "target": "img_0215",
+      "score": 0.79,
+      "evidence": "box=laptop, segment=tv"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0015",
+      "score": 0.667,
+      "evidence": "segment person bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0059",
+      "score": 0.667,
+      "evidence": "segment book bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0082",
+      "score": 0.667,
+      "evidence": "segment elephant bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0096",
+      "score": 0.667,
+      "evidence": "segment car bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0112",
+      "score": 0.667,
+      "evidence": "segment person bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0126",
+      "score": 0.667,
+      "evidence": "segment bottle bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0147",
+      "score": 0.667,
+      "evidence": "segment cow bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0151",
+      "score": 0.667,
+      "evidence": "segment kite bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0164",
+      "score": 0.667,
+      "evidence": "segment car bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0171",
+      "score": 0.667,
+      "evidence": "segment cup bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0228",
+      "score": 0.667,
+      "evidence": "segment wine glass bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "instance_merge",
+      "target": "img_0249",
+      "score": 0.667,
+      "evidence": "segment scissors bao 2 box riêng biệt cùng lớp"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0004",
+      "score": 0.1966,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0034",
+      "score": 0.2794,
+      "evidence": "segment elephant lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0041",
+      "score": 0.0059,
+      "evidence": "segment knife lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0044",
+      "score": 0.0504,
+      "evidence": "segment carrot lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0057",
+      "score": 0.0583,
+      "evidence": "segment book lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0059",
+      "score": 0.09,
+      "evidence": "segment book lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0079",
+      "score": 0.0121,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0090",
+      "score": 0.0881,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0095",
+      "score": 0.1332,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0095",
+      "score": 0.0161,
+      "evidence": "segment chair lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0118",
+      "score": 0.3292,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0136",
+      "score": 0.0856,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0137",
+      "score": 0.0167,
+      "evidence": "segment book lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0149",
+      "score": 0.0653,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0164",
+      "score": 0.0165,
+      "evidence": "segment car lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0168",
+      "score": 0.013,
+      "evidence": "segment chair lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0172",
+      "score": 0.0127,
+      "evidence": "segment chair lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0172",
+      "score": 0.0162,
+      "evidence": "segment dining table lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0231",
+      "score": 0.0211,
+      "evidence": "segment cow lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "img_0248",
+      "score": 0.253,
+      "evidence": "segment donut lớn không có box"
+    }
+  ]
+}
