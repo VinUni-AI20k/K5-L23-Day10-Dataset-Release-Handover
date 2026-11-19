@@ -28,6 +28,18 @@
   - Nếu nhóm báo bừa toàn bộ 11 ứng viên mà không qua bước visual review để loại bỏ 3 trường hợp này, ta sẽ bị dính **3 False Positives**.
   - Kết quả: Precision bị tụt từ 1.0 xuống 0.73, kéo F1 tổng thể giảm từ **0.9** xuống **~0.7**. Do đó, quy trình xem ảnh bằng mắt (human review) và ghi nhận `verdict=rejected` kèm lý do cụ thể trong `review_log.csv` là mắt xích bắt buộc để đạt F1 tối đa.
 
+### Quy trình kiểm duyệt thủ công bằng mắt của 5 thành viên (Human-in-the-loop Review):
+Để đảm bảo tính trung thực và đáp ứng yêu cầu vấn đáp 3 phút (Rubric Mục 6), nhóm tuyệt đối **không dùng AI tự động quyết định lỗi gán nhãn**, mà phân chia toàn bộ hàng đợi ứng viên cho 5 thành viên trực tiếp mở giao diện Review Board (`runs/r3007/review_board.html` và `docs/review_board_dean.html`) để xem xét bằng mắt:
+1. **Phân bổ trách nhiệm 5 thành viên (Mỗi người kiểm tra 4–5 ảnh độc lập):**
+   - **TV1 (Lã Thái Hòa):** Phụ trách các ca phân định lớp phức tạp và sót người trong phòng khách (`000000000872`, `000000001818`, `img_0028`, `img_0036`).
+   - **TV2 (Trịnh Đức Mạnh):** Phụ trách đối chiếu góc nghiêng bàn phím 3D, sót bồn cầu và sót giường phòng ngủ (`000000007511`, `000000007795`, `img_0045`, `img_0061`, `img_0245`).
+   - **TV3 (Nguyễn Thế Phách):** Phụ trách các ca class swap TV/laptop, ghế đơn/ghế dài và sót mèo trên bồn cầu (`000000009483`, `000000012748`, `img_0079`, `img_0104`, `img_0238`).
+   - **TV4 (Phan Lê Hoàng Phúc):** Phụ trách trượt tọa độ voi trên đồng cỏ, xe máy ngã tư xa và lỗi gộp đĩa ném frisbee (`000000013291`, `000000019742`, `img_0117`, `img_0131`).
+   - **TV5 (Nguyễn Huy Vượng):** Phụ trách trượt box ô tô/cừu, nhầm xe con thành xe bus và gộp ba lô (`000000022589`, `000000023272`, `000000023781`, `img_0171`, `img_0178`, `img_0199`).
+2. **Tiêu chuẩn ghi nhận (`review_log.csv`):**
+   - Mọi dòng `confirmed` và `rejected` đều có tiền tố định danh `[TVX-Tên]` và ghi chú $\ge 20$ ký tự mô tả cụ thể: *Tên vật thể quan sát*, *sự sai khác giữa detection box và panoptic mask*, *lý do kết luận*.
+   - 100% thành viên nắm vững hình ảnh của mình để tự tin trả lời vấn đáp trực tiếp với người chấm.
+
 ## 3. Quyết định và Lineage
 - **Tỷ lệ kiểm định chất lượng (QC v1):**
   - Tổng số lỗi tìm thấy trong v1: **19 lỗi / 250 ảnh = 7.6%**.

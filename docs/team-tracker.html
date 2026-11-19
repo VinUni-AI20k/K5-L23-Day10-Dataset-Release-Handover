@@ -2876,6 +2876,7 @@
       const tabs = [
         { id: "overview", label: "Tổng quan & Lộ trình", dot: "var(--accent)" },
         { id: "timeline", label: "Timeline & Bàn giao", dot: "var(--status-info)" },
+        { id: "review_station", label: "Kiểm Duyệt Thủ Công (Pha 2)", dot: "var(--status-warning)" },
         ...MEMBERS.map(m => ({ id: m.id, label: `${m.code} · ${m.handle}`, dot: m.colorVar })),
         { id: "dean", label: "Đề ẩn 40 phút", dot: "var(--status-danger)" },
         { id: "vandap", label: "Vấn đáp 3 phút", dot: "var(--status-success)" }
@@ -3256,6 +3257,205 @@
       `;
     }
 
+
+    /* =========================================================================
+       REVIEW STATION DATA & VIEW (PHA 2 — VISUAL INSPECTION FOR 5 MEMBERS)
+       ========================================================================= */
+    const REVIEW_ITEMS = [
+      // Seed 3007 (11 candidates)
+      { id: "s3007_1", pool: "Seed 3007", stem: "000000000872", tv: "TV1", tvName: "Lã Thái Hòa", type: "missing_box", verdict: "rejected", note: "[TV1-Hoa] Nguoi ngoi xa hau canh trong xe, thuoc dien background khong gan nhan COCO", oral: "Vật thể là người ngồi ở hậu cảnh mờ trong xe, diện tích nhỏ và bị che khuất > 70% không đủ chuẩn đóng box detection, chọn Rejected tránh giảm Precision." },
+      { id: "s3007_2", pool: "Seed 3007", stem: "000000001818", tv: "TV1", tvName: "Lã Thái Hòa", type: "missing_box", verdict: "rejected", note: "[TV1-Hoa] Ngua van khuat sau bui cay, ranh gioi mo nhat khong du dieu kien dong box", oral: "Ngựa vằn bị khuất sau bụi cây rậm rạp, chỉ lộ một phần nhỏ cơ thể, không có đường biên rõ ràng trong COCO gốc, chọn Rejected." },
+      { id: "s3007_3", pool: "Seed 3007", stem: "000000007511", tv: "TV2", tvName: "Trịnh Đức Mạnh", type: "missing_box", verdict: "confirmed", note: "[TV2-Manh] Nguoi dung ro net o giua khung hinh bi thieu box detection hoan toan", oral: "Người đứng rất rõ nét ngay trung tâm bức ảnh, chiếm 12.8% khung hình, mask panoptic nhận diện đầy đủ nhưng file nhãn detection bỏ sót hoàn toàn. Xác nhận Confirmed đưa vào rework." },
+      { id: "s3007_4", pool: "Seed 3007", stem: "000000007795", tv: "TV2", tvName: "Trịnh Đức Mạnh", type: "missing_box", verdict: "confirmed", note: "[TV2-Manh] Chiec giuong ngu lon chiem 25% dien tich anh bi bo sot khong gan box", oral: "Chiếc giường ngủ lớn trong phòng khách sạn chiếm 25% diện tích ảnh, không có box detection. Xác nhận Confirmed đưa vào rework." },
+      { id: "s3007_5", pool: "Seed 3007", stem: "000000009483", tv: "TV3", tvName: "Nguyễn Thế Phách", type: "class_swap", verdict: "confirmed", note: "[TV3-Phach] Man hinh TV tren ban lam viec bi gan nhan nham thanh laptop trong detection", oral: "Màn hình TV treo trên bàn làm việc bị file nhãn detection gán sai thành lớp laptop (lớp 63 thay vì 62). Xác nhận Confirmed để chuyển rework." },
+      { id: "s3007_6", pool: "Seed 3007", stem: "000000012748", tv: "TV3", tvName: "Nguyễn Thế Phách", type: "missing_box", verdict: "rejected", note: "[TV3-Phach] Bong nguoi o ria anh bi cat cut qua 70%, khong gan nhan detection theo guideline", oral: "Bóng người ở sát mép rìa ảnh bị cắt cụt quá 70%, theo quy tắc gán nhãn không đóng box. Chọn Rejected để tránh False Alarm." },
+      { id: "s3007_7", pool: "Seed 3007", stem: "000000013291", tv: "TV4", tvName: "Phan Lê Hoàng Phúc", type: "instance_merge", verdict: "confirmed", note: "[TV4-Phuc] Mot dia nem frisbee bi gop chung mask panoptic phu len hai vat the doc lap", oral: "Hai đĩa ném frisbee nằm sát nhau bị mask panoptic gộp chung lại thành một vùng liên thông. Lỗi thuộc panoptic, detection vẫn đúng 2 box nên ảnh vẫn được giữ trong v2 và ghi chú vào README.txt." },
+      { id: "s3007_8", pool: "Seed 3007", stem: "000000019742", tv: "TV4", tvName: "Phan Lê Hoàng Phúc", type: "category_swap", verdict: "confirmed", note: "[TV4-Phuc] Binh hoa trang tri tren ban bi gan nham thanh gay bong chay trong panoptic", oral: "Bình hoa cắm cành trang trí bị panoptic gán nhầm thành gậy bóng chày (baseball bat). Lỗi panoptic, nhãn detection vase vẫn đúng." },
+      { id: "s3007_9", pool: "Seed 3007", stem: "000000022589", tv: "TV5", tvName: "Nguyễn Huy Vượng", type: "bbox_drift", verdict: "confirmed", note: "[TV5-Vuong] Box detection cua con cuu bi truot lech hon 2200 pixel ra ngoai vien vat the", oral: "Bounding box của con cừu trên đồng cỏ bị trượt lệch tọa độ ra ngoài viền vật thể hơn 2200 pixel. Xác nhận Confirmed để tách ra rework." },
+      { id: "s3007_10", pool: "Seed 3007", stem: "000000023272", tv: "TV5", tvName: "Nguyễn Huy Vượng", type: "class_swap", verdict: "confirmed", note: "[TV5-Vuong] Xe o to con gia dinh bi gan nhan nham thanh xe bus cong cong trong file nhan", oral: "Chiếc xe ô tô con gia đình màu trắng 4 chỗ rõ nét nhưng file nhãn detection lại gán nhầm thành xe bus. Xác nhận Confirmed." },
+      { id: "s3007_11", pool: "Seed 3007", stem: "000000023781", tv: "TV5", tvName: "Nguyễn Huy Vượng", type: "category_swap", verdict: "confirmed", note: "[TV5-Vuong] Cu ca rot nho canh bong cai xanh bi panoptic gan nham thanh xe may cuc ky phi ly", oral: "Củ cà rốt nhỏ cạnh súp lơ xanh trên thớt bị panoptic gán nhầm thành xe máy (motorcycle). Lỗi panoptic, detection gán carrot vẫn đúng." },
+
+      // Đề ẩn 13 (13 candidates)
+      { id: "dean_1", pool: "Đề ẩn 13", stem: "img_0028", tv: "TV1", tvName: "Lã Thái Hòa", type: "class_swap", verdict: "confirmed", note: "[TV1-Hoa] Xe mô tô phân khối lớn có mèo ngồi lên yên xe nhưng file nhãn detection lại gán nhầm thành bicycle", oral: "Xe mô tô phân khối lớn có động cơ và bô xe rất rõ, có con mèo ngồi trên yên, nhưng detection gán nhầm bicycle. Confirmed." },
+      { id: "dean_2", pool: "Đề ẩn 13", stem: "img_0036", tv: "TV1", tvName: "Lã Thái Hòa", type: "missing_box", verdict: "confirmed", note: "[TV1-Hoa] Người thứ hai ngồi cạnh người xem TV bên trái phòng khách bị bỏ sót hoàn toàn không có bounding box", oral: "Người thứ 2 ngồi trên ghế sofa xem TV trong phòng khách bị bỏ sót hoàn toàn không có box detection. Confirmed." },
+      { id: "dean_3", pool: "Đề ẩn 13", stem: "img_0045", tv: "TV2", tvName: "Trịnh Đức Mạnh", type: "bbox_drift", verdict: "rejected", note: "[TV2-Manh] Bàn phím máy tính góc nghiêng 3D mask panoptic bám theo viền phím lệch nhẹ tự nhiên dưới 200px", oral: "Bàn phím máy tính góc nghiêng 3D, độ lệch mask chỉ 193 pixel là do phối cảnh tự nhiên của COCO, không phải lỗi gán nhãn. Rejected." },
+      { id: "dean_4", pool: "Đề ẩn 13", stem: "img_0061", tv: "TV2", tvName: "Trịnh Đức Mạnh", type: "class_swap", verdict: "confirmed", note: "[TV2-Manh] Chiếc bánh donut phủ sô cô la trên bàn ăn bị file nhãn detection gán nhầm thành lớp cake", oral: "Bánh donut hình tròn có lỗ ở giữa phủ chocolate rõ ràng nhưng detection gán nhầm thành cake. Confirmed." },
+      { id: "dean_5", pool: "Đề ẩn 13", stem: "img_0079", tv: "TV3", tvName: "Nguyễn Thế Phách", type: "missing_box", verdict: "confirmed", note: "[TV3-Phach] Con mèo lông vàng ngồi rất rõ trên nắp bồn cầu trong nhà tắm bị bỏ sót hoàn toàn không gán nhãn", oral: "Con mèo lông vàng ngồi trên nắp bồn cầu trong nhà vệ sinh chiếm diện tích lớn nhưng không có bounding box detection nào. Confirmed." },
+      { id: "dean_6", pool: "Đề ẩn 13", stem: "img_0104", tv: "TV3", tvName: "Nguyễn Thế Phách", type: "missing_box", verdict: "rejected", note: "[TV3-Phach] Mép gáy sách nhỏ xíu trong chồng sách lớn thuộc diện vật thể nền hậu cảnh của tập gốc COCO", oral: "Mép gáy sách nhỏ xíu trong chồng sách lớn thuộc diện nền hậu cảnh của COCO, không đủ chuẩn đóng box riêng. Rejected." },
+      { id: "dean_7", pool: "Đề ẩn 13", stem: "img_0117", tv: "TV4", tvName: "Phan Lê Hoàng Phúc", type: "bbox_drift", verdict: "confirmed", note: "[TV4-Phuc] Box detection của con voi trên đồng cỏ bị trượt lệch hẳn sang trái và mở rộng sai lệch vật thể", oral: "Box detection của con voi bị trượt lệch sang trái 35 pixel và mở rộng kích thước sai lệch khỏi thân voi. Confirmed." },
+      { id: "dean_8", pool: "Đề ẩn 13", stem: "img_0131", tv: "TV4", tvName: "Phan Lê Hoàng Phúc", type: "missing_box", verdict: "rejected", note: "[TV4-Phuc] Xe máy mờ nhỏ ở khoảng cách xa ngã tư đường phố thuộc diện hậu cảnh không đủ điều kiện đóng box", oral: "Chiếc xe máy mờ tí hon ở ngã tư đường phố cách rất xa ống kính, thuộc diện hậu cảnh không đủ điều kiện đóng box. Rejected." },
+      { id: "dean_9", pool: "Đề ẩn 13", stem: "img_0171", tv: "TV5", tvName: "Nguyễn Huy Vượng", type: "instance_merge", verdict: "confirmed", note: "[TV5-Vuong] Hai chiếc ba lô đặt cạnh người đi bộ trên phố bị mask panoptic gộp chung lại thành một vùng", oral: "Hai chiếc ba lô riêng biệt bị mask panoptic gộp chung lại thành 1 segment liên thông. Lỗi ở panoptic, detection vẫn đủ 2 box. Confirmed." },
+      { id: "dean_10", pool: "Đề ẩn 13", stem: "img_0178", tv: "TV5", tvName: "Nguyễn Huy Vượng", type: "bbox_drift", verdict: "confirmed", note: "[TV5-Vuong] Bounding box chiếc xe ô tô con trên đường phố bị trượt lệch tọa độ ra ngoài viền thân xe hơn 500px", oral: "Box detection của ô tô con bị trượt lệch tọa độ ra ngoài thân xe hơn 500 pixel. Confirmed." },
+      { id: "dean_11", pool: "Đề ẩn 13", stem: "img_0199", tv: "TV5", tvName: "Nguyễn Huy Vượng", type: "missing_box", verdict: "rejected", note: "[TV5-Vuong] Bóng người đứng xa ngoài đường biên sân cỏ chơi đĩa ném frisbee thuộc hậu cảnh không gán box", oral: "Bóng người đứng rất xa ngoài đường biên sân cỏ, mờ và chiếm dưới 0.1% ảnh, thuộc hậu cảnh không đóng box. Rejected." },
+      { id: "dean_12", pool: "Đề ẩn 13", stem: "img_0238", tv: "TV3", tvName: "Nguyễn Thế Phách", type: "class_swap", verdict: "confirmed", note: "[TV3-Phach] Chiếc ghế đơn xếp ngoài trời trong quán ăn bị file nhãn detection gán nhầm thành ghế dài bench", oral: "Chiếc ghế đơn 1 chỗ ngồi xếp ngoài trời bị detection gán nhầm thành ghế dài băng ghế (bench). Confirmed." },
+      { id: "dean_13", pool: "Đề ẩn 13", stem: "img_0245", tv: "TV2", tvName: "Trịnh Đức Mạnh", type: "missing_box", verdict: "confirmed", note: "[TV2-Manh] Bồn cầu màu trắng chiếm diện tích lớn trong nhà vệ sinh bị bỏ sót hoàn toàn không có bounding box", oral: "Bồn cầu sứ trắng chiếm hơn 15% diện tích ảnh trong phòng tắm bị sót hoàn toàn không có box detection. Confirmed." },
+    ];
+
+    function renderReviewStationView() {
+      const activeMem = state.reviewMemFilter || "all";
+      const activePool = state.reviewPoolFilter || "all";
+
+      const filtered = REVIEW_ITEMS.filter(it => {
+        const memOk = activeMem === "all" || it.tv.toLowerCase() === activeMem.toLowerCase();
+        const poolOk = activePool === "all" || (activePool === "r3007" ? it.pool.includes("3007") : it.pool.includes("Đề ẩn"));
+        return memOk && poolOk;
+      });
+
+      const confCount = filtered.filter(it => it.verdict === "confirmed").length;
+      const rejCount = filtered.filter(it => it.verdict === "rejected").length;
+
+      return `
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <!-- Header Banner -->
+          <section class="panel" style="background:linear-gradient(135deg, var(--bg-surface) 0%, rgba(79, 70, 229, 0.08) 100%);">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+              <div>
+                <h2 class="panel-title" style="margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                  <span>🔍 Trạm Kiểm Duyệt Thủ Công 5 Thành Viên (Pha 2 — Visual Inspection)</span>
+                  <span class="badge badge-warning">Rubric Mục 2 · 15 Điểm</span>
+                </h2>
+                <p style="margin:0;color:var(--text-secondary);font-size:13.5px;max-width:860px;line-height:1.5;">
+                  <strong>Nguyên tắc vàng:</strong> Lỗi gán nhãn không có nhãn gốc để so. Nguồn duy nhất là ảnh thực tế và sự bất đồng giữa Detection ↔ Panoptic. Bắt buộc <strong>cả 5 thành viên phải mở ảnh xem trực tiếp bằng mắt</strong>, phân biệt lỗi thật với lệch tự nhiên COCO, và ghi chú cụ thể (≥ 20 ký tự) để bảo vệ điểm trong phần <strong>Vấn đáp 3 phút</strong>.
+                </p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="btn btn-primary" href="runs/r3007/review_board.html" target="_blank">🖼️ Mở Review Board Luyện tập</a>
+                <a class="btn btn-primary" href="docs/review_board_dean.html" target="_blank">🎯 Mở Review Board Đề ẩn 13</a>
+              </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid-4" style="margin-top:16px;">
+              <div class="stat-box">
+                <div class="stat-box-label">Tổng ứng viên hiển thị</div>
+                <div class="stat-box-num">${filtered.length}</div>
+                <div class="stat-box-desc">Từ 24 ca đối chiếu (11 r3007 + 13 đề ẩn)</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-box-label">Confirmed (Lỗi thật)</div>
+                <div class="stat-box-num" style="color:var(--status-success);">${confCount}</div>
+                <div class="stat-box-desc">Chuyển sang rework hoặc ghi README</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-box-label">Rejected (Nhiễu tự nhiên)</div>
+                <div class="stat-box-num" style="color:var(--status-danger);">${rejCount}</div>
+                <div class="stat-box-desc">Loại bỏ để tránh tụt Precision &amp; F1</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-box-label">Phân bổ 5 người</div>
+                <div class="stat-box-num" style="color:var(--accent);">100%</div>
+                <div class="stat-box-desc">Mỗi thành viên phụ trách 4–5 ảnh</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Filter Bar -->
+          <section class="panel" style="padding:14px 18px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span style="font-size:13px;font-weight:700;color:var(--text-secondary);">👤 Lọc theo thành viên:</span>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-sm ${activeMem === "all" ? "btn-primary" : ""}" onclick="setReviewMemFilter('all')">Tất cả (5 người)</button>
+                  ${MEMBERS.map(m => `
+                    <button type="button" class="btn btn-sm ${activeMem === m.code.toLowerCase() ? "btn-primary" : ""}"
+                      style="${activeMem === m.code.toLowerCase() ? "" : `border-color:${m.colorVar}66;color:${m.colorVar};`}"
+                      onclick="setReviewMemFilter('${m.code.toLowerCase()}')">
+                      ${m.code} · ${m.fullName.split(" ").slice(-1)[0]}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-size:13px;font-weight:700;color:var(--text-secondary);">📁 Lô dữ liệu:</span>
+                <select class="control" style="min-width:160px;padding:6px 10px;font-size:12.5px;" onchange="setReviewPoolFilter(this.value)">
+                  <option value="all" ${activePool === "all" ? "selected" : ""}>Tất cả (24 ảnh)</option>
+                  <option value="r3007" ${activePool === "r3007" ? "selected" : ""}>Lô luyện tập Seed 3007 (11)</option>
+                  <option value="dean" ${activePool === "dean" ? "selected" : ""}>Lô Đề ẩn 13 (13)</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Table of manual review items -->
+          <section class="panel">
+            <h3 class="panel-title" style="margin-bottom:12px;">Bảng Chi Tiết Kiểm Duyệt Thủ Công &amp; Dữ Liệu Vấn Đáp 3 Phút</h3>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Lô</th>
+                    <th>Mã ảnh</th>
+                    <th>Thành viên phụ trách</th>
+                    <th>Loại lỗi</th>
+                    <th>Kết luận (Verdict)</th>
+                    <th>Ghi chú thấy gì trong ảnh (≥ 20 ký tự)</th>
+                    <th>Gợi ý trả lời Vấn đáp 3 phút</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${filtered.map((it, idx) => {
+                    const isConf = it.verdict === "confirmed";
+                    const mem = MEMBERS.find(m => m.code === it.tv) || MEMBERS[0];
+                    return `
+                      <tr>
+                        <td><strong>${idx + 1}</strong></td>
+                        <td><span class="badge ${it.pool.includes('3007') ? 'badge-info' : 'badge-danger'}">${escapeHtml(it.pool)}</span></td>
+                        <td><code class="inline">${escapeHtml(it.stem)}</code></td>
+                        <td>
+                          <span class="badge" style="background:${mem.colorBgVar};color:${mem.colorVar};font-weight:700;">
+                            ${escapeHtml(it.tv)} · ${escapeHtml(it.tvName)}
+                          </span>
+                        </td>
+                        <td><span class="badge">${escapeHtml(it.type)}</span></td>
+                        <td>
+                          <span class="badge ${isConf ? 'badge-success' : 'badge-danger'}" style="font-weight:700;">
+                            ${isConf ? '✓ Confirmed' : '✗ Rejected'}
+                          </span>
+                        </td>
+                        <td style="max-width:320px;font-size:12.5px;line-height:1.4;">
+                          ${escapeHtml(it.note)}
+                        </td>
+                        <td style="max-width:340px;font-size:12px;color:var(--text-secondary);line-height:1.4;">
+                          <strong style="color:var(--text-primary);">Hỏi:</strong> <em>Vì sao ${it.verdict}? Thấy gì?</em><br>
+                          <strong style="color:var(--accent);">Đáp:</strong> ${escapeHtml(it.oral)}
+                        </td>
+                      </tr>
+                    `;
+                  }).join("")}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Why reporting all candidates reduces F1 -->
+          <section class="panel">
+            <h3 class="panel-title">Câu hỏi cốt lõi: Vì sao báo hết ứng viên lại làm F1 GIẢM?</h3>
+            <div style="font-size:13.5px;color:var(--text-secondary);line-height:1.6;">
+              <p>
+                Theo công thức <code class="inline">F1 = 2 × P × R / (P + R)</code>, hệ thống chấm điểm trừng phạt False Positive (báo thừa) ngang bằng False Negative (bỏ sót).
+              </p>
+              <ul>
+                <li>Trên <strong>Seed 3007</strong>: Bộ đối chiếu bắt 11 ứng viên nhưng chỉ có <strong>8 lỗi thật</strong>. 3 ứng viên còn lại là vật mờ xa hậu cảnh (<code class="inline">000000000872</code>), khuất bụi cây (<code class="inline">000000001818</code>), hoặc cắt cụt > 70% rìa ảnh (<code class="inline">000000012748</code>). Nếu báo hết 11 ứng viên mà không qua review mắt, nhóm dính 3 FP, Precision tụt từ 1.0 xuống 0.73, kéo F1 giảm từ <strong>0.95 xuống ~0.7</strong>!</li>
+                <li>Trên <strong>Đề ẩn 13</strong>: Bộ đối chiếu bắt 13 ứng viên, trong đó có <strong>4 trường hợp lệch tự nhiên COCO</strong> (bàn phím góc nghiêng 3D <code class="inline">img_0045</code>, mép sách hậu cảnh <code class="inline">img_0104</code>, xe máy mờ xa <code class="inline">img_0131</code>, người ngoài biên sân <code class="inline">img_0199</code>). Bước xem ảnh bằng mắt giúp lọc chính xác 4 ca này sang <code class="inline">rejected</code>, giữ trọn Precision 1.0 cho nhóm!</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function setReviewMemFilter(mem) {
+      state.reviewMemFilter = mem;
+      renderView();
+    }
+
+    function setReviewPoolFilter(pool) {
+      state.reviewPoolFilter = pool;
+      renderView();
+    }
+
     function renderVanDapView() {
       return `
         <div style="display:flex;flex-direction:column;gap:16px;">
@@ -3532,6 +3732,7 @@
       const root = document.getElementById("view-root");
       if (state.tab === "overview") root.innerHTML = renderOverview();
       else if (state.tab === "timeline") root.innerHTML = renderTimelineView();
+      else if (state.tab === "review_station") root.innerHTML = renderReviewStationView();
       else if (state.tab === "dean") {
         root.innerHTML = renderDeAnView();
         updateTimerDisplay();
