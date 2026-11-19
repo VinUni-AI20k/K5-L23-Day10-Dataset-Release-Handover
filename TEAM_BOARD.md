@@ -36,6 +36,7 @@ _Cập nhật tự động từ GitHub API lúc 2026-11-19 09:42 UTC_
 | [#13](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/13) | Individual contribution evidence — Bùi Văn Thịnh (2A202604040) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
 | [#14](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/14) | Individual contribution evidence — Nguyễn Xuân Việt (2A202604045) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
 | [#15](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/15) | Individual contribution evidence — Hoàng Trọng Trà (2A202603342) | _Chưa assign_ | `type:qc`, `status:ready` | OPEN |
+| [#16](https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover/issues/16) | Individual contribution evidence — Nguyễn Quốc Hưng (2A202603324) | @Soraxolo | `type:qc`, `status:ready` | OPEN |
 
 **Pull Requests:** 0 total (0 open, 0 merged)
 <!-- TEAM_PROGRESS_END -->
