@@ -1092,6 +1092,283 @@
       text-align: center;
     }
 
+    /* =========================================================================
+       SHARED TIMELINE & HANDOFF MATRIX TAB
+       ========================================================================= */
+    .tl-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tl-badge-before {
+      background: var(--status-info-bg);
+      color: var(--status-info);
+      border: 1px solid hsla(204, 86%, 56%, 0.35);
+    }
+
+    .tl-badge-parallel {
+      background: hsla(268, 76%, 64%, 0.16);
+      color: var(--m3);
+      border: 1px solid hsla(268, 76%, 64%, 0.35);
+    }
+
+    .tl-badge-after {
+      background: var(--status-warning-bg);
+      color: var(--status-warning);
+      border: 1px solid hsla(36, 92%, 52%, 0.35);
+    }
+
+    .tl-badge-joint {
+      background: var(--status-success-bg);
+      color: var(--status-success);
+      border: 1px solid hsla(152, 64%, 44%, 0.35);
+    }
+
+    .tl-spine {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-left: 28px;
+    }
+
+    .tl-spine::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--m2), var(--m4), var(--status-danger));
+      opacity: 0.45;
+    }
+
+    .tl-phase {
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm), var(--inset-highlight);
+    }
+
+    .tl-phase-node {
+      position: absolute;
+      left: -28px;
+      top: 18px;
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-full);
+      background: var(--accent);
+      color: var(--accent-fg);
+      border: 2px solid var(--bg-canvas);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tl-phase-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .tl-phase-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tl-stage-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tl-stage {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+    }
+
+    .tl-stage-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .tl-stage-arrow {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 2px 0;
+      user-select: none;
+    }
+
+    .tl-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    .tl-cards-grid.single {
+      grid-template-columns: 1fr;
+    }
+
+    .tl-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-top: 3px solid var(--card-accent, var(--accent));
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition-base);
+    }
+
+    .tl-card.dimmed {
+      opacity: 0.34;
+    }
+
+    .tl-card.highlighted {
+      border-color: var(--card-accent, var(--accent));
+      box-shadow: 0 0 0 1px var(--card-accent, var(--accent)), var(--shadow-sm);
+    }
+
+    .tl-card.is-done {
+      background: linear-gradient(180deg, var(--status-success-bg), var(--bg-surface) 45%);
+    }
+
+    .tl-card-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .tl-owner-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .tl-owner-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: var(--radius-full);
+      background: var(--card-accent, var(--accent));
+      flex-shrink: 0;
+    }
+
+    .tl-card-action {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.45;
+    }
+
+    .tl-io-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-subtle);
+      font-size: 12px;
+    }
+
+    .tl-io-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
+
+    .tl-io-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tl-io-in {
+      background: var(--status-warning-bg);
+      color: var(--status-warning);
+    }
+
+    .tl-io-out {
+      background: var(--status-success-bg);
+      color: var(--status-success);
+    }
+
+    .tl-card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 6px;
+      font-size: 12px;
+    }
+
+    .tl-focus-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+    }
+
+    .tl-focus-summary h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+    }
+
+    .tl-focus-summary ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+
+    .tl-focus-summary li {
+      margin-bottom: 4px;
+    }
+
     /* Responsive */
     @media (max-width: 1080px) {
       .roster-grid {
@@ -1106,8 +1383,17 @@
       .roster-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .grid-2, .grid-3, .outcome-grid, .field-grid {
+      .grid-2, .grid-3, .outcome-grid, .field-grid, .tl-focus-summary {
         grid-template-columns: 1fr;
+      }
+      .tl-spine {
+        padding-left: 18px;
+      }
+      .tl-phase-node {
+        left: -20px;
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
       }
     }
 
@@ -1132,8 +1418,8 @@
       <div class="brand">
         <div class="brand-icon" aria-hidden="true">D10</div>
         <div>
-          <h1 class="brand-title">Day 10 Lab — Bảng Điều Phối 5 Thành Viên</h1>
-          <p class="brand-sub">Dataset Release &amp; Handover · Tự chứa 100% Offline · Mục tiêu 100/100 điểm</p>
+          <h1 class="brand-title">Day 10 Lab — Bảng Điều Phối Nhóm 03 (5 Thành Viên)</h1>
+          <p class="brand-sub">Dataset Release &amp; Handover · Seed 3007 · Đề ẩn de_an_13 · Tự chứa 100% Offline</p>
         </div>
       </div>
 
@@ -1164,7 +1450,7 @@
     <!-- Cảnh báo khẩn cấp cho TV5 -->
     <div class="alert-banner" id="invite-alert" role="alert">
       <div>
-        <strong>Việc khẩn cấp Pha 0:</strong> Tài khoản <strong>Huy Vương (<code class="inline">Virgoboyy</code>)</strong> đang ở trạng thái <em>Awaiting response</em> trên GitHub Manage Access. Hãy vào email/GitHub chấp nhận lời mời Collaborator ngay để push được tối thiểu ≥ 2 commit cá nhân (4/4đ Mục 6 Rubric).
+        <strong>Việc khẩn cấp Pha 0:</strong> Tài khoản <strong>Nguyễn Huy Vượng (<code class="inline">Virgoboyy</code>)</strong> đang ở trạng thái <em>Awaiting response</em> trên GitHub Manage Access. Hãy vào email/GitHub chấp nhận lời mời Collaborator ngay để push được tối thiểu ≥ 2 commit cá nhân (4/4đ Mục 6 Rubric).
       </div>
       <button type="button" class="btn btn-sm" id="btn-jump-tv5">Mở việc TV5</button>
     </div>
@@ -1359,7 +1645,7 @@
         steps: [
           "Chạy unittest tests/test_pipeline.py kiểm tra môi trường sạch.",
           "Điền submission/TEAM.md (dùng nút Tạo TEAM.md ở thanh trên) và chốt seed {{SEED}} lên nhóm chat.",
-          "Nhắc Huy Vương (Virgoboyy) chấp nhận lời mời Collaborator trên GitHub."
+          "Nhắc Huy Vượng (Virgoboyy) chấp nhận lời mời Collaborator trên GitHub."
         ],
         cmd: "{{PY}} -m unittest tests/test_pipeline.py",
         expected: "MetricsTest & ReleaseTest báo OK. Repo có commit P0 đầu tiên của TV1.",
@@ -1664,7 +1950,7 @@
         commit: ""
       },
 
-      // ==================== TV5: Virgoboyy (Huy Vương) ====================
+      // ==================== TV5: Virgoboyy (Huy Vượng) ====================
       {
         id: "tv5-p0-1", member: "tv5", phase: "P0", critical: true, time: "10'",
         title: "KHẨN CẤP: Chấp nhận lời mời Collaborator GitHub (Virgoboyy), clone & cài Git",
@@ -1829,6 +2115,510 @@
     ];
 
     /* =========================================================================
+       SHARED TIMELINE & HANDOFF DATA (Trước / Song song / Sau / Chung · Cần ← / Trả →)
+       ========================================================================= */
+    const TIMELINE_PHASES = [
+      {
+        id: "P0",
+        node: "P0",
+        time: "0:00 – 0:15 (15')",
+        title: "Pha 0 — Chuẩn bị, Chốt Seed & Mở đường chạy song song",
+        gate: "CP0: Đủ data, có runs/r{{SEED}}, có R-021, 5/5 thành viên push được nhánh cá nhân",
+        stages: [
+          {
+            orderLabel: "Bước 1 · Làm TRƯỚC (0:00 – 0:08)",
+            kind: "before",
+            items: [
+              {
+                owner: "tv1", kind: "before",
+                action: "Tải COCO (250 practice + 50 calib), chạy run_lab.py --seeds {{SEED}} (1 lần duy nhất tạo R-021), cập nhật README.md, submission/TEAM.md & push lên main.",
+                needsFrom: [],
+                needsText: "Không phụ thuộc (khởi phát dây chuyền)",
+                givesTo: ["all"],
+                givesText: "Cả nhóm: Seed {{SEED}}, mã release_id v1, TEAM.md, bảng docs/team-tracker.html & cache COCO (nếu copy nội bộ)",
+                taskIds: ["tv1-p0-1", "tv1-p0-2"]
+              },
+              {
+                owner: "tv5", kind: "before",
+                action: "Chấp nhận lời mời Collaborator GitHub (Virgoboyy) và cấu hình git user.name/email.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Lời mời Collaborator trên repo nhóm",
+                givesTo: ["tv1"],
+                givesText: "TV1 & Cả nhóm: Xác nhận quyền push nhánh TV5-HuyVuong",
+                taskIds: ["tv5-p0-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Bước 2 · Chạy SONG SONG sau khi TV1 push (0:08 – 0:15)",
+            kind: "parallel",
+            items: [
+              {
+                owner: "tv2", kind: "parallel",
+                action: "Clone/pull repo, tải data (hoặc copy cache từ TV1), tạo r11, r22, runs/clean; đọc pngutil.py.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Link repo & Seed {{SEED}}",
+                givesTo: ["tv1"],
+                givesText: "Sẵn sàng code validator/pan_rules.py & cross_check.py",
+                taskIds: ["tv2-p0-1"]
+              },
+              {
+                owner: "tv3", kind: "parallel",
+                action: "Clone/pull repo, kiểm tra Pillow, đọc chuẩn H3 (review_log.csv) & tải data.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Link repo & Seed {{SEED}}",
+                givesTo: ["all"],
+                givesText: "Sẵn sàng code tools/render_review.py",
+                taskIds: ["tv3-p0-1"]
+              },
+              {
+                owner: "tv4", kind: "parallel",
+                action: "Clone/pull repo, tạo r11 để test thử, đọc kỹ mã H1–H15 trong scripts/check_handover.py.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Link repo & Seed {{SEED}}",
+                givesTo: ["tv1"],
+                givesText: "Sẵn sàng code tools/build_v2.py",
+                taskIds: ["tv4-p0-1"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "P1",
+        node: "P1",
+        time: "0:15 – 0:55 (40')",
+        title: "Pha 1 — Code song song 5 luồng (Validator 9 lỗi luật + Công cụ Pha 2, 4, 5)",
+        gate: "CP1: Lỗi luật đạt F1 = 1.0 trên r{{SEED}}, r11, r22 và 0 lỗi trên runs/clean",
+        stages: [
+          {
+            orderLabel: "Bước 1 · 5 Thành viên chạy SONG SONG (0:15 – 0:45 — không ai phải chờ ai)",
+            kind: "parallel",
+            items: [
+              {
+                owner: "tv1", kind: "parallel",
+                action: "Viết CLI validator/validate.py + 7 lỗi Detection/Metadata trong validator/det_rules.py (0 FP trên runs/clean).",
+                needsFrom: [],
+                needsText: "Không phụ thuộc (dùng data_source đã tải ở P0)",
+                givesTo: ["tv2", "tv3"],
+                givesText: "TV2 (Mạnh): Giao diện gọi pan_rules & cross_check; TV3 (Phách): Validator để chạy test tuân thủ",
+                taskIds: ["tv1-p1-1"]
+              },
+              {
+                owner: "tv2", kind: "parallel",
+                action: "Viết validator/pan_rules.py bắt invalid_category_id & thing_overlap (dùng scripts/pngutil.py + Counter).",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Chữ ký hàm check_panoptic_rules(delivery) -> list[dict]",
+                givesTo: ["tv1"],
+                givesText: "TV1 (Hòa): File validator/pan_rules.py để ghép đủ 9/9 lỗi luật",
+                taskIds: ["tv2-p1-1"]
+              },
+              {
+                owner: "tv3", kind: "parallel",
+                action: "Viết tools/render_review.py (Pillow vẽ 3 khung ảnh ra HTML) & tests/test_validator.py.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Định dạng JSON candidates {candidates:[{type,image,...}]}",
+                givesTo: ["all"],
+                givesText: "Cả nhóm: Tool render_review.py sẵn sàng chạy ngay ở Pha 2 & Đề ẩn",
+                taskIds: ["tv3-p1-1"]
+              },
+              {
+                owner: "tv4", kind: "parallel",
+                action: "Viết trước tools/build_v2.py tạo đủ 7 thành phần lô v2 (sửa hash/guideline/split, loại 7 lỗi Det, giữ 4 lỗi Pan).",
+                needsFrom: [],
+                needsText: "Không phụ thuộc (test bằng lỗi giả lập trên r11)",
+                givesTo: ["tv1"],
+                givesText: "Cả nhóm: Script build_v2.py sẵn sàng chạy ngay khi chốt errors.json ở Pha 4",
+                taskIds: ["tv4-p1-1"]
+              },
+              {
+                owner: "tv5", kind: "parallel",
+                action: "Viết trước tools/trace_ticket.py (lấy guideline theo jobs.csv, lọc notify theo job bị ảnh hưởng) & test đạt F1=1.0 trên r11, r22.",
+                needsFrom: [],
+                needsText: "Không phụ thuộc (test độc lập trên r11, r22)",
+                givesTo: ["tv1", "tv4"],
+                givesText: "Cả nhóm: Tool trace_ticket.py chuẩn F1=1.0 cho cả r{{SEED}} & Đề ẩn",
+                taskIds: ["tv5-p1-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Bước 2 · Làm SAU — Ghép & Kiểm định 9/9 Lỗi luật (0:45 – 0:55)",
+            kind: "after",
+            items: [
+              {
+                owner: "tv1", kind: "after",
+                action: "Merge nhánh TV2 vào main (--no-ff), chạy validate.py + score_findings.py trên r{{SEED}}, r11, r22 và runs/clean.",
+                needsFrom: ["tv2", "tv3"],
+                needsText: "TV2 (Mạnh): validator/pan_rules.py · TV3 (Phách): tests/test_validator.py",
+                givesTo: ["all"],
+                givesText: "Cả nhóm: Bản validator lỗi luật F1 = 1.0, 0 lỗi trên runs/clean (đạt CP1)",
+                taskIds: ["tv1-p1-1"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "P2",
+        node: "P2",
+        time: "0:55 – 1:50 (55')",
+        title: "Pha 2 — Đối chiếu Det ↔ Panoptic, Render Board & Toàn đội Review Ảnh",
+        gate: "CP2: Biết số ứng viên trên clean, xong review_log.csv (chuẩn H3), chốt errors.json F1 ≥ 0.9",
+        stages: [
+          {
+            orderLabel: "Bước 1 · Làm TRƯỚC — Sinh & Hiệu chuẩn candidates.json (0:55 – 1:15)",
+            kind: "before",
+            items: [
+              {
+                owner: "tv2", kind: "before",
+                action: "Hoàn thiện validator/cross_check.py (pixel coverage seg_in_box + bbox_iou), hiệu chuẩn ngưỡng trên runs/clean rồi push.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): rule_targets (các ảnh đã dính lỗi luật) & chuẩn JSON cho TV3",
+                givesTo: ["tv1", "tv3"],
+                givesText: "TV1 (Hòa): validator/cross_check.py + số liệu nhiễu trên runs/clean",
+                taskIds: ["tv2-p2-1"]
+              },
+              {
+                owner: "tv1", kind: "after",
+                action: "Tích hợp cross_check.py, chạy validate.py xuất runs/r{{SEED}}/rules.json và runs/r{{SEED}}/candidates.json.",
+                needsFrom: ["tv2"],
+                needsText: "TV2 (Mạnh): validator/cross_check.py đã hiệu chuẩn",
+                givesTo: ["tv3"],
+                givesText: "TV3 (Phách): File candidates.json của seed {{SEED}} & TV4 (Phúc): danh sách ảnh wrong_hash trong rules.json",
+                taskIds: ["tv1-p2-1"]
+              },
+              {
+                owner: "tv3", kind: "after",
+                action: "Chạy tools/render_review.py sinh review_board.html và chia đều ứng viên thành 5 cụm (Cụm 1–5).",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): runs/r{{SEED}}/candidates.json",
+                givesTo: ["all"],
+                givesText: "Cả 5 TV: Link/file review_board.html + danh sách cụm ảnh mỗi người phải xem",
+                taskIds: ["tv3-p2-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Bước 2 · ★ VIỆC CHUNG — Cả 5 Thành viên Review Ảnh Đồng loạt (1:15 – 1:40)",
+            kind: "joint",
+            items: [
+              {
+                owner: "all", kind: "joint",
+                action: "Cả 5 người mở ảnh gốc & ảnh overlay xem 20% hàng đợi của mình: Cụm 1 (TV1 Hòa) · Cụm 2 (TV2 Mạnh) · Cụm 3 (TV3 Phách) · Cụm 4 (TV4 Phúc + mở ảnh kiểm wrong_hash) · Cụm 5 (TV5 Vượng + tìm 1–2 ảnh có khuôn mặt rõ cho security.md). Ghi chú ≥ 20 ký tự mô tả vật thấy + [Tên].",
+                needsFrom: ["tv3"],
+                needsText: "TV3 (Phách): Bảng review_board.html đã chia 5 cụm",
+                givesTo: ["tv3"],
+                givesText: "TV3 (Phách): 5 phần nhận xét confirmed/rejected chi tiết (riêng TV4 giữ log wrong_hash, TV5 giữ mã ảnh khuôn mặt)",
+                taskIds: ["tv1-p2-1", "tv2-p2-2", "tv3-p2-1", "tv4-p2-1", "tv5-p2-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Bước 3 · Làm SAU — Tổng hợp review_log.csv & Chốt errors.json (1:40 – 1:50)",
+            kind: "after",
+            items: [
+              {
+                owner: "tv3", kind: "after",
+                action: "Gom 5 phần review thành runs/r{{SEED}}/review_log.csv, rà chuẩn H3 (≥ 20 ký tự, ≥ 70% note khác nhau, soát kỹ class_swap vs category_swap).",
+                needsFrom: ["all"],
+                needsText: "Cả 5 TV: Kết quả xem ảnh Cụm 1–5",
+                givesTo: ["tv1"],
+                givesText: "TV1 (Hòa): File runs/r{{SEED}}/review_log.csv chuẩn H3",
+                taskIds: ["tv3-p2-1"]
+              },
+              {
+                owner: "tv1", kind: "after",
+                action: "Chạy scripts/merge_review.py gộp rules.json + review_log.csv thành runs/r{{SEED}}/errors.json và chạy score_findings.py tự đo F1.",
+                needsFrom: ["tv3"],
+                needsText: "TV3 (Phách): runs/r{{SEED}}/review_log.csv",
+                givesTo: ["tv4", "tv3"],
+                givesText: "TV4 (Phúc): errors.json chốt để dựng lô v2 · TV3 (Phách): số liệu F1 để viết Mục 2 REPORT.md",
+                taskIds: ["tv1-p2-1"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "P3",
+        node: "P3",
+        time: "1:50 – 2:05 (15')",
+        title: "Pha 3 — Quyết định HOLD (> 2%) & Truy vấn Lineage R-021",
+        gate: "CP3: runs/lineage.jsonl có decision HOLD cho v1 và impact in R-021: affected=True",
+        stages: [
+          {
+            orderLabel: "Bước duy nhất · Làm TRƯỚC khi đóng gói v2",
+            kind: "before",
+            items: [
+              {
+                owner: "tv1", kind: "before",
+                action: "Tính QC v1 = số target duy nhất trong errors.json / 250 (> 2% → HOLD), chạy lineage.py record HOLD & lineage.py impact kiểm tra R-021.",
+                needsFrom: ["tv1"],
+                needsText: "Pha 2: runs/r{{SEED}}/errors.json & release_id v1",
+                givesTo: ["tv4"],
+                givesText: "TV4 (Phúc): Số liệu QC v1 chính xác & runs/lineage.jsonl đã có HOLD để ghi vào README.txt (khớp H13b, H14)",
+                taskIds: ["tv1-p3-1"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "P4",
+        node: "P4",
+        time: "2:05 – 2:45 (40' → rút gọn ~15')",
+        title: "Pha 4 & Pha 5 (Chạy SONG SONG) — Đóng gói Lô v2 (TV4) & Truy vết Ticket AI (TV5)",
+        gate: "CP4 + CP5: H1–H16 PASS 100%, trace.json đạt F1 = 1.0",
+        stages: [
+          {
+            orderLabel: "Chạy SONG SONG ngay sau Pha 3 (TV4 làm Pha 4, TV5 làm Pha 5 cùng lúc)",
+            kind: "parallel",
+            items: [
+              {
+                owner: "tv4", kind: "parallel",
+                action: "Chạy tools/build_v2.py tạo 7 phần handover/<RID>_v2/, hoàn thiện README.txt, chạy pack_release.py + lineage.py release v2 --parent <RID>, kiểm H1–H15 PASS.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): errors.json, review_log.csv & lineage HOLD từ P3",
+                givesTo: ["tv1", "tv5"],
+                givesText: "TV1 (Hòa): Thư mục handover/<RID>_v2/ + .sha256 (H1–H15 PASS) · TV5 (Vượng): Môi trường v2 sẵn sàng kiểm tổng",
+                taskIds: ["tv4-p4-1"]
+              },
+              {
+                owner: "tv5", kind: "parallel",
+                action: "Chạy tools/trace_ticket.py trên runs/r{{SEED}}/delivery tạo runs/r{{SEED}}/trace.json, chạy score_findings.py xác nhận F1 = 1.0 (tier_a, tier_b, notify).",
+                needsFrom: ["tv1"],
+                needsText: "Pha 0: runs/r{{SEED}}/delivery (jobs.csv, labels, ticket.md, changelog.md)",
+                givesTo: ["tv1"],
+                givesText: "TV1 (Hòa): runs/r{{SEED}}/trace.json (H16 PASS & F1 = 1.0)",
+                taskIds: ["tv5-p5-1"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "P6a",
+        node: "P6a",
+        time: "2:45 – 3:15 (30')",
+        title: "Pha 6a — Bảo mật (H17), Báo cáo 5 mảnh & Diễn tập Đề ẩn (--opaque)",
+        gate: "CP6a: check_handover.py đạt 17/17 PASS, 0 FAIL; đã export submission/r{{SEED}}/ và push!",
+        stages: [
+          {
+            orderLabel: "Bước 1 · Chạy SONG SONG hoàn thiện Security, REPORT.md, prompts.md & Test --opaque",
+            kind: "parallel",
+            items: [
+              {
+                owner: "tv5", kind: "parallel",
+                action: "Viết runs/r{{SEED}}/security.md (3 mục H2 ≥ 80 ký tự, sạch <<>>, ca khuôn mặt Hold + mã ảnh thật từ P2) & viết Mục 5 REPORT.md.",
+                needsFrom: [],
+                needsText: "Pha 2: Mã ảnh có mặt người rõ đã mở xem",
+                givesTo: ["tv1"],
+                givesText: "TV1 (Hòa): runs/r{{SEED}}/security.md (H17 PASS) & Mục 5 REPORT.md",
+                taskIds: ["tv5-p6a-1"]
+              },
+              {
+                owner: "tv2", kind: "parallel",
+                action: "Diễn tập tạo lô giả lập --opaque (seed 99) kiểm tốc độ & độ ổn định validator; điền phân tích chọn ngưỡng vào Mục 1 REPORT.md + prompts.md.",
+                needsFrom: [],
+                needsText: "Validator hoàn chỉnh từ P2",
+                givesTo: ["tv1"],
+                givesText: "Cả nhóm: Xác nhận pipeline chạy mượt trên ảnh mã hóa img_0001 + Mục 1 REPORT",
+                taskIds: ["tv2-p6a-1"]
+              },
+              {
+                owner: "tv3", kind: "parallel",
+                action: "Viết Mục 2 REPORT.md (vì sao báo hết ứng viên làm F1 giảm bằng số thật) và rà soát tổng thể submission/prompts.md.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Số liệu candidates.json vs errors.json",
+                givesTo: ["tv1"],
+                givesText: "TV1 (Hòa): Mục 2 REPORT.md & prompts.md sạch",
+                taskIds: ["tv3-p6a-1"]
+              },
+              {
+                owner: "tv4", kind: "parallel",
+                action: "Viết Mục 4 REPORT.md (Hash chứng minh gì / không chứng minh gì) và viết sẵn tools/check_dean.py để sanity check Đề ẩn.",
+                needsFrom: [],
+                needsText: "Kinh nghiệm chạy pack_release & H8/H15 ở P4",
+                givesTo: ["tv1"],
+                givesText: "Cả nhóm: Mục 4 REPORT.md & tool tools/check_dean.py cho Pha 6b",
+                taskIds: ["tv4-p6a-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Bước 2 · Làm SAU — Tổng kiểm 17/17 PASS & Export Seed {{SEED}}",
+            kind: "after",
+            items: [
+              {
+                owner: "tv1", kind: "after",
+                action: "Gom đủ 5 mục REPORT.md (bổ sung Mục 1, 3), chạy check_handover.py xác nhận 17 PASS / 0 FAIL, chạy export_submission.py --run runs/r{{SEED}} và push lên main.",
+                needsFrom: ["tv2", "tv3", "tv4", "tv5"],
+                needsText: "TV4 (handover v2) · TV5 (trace.json + security.md) · TV2,3,4,5 (các mục REPORT.md & prompts.md)",
+                givesTo: ["all"],
+                givesText: "Cả nhóm: Khóa an toàn 100% điểm luyện tập (~44đ) trên GitHub trước khi bước vào Đề ẩn!",
+                taskIds: ["tv1-p6a-1"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "P6b",
+        node: "P6b",
+        time: "3:15 – 3:55 (40' ĐỀ ẨN)",
+        title: "Pha 6b — Thực chiến Đề ẩn de_an_13 (52/100 điểm — Quản trị từng phút)",
+        gate: "CP6b: Push đủ 4 file submission/de_an/ trước phút 38 và nộp link LMS trước giờ đóng hạn!",
+        stages: [
+          {
+            orderLabel: "Chặng 1 · Làm TRƯỚC & SONG SONG (Phút 00 – 05)",
+            kind: "before",
+            items: [
+              {
+                owner: "tv1", kind: "before",
+                action: "Giải nén de_an_13/de_an.zip thành delivery/, chạy validator/validate.py xuất submission/de_an/rules.json & candidates.json.",
+                needsFrom: [],
+                needsText: "File de_an_13/de_an.zip đã giải nén tại gốc repo",
+                givesTo: ["tv2", "tv3"],
+                givesText: "TV3 (Phách): submission/de_an/candidates.json · TV2 (Mạnh): phân bố ứng viên để soi profile mới",
+                taskIds: ["tv1-p6b-1"]
+              },
+              {
+                owner: "tv5", kind: "parallel",
+                action: "Chạy ngay tools/trace_ticket.py delivery --out submission/de_an/trace.json và kiểm chéo thủ công với ticket.md (lớp truck) + jobs.csv.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): Thư mục delivery/ đã giải nén",
+                givesTo: ["tv4", "tv1"],
+                givesText: "TV4 & TV1: File submission/de_an/trace.json chính xác 100% (6/6đ) xong ngay phút thứ 5!",
+                taskIds: ["tv5-p6b-1"]
+              },
+              {
+                owner: "tv3", kind: "after",
+                action: "Chạy tools/render_review.py sinh runs/de_an_board.html và chia đều 5 cụm ảnh cho 5 người.",
+                needsFrom: ["tv1"],
+                needsText: "TV1 (Hòa): submission/de_an/candidates.json",
+                givesTo: ["all"],
+                givesText: "Cả 5 TV: Bảng ảnh de_an_board.html chia 5 cụm",
+                taskIds: ["tv3-p6b-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Chặng 2 · ★ VIỆC CHUNG — Cả 5 Thành viên Review Đề ẩn Đồng loạt (Phút 05 – 25)",
+            kind: "joint",
+            items: [
+              {
+                owner: "all", kind: "joint",
+                action: "Cả 5 người đồng loạt mở ảnh xem 20% cụm của mình trên de_an_13 (Hòa Cụm 1 · Mạnh Cụm 2 · Phách Cụm 3 · Phúc Cụm 4 · Vượng Cụm 5). Ghi rõ thấy gì ≥ 20 ký tự, kiểm kỹ class_swap vs category_swap!",
+                needsFrom: ["tv3"],
+                needsText: "TV3 (Phách): de_an_board.html chia 5 cụm",
+                givesTo: ["tv3", "tv2"],
+                givesText: "TV3 (Phách): 5 phần nhận xét · TV2 (Mạnh): các ca bbox_drift & instance_merge để kiểm chéo",
+                taskIds: ["tv1-p6b-1", "tv2-p6b-1", "tv3-p6b-1", "tv4-p6b-1", "tv5-p6b-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Chặng 3 · Làm SAU — Soát chéo, Merge & Sanity Check (Phút 25 – 35)",
+            kind: "after",
+            items: [
+              {
+                owner: "tv3", kind: "after",
+                action: "Gom thành submission/de_an/review_log.csv và KIỂM CHÉO LẦN 2 toàn bộ ca class_swap vs category_swap + độ dài note ≥ 20 ký tự.",
+                needsFrom: ["all"],
+                needsText: "Cả 5 TV: Kết quả review Cụm 1–5",
+                givesTo: ["tv1"],
+                givesText: "TV1 (Hòa): submission/de_an/review_log.csv hoàn chỉnh",
+                taskIds: ["tv3-p6b-1"]
+              },
+              {
+                owner: "tv2", kind: "after",
+                action: "Kiểm chéo 100% ca bbox_drift & instance_merge trên ảnh để chắc chắn 0 FP và 0 FN.",
+                needsFrom: ["all"],
+                needsText: "Kết quả review ban đầu của 5 cụm",
+                givesTo: ["tv3"],
+                givesText: "TV3 (Phách): Xác nhận chốt các ca drift/merge trước khi merge",
+                taskIds: ["tv2-p6b-1"]
+              },
+              {
+                owner: "tv1", kind: "after",
+                action: "Chạy scripts/merge_review.py tạo submission/de_an/errors.json rồi xóa file tạm submission/de_an/rules.json.",
+                needsFrom: ["tv3"],
+                needsText: "TV3 (Phách): submission/de_an/review_log.csv",
+                givesTo: ["tv4"],
+                givesText: "TV4 (Phúc): Đủ 4 file trong submission/de_an/ để chạy sanity check",
+                taskIds: ["tv1-p6b-1"]
+              },
+              {
+                owner: "tv4", kind: "after",
+                action: "Chạy tools/check_dean.py kiểm định toàn bộ 4 file submission/de_an/ (JSON hợp lệ, 100% lỗi gán nhãn có confirmed ≥ 20 ký tự, không trùng ảnh).",
+                needsFrom: ["tv1", "tv5"],
+                needsText: "TV1 (errors.json, candidates.json, review_log.csv) · TV5 (trace.json)",
+                givesTo: ["tv1"],
+                givesText: "TV1 (Hòa): Tín hiệu XANH (0 lỗi) để commit & push!",
+                taskIds: ["tv4-p6b-1"]
+              }
+            ]
+          },
+          {
+            orderLabel: "Chặng 4 · ★ VIỆC CHUNG — Push, Xác minh trên Web GitHub & Nộp LMS (Phút 35 – 40)",
+            kind: "joint",
+            items: [
+              {
+                owner: "all", kind: "joint",
+                action: "TV1 kiểm git status (KHÔNG có delivery/ hay .zip), commit, git push origin main và nộp link LMS. Cùng lúc TV2 kiểm validator/, TV3 kiểm de_an/errors+review_log, TV4 kiểm r{{SEED}}/handover/, TV5 kiểm trace.json+security.md trực tiếp trên web GitHub!",
+                needsFrom: ["tv4"],
+                needsText: "TV4 (Phúc): Kết quả check_dean.py PASS",
+                givesTo: ["all"],
+                givesText: "Hoàn thành nộp bài 100% đúng cấu trúc trước giờ đóng hạn!",
+                taskIds: ["tv1-p6b-1", "tv4-p6b-1", "tv5-p6b-1"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "VD",
+        node: "VĐ",
+        time: "Cuối buổi (5' họp chéo + 3'/người)",
+        title: "Họp chéo 5 phút & Vấn đáp cá nhân (Cả 5 Thành viên)",
+        gate: "Mỗi thành viên trả lời trơn tru cả 3 trụ cột (Validator, Review log, README v2) → 100% điểm Mục 6",
+        stages: [
+          {
+            orderLabel: "★ VIỆC CHUNG — Trao đổi chéo kiến thức trước khi gọi tên ngẫu nhiên",
+            kind: "joint",
+            items: [
+              {
+                owner: "all", kind: "joint",
+                action: "TV1 & TV2 chỉ nhanh chỗ sửa hằng số trong det_rules.py / pan_rules.py / cross_check.py; TV4 & TV5 tóm tắt công thức README.txt, R-021, hash, jobs.csv & ca khuôn mặt; mỗi người tự nhớ ít nhất 1 ca confirmed + 1 ca rejected mình đã xem.",
+                needsFrom: ["all"],
+                needsText: "Mỗi người chia sẻ nhanh phần code/báo cáo của mình (1 phút/người)",
+                givesTo: ["all"],
+                givesText: "Cả 5 người tự tin đạt tối đa điểm vấn đáp cá nhân!",
+                taskIds: []
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const HANDOFF_LEDGER = [
+      { id: 1, phase: "P0", from: "tv1", item: "Link repo mới, Seed {{SEED}}, runs/lineage.jsonl (R-021), TEAM.md", to: "all", next: "4 thành viên pull repo, tải data & tạo nhánh cá nhân", risk: "Cả nhóm lệch seed hoặc thiếu R-021 ở Pha 3" },
+      { id: 2, phase: "P0", from: "tv5", item: "Chấp nhận Collaborator GitHub (Virgoboyy)", to: "tv1", next: "TV5 push được commit cá nhân trên TV5-HuyVuong", risk: "Thiếu commit TV5 → trừ điểm Mục 6 Rubric" },
+      { id: 3, phase: "P1", from: "tv1", item: "Khung validator/validate.py + hợp đồng hàm cho TV2 & format JSON cho TV3", to: "tv2", next: "TV2 viết pan_rules.py & cross_check.py khớp 100% không conflict", risk: "Sai chữ ký hàm phải sửa lại lúc ghép" },
+      { id: 4, phase: "P1", from: "tv2", item: "validator/pan_rules.py (check_panoptic_rules)", to: "tv1", next: "TV1 ghép vào validate.py đạt F1 lỗi luật = 1.0 trên đa seed", risk: "Lỗi luật dừng ở ~0.9 (thiếu invalid_category_id & thing_overlap)" },
+      { id: 5, phase: "P2", from: "tv2", item: "validator/cross_check.py (find_candidates) + số ứng viên runs/clean", to: "tv1", next: "TV1 chạy sinh runs/r{{SEED}}/candidates.json", risk: "Không sinh được candidates.json → chặn toàn bộ Pha 2!" },
+      { id: 6, phase: "P2", from: "tv1", item: "runs/r{{SEED}}/candidates.json & rules.json", to: "tv3", next: "TV3 chạy render_review.py tạo review_board.html chia 5 cụm", risk: "Chậm xem ảnh bằng mắt; TV4 cũng cần rules.json để mở kiểm wrong_hash" },
+      { id: 7, phase: "P2", from: "tv3", item: "review_board.html chia 5 cụm (20% mỗi người)", to: "all", next: "Cả 5 thành viên đồng loạt xem ảnh & viết nhận xét ≥ 20 ký tự", risk: "1 người xem quá lâu hoặc bỏ sót ca lỗi gán nhãn" },
+      { id: 8, phase: "P2", from: "all", item: "5 phần nhận xét ảnh → TV3 chuẩn hóa runs/r{{SEED}}/review_log.csv", to: "tv1", next: "TV1 chạy merge_review.py → runs/r{{SEED}}/errors.json & đo F1", risk: "Thiếu confirmed hoặc note lặp → FAIL H3 và bị loại lỗi gán nhãn" },
+      { id: 9, phase: "P3", from: "tv1", item: "errors.json chốt + lineage decision HOLD (v1) + impact R-021", to: "tv4", next: "TV4 chạy build_v2.py, hoàn thiện README.txt, pack_release.py (H1–H15)", risk: "Số liệu QC v1 / Hold lệch nhau giữa README và lineage → FAIL H13b/H14" },
+      { id: 10, phase: "P4–P5", from: "tv4", item: "handover/<RID>_v2/ (7 phần) + .sha256 + release v2 lineage (H1–H15 PASS)", to: "tv1", next: "TV1 chạy check_handover.py tổng & export_submission.py", risk: "Chưa đủ 17/17 PASS nếu còn thiếu phần v2 hoặc sửa file sau pack" },
+      { id: 11, phase: "P5–P6a", from: "tv5", item: "runs/r{{SEED}}/trace.json (H16, F1=1.0) & security.md (H17)", to: "tv1", next: "Đạt 17/17 PASS → TV1 export sang submission/r{{SEED}}/ & push", risk: "FAIL H16/H17 nếu thiếu ảnh mặt người thật hoặc sai jobs.csv" },
+      { id: 12, phase: "P6b", from: "tv4", item: "Kết quả check_dean.py PASS cho 4 file submission/de_an/", to: "tv1", next: "TV1 commit & push chốt bài trước phút 38, nộp link LMS", risk: "Lỡ nộp lỗi JSON, thiếu confirmed hoặc đẩy nhầm delivery/.zip" }
+    ];
+
+    /* =========================================================================
        STATE & PERSISTENCE (localStorage + URL Hash + JSON Merge)
        ========================================================================= */
     const STORAGE_KEY = "day10_lab_team_tracker_v1";
@@ -1838,9 +2628,11 @@
       seed: "3007",
       os: "win",       // "win" | "mac"
       theme: "dark",   // "dark" | "light"
-      tab: "overview", // "overview" | "tv1".."tv5" | "dean" | "vandap"
+      tab: "overview", // "overview" | "timeline" | "tv1".."tv5" | "dean" | "vandap"
       phaseFilter: "ALL",
       statusFilter: "ALL",
+      tlMemberFilter: "ALL", // "ALL" | "tv1".."tv5"
+      tlKindFilter: "ALL",   // "ALL" | "before" | "parallel" | "after" | "joint"
       done: {},        // { taskId: true }
       hChecks: {},     // { H1: true }
       rosterInfo: {
@@ -2083,6 +2875,7 @@
     function renderNavTabs() {
       const tabs = [
         { id: "overview", label: "Tổng quan & Lộ trình", dot: "var(--accent)" },
+        { id: "timeline", label: "Timeline & Bàn giao", dot: "var(--status-info)" },
         ...MEMBERS.map(m => ({ id: m.id, label: `${m.code} · ${m.handle}`, dot: m.colorVar })),
         { id: "dean", label: "Đề ẩn 40 phút", dot: "var(--status-danger)" },
         { id: "vandap", label: "Vấn đáp 3 phút", dot: "var(--status-success)" }
@@ -2503,9 +3296,242 @@
       `;
     }
 
+    function memberMeta(id) {
+      if (id === "all") {
+        return { code: "CẢ 5 TV", handle: "Việc chung", shortName: "Cả 5 thành viên", colorVar: "var(--status-success)" };
+      }
+      const m = MEMBERS.find(x => x.id === id);
+      const full = (state.rosterInfo[id]?.name || m?.fullName || m?.handle || id).trim();
+      const shortName = full.split(/\s+/).slice(-2).join(" ");
+      return { code: m.code, handle: m.handle, shortName: `${m.code} · ${shortName}`, colorVar: m.colorVar };
+    }
+
+    function kindBadge(kind) {
+      const map = {
+        before: { cls: "tl-badge-before", text: "Làm TRƯỚC" },
+        parallel: { cls: "tl-badge-parallel", text: "SONG SONG" },
+        after: { cls: "tl-badge-after", text: "Làm SAU" },
+        joint: { cls: "tl-badge-joint", text: "★ VIỆC CHUNG" }
+      };
+      const info = map[kind] || map.parallel;
+      return `<span class="badge ${info.cls}">${info.text}</span>`;
+    }
+
+    function itemIsDone(item) {
+      if (!item.taskIds || !item.taskIds.length) return false;
+      return item.taskIds.every(id => Boolean(state.done[id]));
+    }
+
+    function itemInvolvesMember(item, focusId) {
+      if (focusId === "ALL") return true;
+      if (item.owner === "all" || item.owner === focusId) return true;
+      if (item.needsFrom.includes(focusId) || item.needsFrom.includes("all")) return true;
+      if (item.givesTo.includes(focusId) || item.givesTo.includes("all")) return true;
+      return false;
+    }
+
+    function renderTimelineView() {
+      const focus = state.tlMemberFilter || "ALL";
+      const kindFilter = state.tlKindFilter || "ALL";
+
+      // Member-specific summary ("Tôi cần từ ai?" & "Tôi phải trả cho ai?")
+      let focusSummaryHtml = "";
+      if (focus !== "ALL") {
+        const fm = memberMeta(focus);
+        const needRows = HANDOFF_LEDGER.filter(h => h.to === focus || h.to === "all");
+        const giveRows = HANDOFF_LEDGER.filter(h => h.from === focus || h.from === "all");
+        focusSummaryHtml = `
+          <section class="tl-focus-summary" aria-label="Tóm tắt đầu vào và đầu ra của ${escapeHtml(fm.shortName)}">
+            <div>
+              <h3 style="color:var(--status-warning);">← ${escapeHtml(fm.shortName)} CẦN NHẬN TỪ AI (${needRows.length} mục)</h3>
+              <ul>
+                ${needRows.map(h => `<li><strong>[${escapeHtml(h.phase)}] từ ${escapeHtml(memberMeta(h.from).shortName)}:</strong> ${escapeHtml(formatText(h.item))}</li>`).join("")}
+              </ul>
+            </div>
+            <div>
+              <h3 style="color:var(--status-success);">→ ${escapeHtml(fm.shortName)} PHẢI TRẢ CHO AI (${giveRows.length} mục)</h3>
+              <ul>
+                ${giveRows.map(h => `<li><strong>[${escapeHtml(h.phase)}] cho ${escapeHtml(memberMeta(h.to).shortName)}:</strong> ${escapeHtml(formatText(h.item))}</li>`).join("")}
+              </ul>
+            </div>
+          </section>
+        `;
+      }
+
+      const spineHtml = TIMELINE_PHASES.map(phase => {
+        const allPhaseTaskIds = [...new Set(phase.stages.flatMap(s => s.items.flatMap(i => i.taskIds || [])))];
+        const doneCount = allPhaseTaskIds.filter(id => state.done[id]).length;
+        const pct = allPhaseTaskIds.length ? Math.round((doneCount / allPhaseTaskIds.length) * 100) : null;
+
+        const renderedStages = phase.stages.map((stage, sIdx) => {
+          const visibleItems = stage.items.filter(it => kindFilter === "ALL" || it.kind === kindFilter);
+          if (!visibleItems.length) return "";
+          const singleClass = visibleItems.length === 1 ? "single" : "";
+
+          const cardsHtml = visibleItems.map(it => {
+            const om = memberMeta(it.owner);
+            const done = itemIsDone(it);
+            const involved = itemInvolvesMember(it, focus);
+            const cardStateCls = focus === "ALL"
+              ? (done ? "is-done" : "")
+              : (involved ? `highlighted ${done ? "is-done" : ""}` : "dimmed");
+            const jumpPhase = phase.id === "P4" && it.owner === "tv5" ? "P5" : phase.id;
+            const canJump = it.owner !== "all" && phase.id !== "VD";
+
+            return `
+              <article class="tl-card ${cardStateCls}" style="--card-accent:${om.colorVar};">
+                <div class="tl-card-top">
+                  <span class="tl-owner-pill">
+                    <span class="tl-owner-dot" aria-hidden="true"></span>
+                    <span>${escapeHtml(om.shortName)}</span>
+                  </span>
+                  <div class="badge-list">
+                    ${kindBadge(it.kind)}
+                    ${it.taskIds && it.taskIds.length
+                      ? (done
+                        ? '<span class="badge badge-success">✓ Xong</span>'
+                        : '<span class="badge">○ Chưa xong</span>')
+                      : '<span class="badge badge-info">Họp chéo</span>'}
+                  </div>
+                </div>
+
+                <div class="tl-card-action">${escapeHtml(formatText(it.action))}</div>
+
+                <div class="tl-io-list">
+                  <div class="tl-io-row">
+                    <span class="tl-io-tag tl-io-in">← Cần</span>
+                    <span>${escapeHtml(formatText(it.needsText))}</span>
+                  </div>
+                  <div class="tl-io-row">
+                    <span class="tl-io-tag tl-io-out">→ Trả</span>
+                    <span>${escapeHtml(formatText(it.givesText))}</span>
+                  </div>
+                </div>
+
+                ${canJump ? `
+                  <div class="tl-card-foot">
+                    <span style="color:var(--text-muted);">${escapeHtml(om.handle)}</span>
+                    <button type="button" class="btn btn-sm" data-jump-member-phase="${it.owner}|${jumpPhase}">Mở chi tiết →</button>
+                  </div>
+                ` : ""}
+              </article>
+            `;
+          }).join("");
+
+          return `
+            ${sIdx > 0 ? '<div class="tl-stage-arrow" aria-hidden="true">↓ Chuyển tiếp / Phụ thuộc bước trên</div>' : ""}
+            <div class="tl-stage">
+              <div class="tl-stage-header">
+                <span>${escapeHtml(formatText(stage.orderLabel))}</span>
+                ${kindBadge(stage.kind)}
+              </div>
+              <div class="tl-cards-grid ${singleClass}">${cardsHtml}</div>
+            </div>
+          `;
+        }).filter(Boolean).join("");
+
+        if (!renderedStages) return "";
+
+        return `
+          <section class="tl-phase">
+            <div class="tl-phase-node" aria-hidden="true">${escapeHtml(phase.node)}</div>
+            <div class="tl-phase-head">
+              <h2 class="tl-phase-title">
+                <span class="badge badge-info">${escapeHtml(phase.time)}</span>
+                <span>${escapeHtml(formatText(phase.title))}</span>
+              </h2>
+              <div class="badge-list">
+                ${pct !== null ? `<span class="badge ${pct === 100 ? "badge-success" : ""}">${doneCount}/${allPhaseTaskIds.length} việc (${pct}%)</span>` : ""}
+                <span class="badge badge-warning">${escapeHtml(formatText(phase.gate))}</span>
+              </div>
+            </div>
+            <div class="tl-stage-wrap">${renderedStages}</div>
+          </section>
+        `;
+      }).filter(Boolean).join("");
+
+      const filteredLedger = HANDOFF_LEDGER.filter(h =>
+        focus === "ALL" || h.from === focus || h.to === focus || h.from === "all" || h.to === "all"
+      );
+
+      const ledgerRows = filteredLedger.map(h => {
+        const fromM = memberMeta(h.from);
+        const toM = memberMeta(h.to);
+        return `
+          <tr>
+            <td><strong>#${h.id}</strong></td>
+            <td><span class="badge badge-info">${escapeHtml(h.phase)}</span></td>
+            <td style="white-space:nowrap;"><span class="tl-owner-pill"><span class="tl-owner-dot" style="background:${fromM.colorVar};"></span>${escapeHtml(fromM.shortName)}</span></td>
+            <td><strong>${escapeHtml(formatText(h.item))}</strong></td>
+            <td style="white-space:nowrap;"><span class="tl-owner-pill"><span class="tl-owner-dot" style="background:${toM.colorVar};"></span>${escapeHtml(toM.shortName)}</span></td>
+            <td>${escapeHtml(formatText(h.next))}</td>
+            <td style="color:var(--status-warning);">${escapeHtml(formatText(h.risk))}</td>
+          </tr>
+        `;
+      }).join("");
+
+      return `
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <section class="panel">
+            <div class="panel-title">
+              <span>Timeline Chung 4 Giờ &amp; Luồng Bàn Giao Giữa 5 Thành Viên</span>
+              <div class="tl-legend">
+                <span class="badge tl-badge-before">Làm TRƯỚC</span>
+                <span class="badge tl-badge-parallel">SONG SONG</span>
+                <span class="badge tl-badge-after">Làm SAU (phụ thuộc)</span>
+                <span class="badge tl-badge-joint">★ VIỆC CHUNG (5 TV)</span>
+              </div>
+            </div>
+            <p style="margin:0 0 12px;color:var(--text-secondary);">
+              Chọn tên thành viên bên dưới để tô sáng ngay <strong>việc của mình</strong>, <strong>cần nhận gì từ ai (←)</strong> và <strong>phải trả gì cho ai (→)</strong> xuyên suốt từ Pha 0 đến Đề ẩn <code class="inline">de_an_13</code> &amp; Vấn đáp. Trạng thái <em>Xong / Chưa xong</em> tự động đồng bộ với dấu tick ở từng thẻ thành viên.
+            </p>
+
+            <div class="filter-bar" style="padding:10px 12px;background:var(--bg-elevated);">
+              <div class="filter-pills" role="group" aria-label="Lọc tập trung theo thành viên">
+                <button type="button" class="filter-pill" data-tl-member="ALL" aria-pressed="${focus === "ALL"}">Toàn nhóm (5 TV)</button>
+                ${MEMBERS.map(m => {
+                  const shortN = (state.rosterInfo[m.id]?.name || m.fullName || m.handle).split(/\s+/).slice(-1)[0];
+                  return `<button type="button" class="filter-pill" data-tl-member="${m.id}" aria-pressed="${focus === m.id}">${escapeHtml(m.code)} · ${escapeHtml(shortN)}</button>`;
+                }).join("")}
+              </div>
+              <div class="filter-pills" role="group" aria-label="Lọc theo loại bước trên timeline">
+                <button type="button" class="filter-pill" data-tl-kind="ALL" aria-pressed="${kindFilter === "ALL"}">Mọi loại bước</button>
+                <button type="button" class="filter-pill" data-tl-kind="before" aria-pressed="${kindFilter === "before"}">Làm TRƯỚC</button>
+                <button type="button" class="filter-pill" data-tl-kind="parallel" aria-pressed="${kindFilter === "parallel"}">SONG SONG</button>
+                <button type="button" class="filter-pill" data-tl-kind="after" aria-pressed="${kindFilter === "after"}">Làm SAU</button>
+                <button type="button" class="filter-pill" data-tl-kind="joint" aria-pressed="${kindFilter === "joint"}">★ VIỆC CHUNG</button>
+              </div>
+            </div>
+          </section>
+
+          ${focusSummaryHtml}
+
+          <div class="tl-spine">
+            ${spineHtml || '<div class="panel" style="text-align:center;color:var(--text-secondary);">Không có bước nào khớp bộ lọc hiện tại.</div>'}
+          </div>
+
+          <section class="panel">
+            <h2 class="panel-title">
+              <span>Bảng Tổng Hợp 12 Điểm Bàn Giao Chéo (Ai Trả Gì Cho Ai?)</span>
+              <span class="badge">${filteredLedger.length} điểm bàn giao</span>
+            </h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>#</th><th>Pha</th><th>Người TRẢ (Output)</th><th>Bàn giao cái gì (File / Contract)</th><th>Người NHẬN (Input)</th><th>Việc nối tiếp sau khi nhận</th><th>Rủi ro nếu trễ</th></tr>
+                </thead>
+                <tbody>${ledgerRows}</tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
     function renderView() {
       const root = document.getElementById("view-root");
       if (state.tab === "overview") root.innerHTML = renderOverview();
+      else if (state.tab === "timeline") root.innerHTML = renderTimelineView();
       else if (state.tab === "dean") {
         root.innerHTML = renderDeAnView();
         updateTimerDisplay();
@@ -2600,6 +3626,34 @@
       if (statusBtn) {
         state.statusFilter = statusBtn.getAttribute("data-status-filter");
         renderView();
+        return;
+      }
+
+      const tlMemBtn = e.target.closest("[data-tl-member]");
+      if (tlMemBtn) {
+        state.tlMemberFilter = tlMemBtn.getAttribute("data-tl-member");
+        saveState();
+        renderView();
+        return;
+      }
+
+      const tlKindBtn = e.target.closest("[data-tl-kind]");
+      if (tlKindBtn) {
+        state.tlKindFilter = tlKindBtn.getAttribute("data-tl-kind");
+        saveState();
+        renderView();
+        return;
+      }
+
+      const jumpBtn = e.target.closest("[data-jump-member-phase]");
+      if (jumpBtn) {
+        const [memberId, phaseId] = jumpBtn.getAttribute("data-jump-member-phase").split("|");
+        state.tab = memberId;
+        state.phaseFilter = phaseId || "ALL";
+        state.statusFilter = "ALL";
+        saveState();
+        renderAll();
+        window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
 
