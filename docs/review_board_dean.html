@@ -232,6 +232,7 @@
     </select>
   </div>
   <button class="btn btn-secondary" id="btn-reset" type="button">Xóa lọc</button>
+  <button class="btn btn-secondary" onclick="copyMyRows()" type="button" title="Chép các dòng đang hiển thị của bạn để dán vào nhóm chat">📋 Chép phần của tôi</button>
   <button class="btn btn-primary" onclick="exportReviewCsv()" type="button">💾 Tải review_log.csv</button>
 </section>
 
@@ -1418,6 +1419,69 @@
 
 <script>
   const cards = [...document.querySelectorAll(".card")];
+  const STORAGE_KEY = "review_board_state_" + window.location.pathname.replace(/[^a-zA-Z0-9]/g, "_");
+
+  function saveState() {
+    const data = {};
+    cards.forEach(card => {
+      const stem = card.dataset.image;
+      const verdict = card.dataset.verdict || "";
+      const selectType = card.querySelector("#fault-" + stem);
+      const finalType = selectType ? selectType.value : "";
+      const noteInput = card.querySelector("#note-" + stem);
+      const note = noteInput ? noteInput.value : "";
+      data[stem] = { verdict, finalType, note };
+    });
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {}
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      cards.forEach(card => {
+        const stem = card.dataset.image;
+        if (data[stem]) {
+          const item = data[stem];
+          if (item.verdict) {
+            card.dataset.verdict = item.verdict;
+            card.classList.remove("confirmed", "rejected");
+            card.classList.add(item.verdict);
+            const confPill = card.querySelector(".radio-pill.confirmed");
+            const rejPill = card.querySelector(".radio-pill.rejected");
+            if (item.verdict === "confirmed") {
+              confPill.classList.add("active");
+              rejPill.classList.remove("active");
+            } else {
+              rejPill.classList.add("active");
+              confPill.classList.remove("active");
+            }
+          }
+          if (item.finalType) {
+            const selectType = card.querySelector("#fault-" + stem);
+            if (selectType) selectType.value = item.finalType;
+            card.dataset.finalType = item.finalType;
+          }
+          if (item.note !== undefined) {
+            const noteInput = card.querySelector("#note-" + stem);
+            if (noteInput) {
+              noteInput.value = item.note;
+              const counter = document.getElementById("char-count-" + stem);
+              if (counter) {
+                const len = item.note.trim().length;
+                counter.textContent = `Độ dài: ${len} ký tự (chuẩn ≥ 20)`;
+                counter.className = "char-counter " + (len >= 20 ? "" : "invalid");
+              }
+            }
+          }
+        }
+      });
+      refreshStats();
+    } catch (e) {}
+  }
 
   function refreshStats() {
     let conf = 0, rej = 0;
@@ -1469,11 +1533,13 @@
     }
 
     refreshStats();
+    saveState();
   }
 
   function updateType(stem, newType) {
     const card = document.getElementById("card-" + stem);
     if (card) card.dataset.finalType = newType;
+    saveState();
   }
 
   function updateNote(stem, text) {
@@ -1482,6 +1548,37 @@
       const len = text.trim().length;
       counter.textContent = `Độ dài: ${len} ký tự (chuẩn ≥ 20)`;
       counter.className = "char-counter " + (len >= 20 ? "" : "invalid");
+    }
+    saveState();
+  }
+
+  function copyMyRows() {
+    const visibleCards = cards.filter(c => !c.hidden);
+    if (visibleCards.length === 0) {
+      alert("Không có ứng viên nào đang hiển thị!");
+      return;
+    }
+    const lines = visibleCards.map(card => {
+      const stem = card.dataset.image;
+      const verdict = card.dataset.verdict || "rejected";
+      const selectType = card.querySelector("#fault-" + stem);
+      const finalType = (selectType ? selectType.value : card.dataset.type) || card.dataset.type;
+      const noteInput = card.querySelector("#note-" + stem);
+      let note = noteInput ? noteInput.value.trim() : "";
+      if (note.includes(",") || note.includes('"')) {
+        note = `"${note.replace(/"/g, '""')}"`;
+      }
+      return `${stem},${finalType},${verdict},${note}`;
+    });
+    const text = lines.join("\n");
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert(`Đã chép ${lines.length} dòng kết quả vào clipboard! Hãy dán vào nhóm chat để Tech Lead gộp.`);
+      }).catch(() => {
+        prompt("Hãy sao chép các dòng dưới đây:", text);
+      });
+    } else {
+      prompt("Hãy sao chép các dòng dưới đây:", text);
     }
   }
 
@@ -1522,7 +1619,8 @@
     filterCards();
   });
 
-  // Khởi tạo stats
+  // Khởi tạo stats & load cached human reviews
+  loadState();
   refreshStats();
 </script>
 </body>
