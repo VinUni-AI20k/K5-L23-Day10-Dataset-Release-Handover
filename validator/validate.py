@@ -25,6 +25,12 @@ try:
 except ImportError:
     from rules_yolo_panoptic import check_yolo_label, check_panoptic_ann
 
+# Import module đối chiếu nhãn và sinh ứng viên của Vũ
+try:
+    from validator.cross_check import generate_candidates
+except ImportError:
+    from cross_check import generate_candidates
+
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
@@ -103,124 +109,7 @@ def check_file_and_metadata_rules(delivery_dir: Path) -> list[tuple[str, str]]:
     return errors
 
 
-def generate_candidates(delivery_dir: Path) -> list[dict]:
-    """Đối chiếu Detection ↔ Panoptic để tìm ứng viên lỗi gán nhãn (Phụ trách: Vũ)."""
-    candidates = []
-    manifest_path = delivery_dir / "manifest.json"
-    panoptic_path = delivery_dir / "panoptic.json"
-    classes_path = delivery_dir / "classes.txt"
-
-    if not manifest_path.is_file() or not panoptic_path.is_file() or not classes_path.is_file():
-        return candidates
-
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))["items"]
-    pan = json.loads(panoptic_path.read_text(encoding="utf-8"))
-    
-    # Map class index sang tên lớp YOLO
-    yolo_classes = [ln.split(" ", 1)[1].strip() for ln in classes_path.read_text(encoding="utf-8").splitlines() if ln.strip()]
-    cat_by_id = {c["id"]: c for c in pan["categories"]}
-    things_cats = {c["id"] for c in pan["categories"] if c.get("isthing")}
-    anns = {a["image_id"]: a for a in pan["annotations"]}
-    imgs = {im["file_name"]: im for im in pan["images"]}
-
-    for stem, it in manifest.items():
-        im_info = imgs.get(it["image"].split("/")[-1])
-        if not im_info:
-            continue
-        W, H = im_info["width"], im_info["height"]
-        ann = anns.get(im_info["id"], {})
-        segments = [s for s in ann.get("segments_info", []) if s["category_id"] in things_cats and not s.get("iscrowd")]
-
-        # Đọc nhãn YOLO
-        lbl_file = delivery_dir / it["label"]
-        yolo_boxes = []
-        if lbl_file.is_file():
-            for ln in lbl_file.read_text(encoding="utf-8").splitlines():
-                if ln.strip():
-                    parts = ln.split()
-                    c = int(float(parts[0]))
-                    if 0 <= c < len(yolo_classes):
-                        x, y, w, h = map(float, parts[1:5])
-                        # Chuyển sang pixel [x1, y1, x2, y2]
-                        x1 = (x - w / 2) * W
-                        y1 = (y - h / 2) * H
-                        x2 = (x + w / 2) * W
-                        y2 = (y + h / 2) * H
-                        yolo_boxes.append({"cls": yolo_classes[c], "bbox": [x1, y1, x2, y2], "area": w * h * W * H})
-
-        # Hàm tính IoU giữa 2 box pixel
-        def calc_iou(b1, b2):
-            ix = max(0.0, min(b1[2], b2[2]) - max(b1[0], b2[0]))
-            iy = max(0.0, min(b1[3], b2[3]) - max(b1[1], b2[1]))
-            inter = ix * iy
-            a1 = (b1[2] - b1[0]) * (b1[3] - b1[1])
-            a2 = (b2[2] - b2[0]) * (b2[3] - b2[1])
-            return inter / (a1 + a2 - inter + 1e-12)
-
-        # 1. Kiểm tra class_swap hoặc category_swap hoặc bbox_drift
-        for yb in yolo_boxes:
-            best_iou = 0.0
-            best_seg = None
-            for seg in segments:
-                # panoptic bbox: [x, y, w, h]
-                sb = [seg["bbox"][0], seg["bbox"][1], seg["bbox"][0] + seg["bbox"][2], seg["bbox"][1] + seg["bbox"][3]]
-                iou = calc_iou(yb["bbox"], sb)
-                if iou > best_iou:
-                    best_iou = iou
-                    best_seg = seg
-
-            if best_seg:
-                seg_cls = cat_by_id[best_seg["category_id"]]["name"]
-                # Cùng vị trí (IoU >= 0.45) nhưng khác lớp -> Nghi vấn đổi lớp
-                if best_iou >= 0.45 and yb["cls"] != seg_cls:
-                    candidates.append({
-                        "image": stem,
-                        "type": "class_swap",
-                        "note": f"Detection: {yb['cls']} vs Panoptic: {seg_cls} (IoU={best_iou:.2f})"
-                    })
-                # Cùng lớp nhưng box bị trôi (IoU từ 0.2 đến 0.55 và diện tích tương đối)
-                elif yb["cls"] == seg_cls and 0.15 <= best_iou < 0.60:
-                    candidates.append({
-                        "image": stem,
-                        "type": "bbox_drift",
-                        "note": f"Lớp {yb['cls']} có IoU thấp ({best_iou:.2f}), nghi vấn trôi box"
-                    })
-
-        # 2. Kiểm tra missing_box: segment lớn mà không có box detection nào khớp
-        for seg in segments:
-            if seg.get("area", 0) >= 3000:
-                sb = [seg["bbox"][0], seg["bbox"][1], seg["bbox"][0] + seg["bbox"][2], seg["bbox"][1] + seg["bbox"][3]]
-                max_iou = max([calc_iou(yb["bbox"], sb) for yb in yolo_boxes], default=0.0)
-                if max_iou < 0.15:
-                    seg_cls = cat_by_id[seg["category_id"]]["name"]
-                    candidates.append({
-                        "image": stem,
-                        "type": "missing_box",
-                        "note": f"Segment {seg_cls} diện tích {seg['area']}px nhưng không có box tương ứng"
-                    })
-
-        # 3. Kiểm tra instance_merge: 1 segment phủ 2 box cùng lớp
-        for seg in segments:
-            seg_cls = cat_by_id[seg["category_id"]]["name"]
-            sb = [seg["bbox"][0], seg["bbox"][1], seg["bbox"][0] + seg["bbox"][2], seg["bbox"][1] + seg["bbox"][3]]
-            matched_boxes = [yb for yb in yolo_boxes if yb["cls"] == seg_cls and calc_iou(yb["bbox"], sb) > 0.25]
-            if len(matched_boxes) >= 2:
-                candidates.append({
-                    "image": stem,
-                    "type": "instance_merge",
-                    "note": f"Segment {seg_cls} bao trùm {len(matched_boxes)} box detection cùng lớp"
-                })
-
-    # Khử trùng candidate cùng ảnh + cùng loại
-    unique_candidates = []
-    seen = set()
-    for c in candidates:
-        key = (c["image"], c["type"])
-        if key not in seen:
-            seen.add(key)
-            unique_candidates.append(c)
-
-    return unique_candidates
+# generate_candidates duoc import tu validator.cross_check (Phu trach: Vu)
 
 
 def main():
