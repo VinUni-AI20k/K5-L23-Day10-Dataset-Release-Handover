@@ -1,0 +1,70 @@
+{
+ "candidates": [
+  {
+   "image": "img_0003",
+   "type": "bbox_drift",
+   "score": 0.585,
+   "detail": "bench segment=9911029 seg_in_box=1.00 bbox_iou=0.42"
+  },
+  {
+   "image": "img_0013",
+   "type": "class_or_category_swap",
+   "score": 1.0,
+   "detail": "detection='airplane' panoptic='spoon' segment=8149329 bbox_iou=1.00"
+  },
+  {
+   "image": "img_0069",
+   "type": "class_or_category_swap",
+   "score": 0.98,
+   "detail": "detection='cow' panoptic='sheep' segment=13830975 bbox_iou=0.98"
+  },
+  {
+   "image": "img_0090",
+   "type": "instance_merge",
+   "score": 1.0,
+   "detail": "vase segment=2780059 phủ 2 box cùng lớp"
+  },
+  {
+   "image": "img_0096",
+   "type": "class_or_category_swap",
+   "score": 0.994,
+   "detail": "detection='cat' panoptic='dog' segment=4480098 bbox_iou=0.99"
+  },
+  {
+   "image": "img_0159",
+   "type": "class_or_category_swap",
+   "score": 1.0,
+   "detail": "detection='person' panoptic='zebra' segment=11892574 bbox_iou=1.00"
+  },
+  {
+   "image": "img_0165",
+   "type": "missing_box",
+   "score": 0.055,
+   "detail": "cat segment=12324076 chiếm 5.5% ảnh, không có box"
+  },
+  {
+   "image": "img_0177",
+   "type": "missing_box",
+   "score": 0.138,
+   "detail": "zebra segment=11178596 chiếm 13.8% ảnh, không có box"
+  },
+  {
+   "image": "img_0183",
+   "type": "missing_box",
+   "score": 0.149,
+   "detail": "zebra segment=7742352 chiếm 14.9% ảnh, không có box"
+  },
+  {
+   "image": "img_0186",
+   "type": "class_or_category_swap",
+   "score": 0.991,
+   "detail": "detection='bowl' panoptic='cup' segment=14618634 bbox_iou=0.99"
+  },
+  {
+   "image": "img_0207",
+   "type": "missing_box",
+   "score": 0.061,
+   "detail": "person segment=3473118 chiếm 6.1% ảnh, không có box"
+  }
+ ]
+}
