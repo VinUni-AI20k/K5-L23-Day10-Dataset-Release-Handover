@@ -593,8 +593,9 @@ python3 scripts/lineage.py record --event release --release-id &lt;id&gt;_v2 --p
             <tr class="hover:bg-rose-50/30 transition">
               <td class="py-3.5 px-3 text-center font-mono font-bold text-rose-700 border-r border-slate-200">01</td>
               <td class="py-3.5 px-3.5 font-bold text-slate-900 border-r border-slate-200">
-                Thành viên 1
-                <div class="text-[11px] font-normal text-rose-700 font-mono mt-0.5">(Trưởng nhóm &amp; Detection Rules)</div>
+                <div class="text-sm font-bold text-slate-900">Hoàng Sỹ Khiêm</div>
+                <div class="text-xs text-rose-700 font-mono font-medium">2A202603244 &bull; @hoangkhiem3523</div>
+                <div class="text-[11px] font-normal text-slate-600 font-sans mt-0.5">Thành viên 1 (Trưởng nhóm &amp; Detection Rules)</div>
               </td>
               <td class="py-3.5 px-4 border-r border-slate-200 text-xs sm:text-sm leading-relaxed">
                 Viết khung CLI <code class="font-mono text-slate-900 font-semibold">validator/validate.py</code>. Cài đặt bắt 5 lỗi luật: <code class="font-mono">missing_image</code>, <code class="font-mono">wrong_hash</code> (đọc <code class="font-mono">rb</code>), <code class="font-mono">invalid_class</code>, <code class="font-mono">bbox_out_of_bounds</code>, <code class="font-mono">duplicate_box</code>.
@@ -616,8 +617,9 @@ python3 scripts/lineage.py record --event release --release-id &lt;id&gt;_v2 --p
             <tr class="hover:bg-teal-50/30 transition">
               <td class="py-3.5 px-3 text-center font-mono font-bold text-teal-700 border-r border-slate-200">02</td>
               <td class="py-3.5 px-3.5 font-bold text-slate-900 border-r border-slate-200">
-                Thành viên 2
-                <div class="text-[11px] font-normal text-teal-700 font-mono mt-0.5">(Panoptic &amp; Metadata Rules)</div>
+                <div class="text-sm font-bold text-slate-900">Phan Đình Giáp</div>
+                <div class="text-xs text-teal-700 font-mono font-medium">2A202603252</div>
+                <div class="text-[11px] font-normal text-slate-600 font-sans mt-0.5">Thành viên 2 (Panoptic &amp; Metadata Rules)</div>
               </td>
               <td class="py-3.5 px-4 border-r border-slate-200 text-xs sm:text-sm leading-relaxed">
                 Tích hợp <code class="font-mono text-slate-900 font-semibold">pngutil.py</code> giải mã RGB sang segment ID (<code class="font-mono">R + G*256 + B*65536</code>). Bắt <code class="font-mono">invalid_category_id</code>, <code class="font-mono">thing_overlap</code> (đếm pixel so với <code class="font-mono">area</code>), <code class="font-mono">scene_leak</code> và <code class="font-mono">guideline_mismatch</code>.
@@ -639,8 +641,9 @@ python3 scripts/lineage.py record --event release --release-id &lt;id&gt;_v2 --p
             <tr class="hover:bg-indigo-50/30 transition">
               <td class="py-3.5 px-3 text-center font-mono font-bold text-indigo-700 border-r border-slate-200">03</td>
               <td class="py-3.5 px-3.5 font-bold text-slate-900 border-r border-slate-200">
-                Thành viên 3
-                <div class="text-[11px] font-normal text-indigo-700 font-mono mt-0.5">(Cross-check &amp; Candidates Engine)</div>
+                <div class="text-sm font-bold text-slate-900">Nguyễn Thảo Linh</div>
+                <div class="text-xs text-indigo-700 font-mono font-medium">2A202603253</div>
+                <div class="text-[11px] font-normal text-slate-600 font-sans mt-0.5">Thành viên 3 (Cross-check &amp; Candidates Engine)</div>
               </td>
               <td class="py-3.5 px-4 border-r border-slate-200 text-xs sm:text-sm leading-relaxed">
                 Viết thuật toán ghép đôi bbox YOLO ↔ Mask Panoptic (chuyển đổi tọa độ, tính IoU, so khớp tên lớp qua <code class="font-mono">classes.txt</code>). Xuất <code class="font-mono">candidates.json</code> cho 5 lỗi gán nhãn. Đo độ nhiễu trên <code class="font-mono">runs/clean</code>.
@@ -662,8 +665,9 @@ python3 scripts/lineage.py record --event release --release-id &lt;id&gt;_v2 --p
             <tr class="hover:bg-slate-50 transition">
               <td class="py-3.5 px-3 text-center font-mono font-bold text-slate-700 border-r border-slate-200">04</td>
               <td class="py-3.5 px-3.5 font-bold text-slate-900 border-r border-slate-200">
-                Thành viên 4
-                <div class="text-[11px] font-normal text-slate-700 font-mono mt-0.5">(QC Review Lead)</div>
+                <div class="text-sm font-bold text-slate-900">Phạm Việt Hoàng</div>
+                <div class="text-xs text-slate-700 font-mono font-medium">2A202603254</div>
+                <div class="text-[11px] font-normal text-slate-600 font-sans mt-0.5">Thành viên 4 (QC Review Lead)</div>
               </td>
               <td class="py-3.5 px-4 border-r border-slate-200 text-xs sm:text-sm leading-relaxed">
                 Quản lý <code class="font-mono text-slate-900 font-semibold">review_log.csv</code>. Hỗ trợ viết script nhỏ vẽ box lên ảnh để cả nhóm xem nhanh. Rà soát chất lượng ghi chú (100% dòng có ghi chú &ge; 20 ký tự, mô tả rõ vật thể). Phân biệt <code class="font-mono">class_swap</code> vs <code class="font-mono">category_swap</code>. Gộp ra <code class="font-mono">errors.json</code>.
@@ -685,8 +689,9 @@ python3 scripts/lineage.py record --event release --release-id &lt;id&gt;_v2 --p
             <tr class="hover:bg-emerald-50/30 transition">
               <td class="py-3.5 px-3 text-center font-mono font-bold text-emerald-700 border-r border-slate-200">05</td>
               <td class="py-3.5 px-3.5 font-bold text-slate-900 border-r border-slate-200">
-                Thành viên 5
-                <div class="text-[11px] font-normal text-emerald-700 font-mono mt-0.5">(Handover v2 &amp; Fix-forward)</div>
+                <div class="text-sm font-bold text-slate-900">Mai Văn Phong</div>
+                <div class="text-xs text-emerald-700 font-mono font-medium">2A202603256</div>
+                <div class="text-[11px] font-normal text-slate-600 font-sans mt-0.5">Thành viên 5 (Handover v2 &amp; Fix-forward)</div>
               </td>
               <td class="py-3.5 px-4 border-r border-slate-200 text-xs sm:text-sm leading-relaxed">
                 Tạo thư mục <code class="font-mono text-slate-900 font-semibold">handover/&lt;id&gt;_v2/</code> đủ 7 thành phần. Tách ảnh lỗi detection sang <code class="font-mono">rework_queue.csv</code> (giao đúng người theo <code class="font-mono">jobs.csv</code>), giữ ảnh lỗi panoptic lại v2. Lập <code class="font-mono">manifest.csv</code>, <code class="font-mono">label_summary.csv</code>, <code class="font-mono">truyvet.csv</code>, <code class="font-mono">README.txt</code>. Đóng gói zip.
@@ -708,8 +713,9 @@ python3 scripts/lineage.py record --event release --release-id &lt;id&gt;_v2 --p
             <tr class="hover:bg-amber-50/30 transition">
               <td class="py-3.5 px-3 text-center font-mono font-bold text-amber-700 border-r border-slate-200">06</td>
               <td class="py-3.5 px-3.5 font-bold text-slate-900 border-r border-slate-200">
-                Thành viên 6
-                <div class="text-[11px] font-normal text-amber-700 font-mono mt-0.5">(Lineage &amp; Audit Trail Trace)</div>
+                <div class="text-sm font-bold text-slate-900">Nguyễn Văn Hùng</div>
+                <div class="text-xs text-amber-700 font-mono font-medium">2A202603295</div>
+                <div class="text-[11px] font-normal text-slate-600 font-sans mt-0.5">Thành viên 6 (Lineage &amp; Audit Trail Trace)</div>
               </td>
               <td class="py-3.5 px-4 border-r border-slate-200 text-xs sm:text-sm leading-relaxed">
                 Tính tỷ lệ lỗi v1 (ngưỡng 2% &rarr; HOLD). Ghi sự kiện vào <code class="font-mono">lineage.jsonl</code>. Chạy <code class="font-mono">impact</code> giải thích ảnh hưởng lên model huấn luyện <code class="font-mono">R-021</code>. Đọc <code class="font-mono">ticket.md</code> và <code class="font-mono">changelog.md</code> để lập <code class="font-mono">trace.json</code> (<code class="font-mono">tier_a</code>, <code class="font-mono">tier_b</code>, <code class="font-mono">notify</code>).
@@ -731,8 +737,9 @@ python3 scripts/lineage.py record --event release --release-id &lt;id&gt;_v2 --p
             <tr class="hover:bg-violet-50/30 transition">
               <td class="py-3.5 px-3 text-center font-mono font-bold text-violet-700 border-r border-slate-200">07</td>
               <td class="py-3.5 px-3.5 font-bold text-slate-900 border-r border-slate-200">
-                Thành viên 7
-                <div class="text-[11px] font-normal text-violet-700 font-mono mt-0.5">(Security &amp; Submission Lead)</div>
+                <div class="text-sm font-bold text-slate-900">Hoàng Thuận Thiên</div>
+                <div class="text-xs text-violet-700 font-mono font-medium">2A202603270 &bull; @Tiny208</div>
+                <div class="text-[11px] font-normal text-slate-600 font-sans mt-0.5">Thành viên 7 (Security &amp; Submission Lead)</div>
               </td>
               <td class="py-3.5 px-4 border-r border-slate-200 text-xs sm:text-sm leading-relaxed">
                 Hoàn thiện <code class="font-mono text-slate-900 font-semibold">security.md</code> (ca USB, 5 việc được/không được làm, ca phát hiện khuôn mặt người thật trong COCO &rarr; kết luận HOLD + Báo phụ trách). Viết <code class="font-mono">TEAM.md</code>, <code class="font-mono">prompts.md</code>, <code class="font-mono">REPORT.md</code>. Đảm bảo 17/17 PASS <code class="font-mono">check_handover.py</code>. Chuẩn bị cho Đề ẩn 40 phút.

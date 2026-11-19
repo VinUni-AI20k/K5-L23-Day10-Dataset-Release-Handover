@@ -17,6 +17,10 @@
       "target": "img_0054"
     },
     {
+      "type": "category_swap",
+      "target": "img_0105"
+    },
+    {
       "type": "class_swap",
       "target": "img_0015"
     },
