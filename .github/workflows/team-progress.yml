@@ -12,6 +12,10 @@ permissions:
   issues: read
   pull-requests: read
 
+concurrency:
+  group: team-progress-sync
+  cancel-in-progress: false
+
 jobs:
   sync-board:
     runs-on: ubuntu-latest
