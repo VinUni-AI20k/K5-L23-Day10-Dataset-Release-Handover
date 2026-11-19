@@ -1,0 +1,635 @@
+{
+  "candidates": [
+    {
+      "image": "img_0007",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 13870156 (person, 1165px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0008",
+      "type": "class_swap",
+      "det_class": "bottle",
+      "pan_class": "cup",
+      "iou": 0.678,
+      "details": "Detection: bottle vs Panoptic: cup (IoU 0.68)"
+    },
+    {
+      "image": "img_0011",
+      "type": "class_swap",
+      "det_class": "couch",
+      "pan_class": "chair",
+      "iou": 0.892,
+      "details": "Detection: couch vs Panoptic: chair (IoU 0.89)"
+    },
+    {
+      "image": "img_0013",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 2407318 (person, 1143px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0015",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 8793792 (person, 2848px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0015",
+      "type": "class_swap",
+      "det_class": "cup",
+      "pan_class": "wine glass",
+      "iou": 0.979,
+      "details": "Detection: cup vs Panoptic: wine glass (IoU 0.98)"
+    },
+    {
+      "image": "img_0015",
+      "type": "missing_box",
+      "class_name": "wine glass",
+      "area": 9559,
+      "details": "Segment wine glass (9559px) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0019",
+      "type": "instance_merge",
+      "class_name": "carrot",
+      "details": "Segment 7109108 (carrot, 2736px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0021",
+      "type": "instance_merge",
+      "class_name": "apple",
+      "details": "Segment 12271380 (apple, 60747px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0025",
+      "type": "instance_merge",
+      "class_name": "chair",
+      "details": "Segment 14768859 (chair, 8971px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0025",
+      "type": "class_swap",
+      "det_class": "couch",
+      "pan_class": "chair",
+      "iou": 0.74,
+      "details": "Detection: couch vs Panoptic: chair (IoU 0.74)"
+    },
+    {
+      "image": "img_0027",
+      "type": "instance_merge",
+      "class_name": "couch",
+      "details": "Segment 12964991 (couch, 9664px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0027",
+      "type": "class_swap",
+      "det_class": "couch",
+      "pan_class": "chair",
+      "iou": 0.923,
+      "details": "Detection: couch vs Panoptic: chair (IoU 0.92)"
+    },
+    {
+      "image": "img_0029",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 11276183 (person, 1689px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0029",
+      "type": "class_swap",
+      "det_class": "cup",
+      "pan_class": "wine glass",
+      "iou": 0.747,
+      "details": "Detection: cup vs Panoptic: wine glass (IoU 0.75)"
+    },
+    {
+      "image": "img_0034",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 10084858 (person, 19820px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0037",
+      "type": "instance_merge",
+      "class_name": "orange",
+      "details": "Segment 10710864 (orange, 3110px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0038",
+      "type": "instance_merge",
+      "class_name": "book",
+      "details": "Segment 5960377 (book, 871px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0039",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 15465861 (person, 598px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0040",
+      "type": "instance_merge",
+      "class_name": "orange",
+      "details": "Segment 4788332 (orange, 12992px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0043",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 11303101 (person, 750px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0043",
+      "type": "class_swap",
+      "det_class": "cup",
+      "pan_class": "bowl",
+      "iou": 0.982,
+      "details": "Detection: cup vs Panoptic: bowl (IoU 0.98)"
+    },
+    {
+      "image": "img_0043",
+      "type": "missing_box",
+      "class_name": "bowl",
+      "area": 3333,
+      "details": "Segment bowl (3333px) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0045",
+      "type": "instance_merge",
+      "class_name": "elephant",
+      "details": "Segment 13983471 (elephant, 55305px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0048",
+      "type": "instance_merge",
+      "class_name": "sheep",
+      "details": "Segment 3156838 (sheep, 1016px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0053",
+      "type": "class_swap",
+      "det_class": "baseball glove",
+      "pan_class": "person",
+      "iou": 0.993,
+      "details": "Detection: baseball glove vs Panoptic: person (IoU 0.99)"
+    },
+    {
+      "image": "img_0053",
+      "type": "missing_box",
+      "class_name": "person",
+      "area": 33108,
+      "details": "Segment person (33108px) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0054",
+      "type": "instance_merge",
+      "class_name": "suitcase",
+      "details": "Segment 13230260 (suitcase, 4893px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0054",
+      "type": "bbox_drift",
+      "class_name": "person",
+      "iou": 0.476,
+      "drift": 0.245,
+      "details": "Box person bị lệch khỏi mask (IoU 0.48, drift 0.25)"
+    },
+    {
+      "image": "img_0061",
+      "type": "instance_merge",
+      "class_name": "chair",
+      "details": "Segment 8142555 (chair, 857px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0063",
+      "type": "instance_merge",
+      "class_name": "sheep",
+      "details": "Segment 9606227 (sheep, 17198px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0065",
+      "type": "instance_merge",
+      "class_name": "bowl",
+      "details": "Segment 15894502 (bowl, 620px) chứa 4 box detection cùng lớp"
+    },
+    {
+      "image": "img_0068",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 10766631 (person, 3448px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0073",
+      "type": "class_swap",
+      "det_class": "couch",
+      "pan_class": "chair",
+      "iou": 0.951,
+      "details": "Detection: couch vs Panoptic: chair (IoU 0.95)"
+    },
+    {
+      "image": "img_0074",
+      "type": "instance_merge",
+      "class_name": "car",
+      "details": "Segment 1790623 (car, 10524px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0075",
+      "type": "instance_merge",
+      "class_name": "hot dog",
+      "details": "Segment 7640121 (hot dog, 1430px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0075",
+      "type": "class_swap",
+      "det_class": "hot dog",
+      "pan_class": "carrot",
+      "iou": 0.607,
+      "details": "Detection: hot dog vs Panoptic: carrot (IoU 0.61)"
+    },
+    {
+      "image": "img_0077",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 13401423 (person, 2102px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0078",
+      "type": "class_swap",
+      "det_class": "dog",
+      "pan_class": "sheep",
+      "iou": 0.929,
+      "details": "Detection: dog vs Panoptic: sheep (IoU 0.93)"
+    },
+    {
+      "image": "img_0082",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 13666789 (person, 3237px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0083",
+      "type": "instance_merge",
+      "class_name": "boat",
+      "details": "Segment 8142046 (boat, 12744px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0090",
+      "type": "bbox_drift",
+      "class_name": "person",
+      "iou": 0.637,
+      "drift": 0.156,
+      "details": "Box person bị lệch khỏi mask (IoU 0.64, drift 0.16)"
+    },
+    {
+      "image": "img_0091",
+      "type": "class_swap",
+      "det_class": "donut",
+      "pan_class": "cake",
+      "iou": 0.996,
+      "details": "Detection: donut vs Panoptic: cake (IoU 1.00)"
+    },
+    {
+      "image": "img_0091",
+      "type": "missing_box",
+      "class_name": "cake",
+      "area": 42548,
+      "details": "Segment cake (42548px) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0094",
+      "type": "class_swap",
+      "det_class": "car",
+      "pan_class": "truck",
+      "iou": 0.974,
+      "details": "Detection: car vs Panoptic: truck (IoU 0.97)"
+    },
+    {
+      "image": "img_0095",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 12876543 (person, 1433px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0096",
+      "type": "instance_merge",
+      "class_name": "book",
+      "details": "Segment 15309749 (book, 1407px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0096",
+      "type": "missing_box",
+      "class_name": "oven",
+      "area": 63647,
+      "details": "Segment oven (63647px) không có box detection tương ứng"
+    },
+    {
+      "image": "img_0101",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 10504813 (person, 6898px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0102",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 3548303 (person, 1789px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0105",
+      "type": "class_swap",
+      "det_class": "cup",
+      "pan_class": "wine glass",
+      "iou": 0.91,
+      "details": "Detection: cup vs Panoptic: wine glass (IoU 0.91)"
+    },
+    {
+      "image": "img_0106",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 3295181 (person, 1158px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0109",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 12047560 (person, 22989px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0112",
+      "type": "instance_merge",
+      "class_name": "bottle",
+      "details": "Segment 8435833 (bottle, 3222px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0114",
+      "type": "instance_merge",
+      "class_name": "teddy bear",
+      "details": "Segment 9840407 (teddy bear, 38392px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0122",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 11675751 (person, 59090px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0125",
+      "type": "instance_merge",
+      "class_name": "car",
+      "details": "Segment 6119273 (car, 1308px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0130",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 8780693 (person, 5227px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0132",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 15634322 (person, 57683px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0137",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 3705877 (person, 3363px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0139",
+      "type": "class_swap",
+      "det_class": "couch",
+      "pan_class": "chair",
+      "iou": 0.909,
+      "details": "Detection: couch vs Panoptic: chair (IoU 0.91)"
+    },
+    {
+      "image": "img_0146",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 8284970 (person, 1014px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0148",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 9367246 (person, 714px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0161",
+      "type": "instance_merge",
+      "class_name": "pizza",
+      "details": "Segment 2022331 (pizza, 8834px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0163",
+      "type": "instance_merge",
+      "class_name": "banana",
+      "details": "Segment 9331173 (banana, 19447px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0169",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 1049987 (person, 754px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0171",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 804869 (person, 772px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0173",
+      "type": "instance_merge",
+      "class_name": "elephant",
+      "details": "Segment 1403915 (elephant, 17503px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0174",
+      "type": "instance_merge",
+      "class_name": "cup",
+      "details": "Segment 11272379 (cup, 526px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0183",
+      "type": "instance_merge",
+      "class_name": "bear",
+      "details": "Segment 2552316 (bear, 54279px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0186",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 338265 (person, 2068px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0187",
+      "type": "instance_merge",
+      "class_name": "zebra",
+      "details": "Segment 8489794 (zebra, 6311px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0191",
+      "type": "instance_merge",
+      "class_name": "zebra",
+      "details": "Segment 7035953 (zebra, 545px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0195",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 4626308 (person, 1372px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0196",
+      "type": "instance_merge",
+      "class_name": "banana",
+      "details": "Segment 7315577 (banana, 2805px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0197",
+      "type": "instance_merge",
+      "class_name": "chair",
+      "details": "Segment 14649712 (chair, 14331px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0197",
+      "type": "class_swap",
+      "det_class": "chair",
+      "pan_class": "couch",
+      "iou": 0.953,
+      "details": "Detection: chair vs Panoptic: couch (IoU 0.95)"
+    },
+    {
+      "image": "img_0199",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 468625 (person, 550px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0201",
+      "type": "instance_merge",
+      "class_name": "broccoli",
+      "details": "Segment 11482088 (broccoli, 13597px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0202",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 6542046 (person, 8536px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0202",
+      "type": "bbox_drift",
+      "class_name": "umbrella",
+      "iou": 0.655,
+      "drift": 0.168,
+      "details": "Box umbrella bị lệch khỏi mask (IoU 0.65, drift 0.17)"
+    },
+    {
+      "image": "img_0204",
+      "type": "instance_merge",
+      "class_name": "carrot",
+      "details": "Segment 10509320 (carrot, 1308px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0205",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 15058205 (person, 4575px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0212",
+      "type": "instance_merge",
+      "class_name": "car",
+      "details": "Segment 8340431 (car, 1985px) chứa 3 box detection cùng lớp"
+    },
+    {
+      "image": "img_0213",
+      "type": "instance_merge",
+      "class_name": "car",
+      "details": "Segment 7541436 (car, 640px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0217",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 15997927 (person, 1999px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0220",
+      "type": "instance_merge",
+      "class_name": "umbrella",
+      "details": "Segment 15507236 (umbrella, 1307px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0220",
+      "type": "bbox_drift",
+      "class_name": "person",
+      "iou": 0.514,
+      "drift": 0.456,
+      "details": "Box person bị lệch khỏi mask (IoU 0.51, drift 0.46)"
+    },
+    {
+      "image": "img_0233",
+      "type": "instance_merge",
+      "class_name": "sheep",
+      "details": "Segment 449208 (sheep, 3147px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0236",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 13872906 (person, 74913px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0240",
+      "type": "instance_merge",
+      "class_name": "sheep",
+      "details": "Segment 6809265 (sheep, 69353px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0240",
+      "type": "bbox_drift",
+      "class_name": "sheep",
+      "iou": 0.482,
+      "drift": 0.37,
+      "details": "Box sheep bị lệch khỏi mask (IoU 0.48, drift 0.37)"
+    },
+    {
+      "image": "img_0241",
+      "type": "instance_merge",
+      "class_name": "car",
+      "details": "Segment 3998516 (car, 985px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0242",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 9429623 (person, 717px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0246",
+      "type": "instance_merge",
+      "class_name": "person",
+      "details": "Segment 13483995 (person, 1965px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0250",
+      "type": "instance_merge",
+      "class_name": "toilet",
+      "details": "Segment 13801832 (toilet, 8751px) chứa 2 box detection cùng lớp"
+    },
+    {
+      "image": "img_0250",
+      "type": "bbox_drift",
+      "class_name": "toilet",
+      "iou": 0.358,
+      "drift": 0.83,
+      "details": "Box toilet bị lệch khỏi mask (IoU 0.36, drift 0.83)"
+    }
+  ]
+}
