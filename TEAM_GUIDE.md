@@ -12,7 +12,7 @@
 4. **Đọc kỹ Checklist** và **Acceptance Criteria** trong Issue.
 5. **Thực hiện phần việc** thuộc thư mục được phân công (xem bảng phân quyền bên dưới).
 6. **Comment kết quả và bằng chứng thật** (output lệnh, số lượng ảnh đã xem, đường dẫn file) vào Issue.
-7. **Tạo Pull Request (PR)** vào nhánh `team/day10-integration` (hoặc `main` theo hướng dẫn Lead) nếu có thay đổi file.
+7. **Tạo Pull Request (PR)** vào nhánh `main` (hoặc `team/day10-integration`) **trên repo fork `hungpixi/K5-L23-Day10-Dataset-Release-Handover`** nếu có thay đổi file (tuyệt đối không mở PR sang repo gốc `VinUni-AI20k`).
 8. **Tick hoàn thành checklist** trong Issue khi đã có bằng chứng và PR được review.
 
 ---
