@@ -34,5 +34,6 @@
 ## Git và nộp bài
 
 - Mỗi người có ít nhất 2 commit có nội dung, mang tên và email của mình.
+- Mọi lệnh `git push` và Pull Request (PR) chỉ thực hiện trên **repo fork của nhóm** (`origin`: `https://github.com/hungpixi/K5-L23-Day10-Dataset-Release-Handover`, nhánh `main` / `team/day10-integration`), **không** push hoặc mở PR sang repo gốc `VinUni-AI20k/K5-L23-Day10-Dataset-Release-Handover` (`upstream`).
 - Không commit `data_source/`, `runs/`, `*.zip`, secret. Bài làm chép sang `submission/` bằng `scripts/export_submission.py`.
 - Bài chấm theo commit cuối trước hạn. Hạn và kênh nộp do giảng viên hoặc coach công bố.
