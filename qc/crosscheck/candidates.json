@@ -1,5 +1,166 @@
 {
   "candidates": [
-    
+    {
+      "type": "bbox_drift",
+      "target": "000000023781",
+      "score": 0.655,
+      "evidence": "lớp carrot, IoU box/segment thấp"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000002923",
+      "score": 0.557,
+      "evidence": "box=broccoli, segment=boat"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000006723",
+      "score": 0.867,
+      "evidence": "box=truck, segment=bus"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000009590",
+      "score": 0.731,
+      "evidence": "box=cup, segment=bowl"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000009914",
+      "score": 0.689,
+      "evidence": "box=hot dog, segment=sandwich"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000012639",
+      "score": 0.519,
+      "evidence": "box=dog, segment=person"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000013774",
+      "score": 0.768,
+      "evidence": "box=, segment=frisbee"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000016502",
+      "score": 0.554,
+      "evidence": "box=sheep, segment=sink"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000018380",
+      "score": 0.668,
+      "evidence": "box=cup, segment=wine glass"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000020553",
+      "score": 0.654,
+      "evidence": "box=bottle, segment=vase"
+    },
+    {
+      "type": "class_swap",
+      "target": "000000022892",
+      "score": 0.564,
+      "evidence": "box=chair, segment=cat"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000000632",
+      "score": 0.0637,
+      "evidence": "segment book lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000002299",
+      "score": 0.4934,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000005001",
+      "score": 0.0328,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000005586",
+      "score": 0.3991,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000012120",
+      "score": 0.1297,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000012639",
+      "score": 0.0107,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000012670",
+      "score": 0.4538,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000014038",
+      "score": 0.0261,
+      "evidence": "segment book lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000014439",
+      "score": 0.0154,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000015517",
+      "score": 0.0082,
+      "evidence": "segment bus lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000016228",
+      "score": 0.0248,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000017959",
+      "score": 0.068,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000019109",
+      "score": 0.028,
+      "evidence": "segment motorcycle lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000019432",
+      "score": 0.0967,
+      "evidence": "segment chair lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000024021",
+      "score": 0.6367,
+      "evidence": "segment person lớn không có box"
+    },
+    {
+      "type": "missing_box",
+      "target": "000000025394",
+      "score": 0.0536,
+      "evidence": "segment bottle lớn không có box"
+    }
   ]
 }
