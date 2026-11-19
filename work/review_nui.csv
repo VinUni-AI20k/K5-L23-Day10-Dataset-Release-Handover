@@ -1,0 +1,3 @@
+image,type,verdict,note
+000000008690,class_swap,confirmed,"Trong ảnh là một con cừu trên đồng cỏ, nhãn detection ghi nhầm thành cow (bò), còn mask panoptic ghi đúng là sheep."
+000000015751,class_swap,confirmed,"Trong ảnh là một con chim đậu trên cành cây, nhãn detection ghi nhầm thành orange (quả cam), mask panoptic ghi đúng là bird."

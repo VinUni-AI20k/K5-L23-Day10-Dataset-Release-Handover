@@ -1,0 +1,3 @@
+﻿image,type,verdict,note
+000000005600,bbox_drift,confirmed,"[Đạt] box bowl của bát thịt phía trên lệch sang phải và xuống dưới, nửa trên bát nằm ngoài box; panoptic viền đúng bát"
+000000017627,missing_box,confirmed,"[Đạt] taxi trắng chở hành lý trên nóc ở giữa ảnh không có box car nào, panoptic có segment car cho xe này"
