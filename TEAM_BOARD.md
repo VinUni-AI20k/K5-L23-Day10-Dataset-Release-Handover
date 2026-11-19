@@ -22,6 +22,7 @@ _Cập nhật tự động từ GitHub API lúc 2026-11-19 11:02 UTC_
 | # | Issue | Assignees | Labels | State |
 |---|---|---|---|---|
 | [#1](https://github.com/phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release/issues/1) | [P2] Nguyễn Xuân Việt — Cross-check & Visual Review r9007 (review_log.csv) | _Chưa assign_ | - | OPEN |
+| [#2](https://github.com/phamphunguyenhung/K5-L23-DAY10-sIx4Nhd0cTh4n-Release/issues/2) | [P3-P4] Đỗ Anh Hoàng — Handover v2, Lineage & Chốt H3 check_handover (r9007) | _Chưa assign_ | - | OPEN |
 
 **Pull Requests:** 0 total (0 open, 0 merged)
 <!-- TEAM_PROGRESS_END -->
