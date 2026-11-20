@@ -1,0 +1,28 @@
+{
+  "candidates": [
+    {"target": "000000000872", "type": "missing_box", "box": null, "segment": 12234672, "note": "Thiếu box detection cho person (id 12234672, diện tích 47692 px)"},
+    {"target": "000000001353", "type": "instance_merge", "box": [1, 3], "segment": 3095374, "note": "Hai box person tách biệt (D1, D3) bị gộp chung 1 segment (id 3095374)."},
+    {"target": "000000001532", "type": "class_swap", "box": 5, "segment": 4736836, "note": "Lệch lớp tại D5: YOLO=car vs Panoptic=truck (IoU=0.97)"},
+    {"target": "000000001584", "type": "instance_merge", "box": [0, 7], "segment": 4207751, "note": "Hai box bus tách biệt (D0, D7) bị gộp chung 1 segment (id 4207751)."},
+    {"target": "000000001818", "type": "missing_box", "box": null, "segment": 8092282, "note": "Thiếu box detection cho zebra (id 8092282, diện tích 120106 px)"},
+    {"target": "000000002157", "type": "instance_merge", "box": [4, 8], "segment": 5261667, "note": "Hai box wine glass tách biệt (D4, D8) bị gộp chung 1 segment (id 5261667)."},
+    {"target": "000000002532", "type": "missing_box", "box": null, "segment": 3487018, "note": "Thiếu box detection cho person (id 3487018, diện tích 5321 px)"},
+    {"target": "000000006723", "type": "class_swap", "box": 4, "segment": 6050903, "note": "Lệch lớp tại D4: YOLO=truck vs Panoptic=bus (IoU=0.91)"},
+    {"target": "000000007108", "type": "instance_merge", "box": [1, 4], "segment": 3162214, "note": "Hai box elephant tách biệt (D1, D4) bị gộp chung 1 segment (id 3162214)."},
+    {"target": "000000007816", "type": "instance_merge", "box": [2, 3], "segment": 2962254, "note": "Hai box person tách biệt (D2, D3) bị gộp chung 1 segment (id 2962254)."},
+    {"target": "000000008277", "type": "class_swap", "box": 11, "segment": 1072752, "note": "Lệch lớp tại D11: YOLO=fork vs Panoptic=broccoli (IoU=0.99)"},
+    {"target": "000000009590", "type": "class_swap", "box": 22, "segment": 5066309, "note": "Lệch lớp tại D22: YOLO=cup vs Panoptic=bowl (IoU=0.92)"},
+    {"target": "000000009914", "type": "class_swap", "box": 6, "segment": 4220302, "note": "Lệch lớp tại D6: YOLO=hot dog vs Panoptic=sandwich (IoU=0.81)"},
+    {"target": "000000010707", "type": "instance_merge", "box": [7, 10], "segment": 4549770, "note": "Hai box cup tách biệt (D7, D10) bị gộp chung 1 segment (id 4549770)."},
+    {"target": "000000012748", "type": "missing_box", "box": null, "segment": 4079972, "note": "Thiếu box detection cho person (id 4079972, diện tích 56935 px)"},
+    {"target": "000000015079", "type": "class_swap", "box": 0, "segment": 592395, "note": "Lệch lớp tại D0: YOLO=knife vs Panoptic=fork (IoU=0.99)"},
+    {"target": "000000016010", "type": "instance_merge", "box": [1, 4], "segment": 4739410, "note": "Hai box zebra tách biệt (D1, D4) bị gộp chung 1 segment (id 4739410)."},
+    {"target": "000000017207", "type": "class_swap", "box": 4, "segment": 4213837, "note": "Lệch lớp tại D4: YOLO=clock vs Panoptic=motorcycle (IoU=0.97)"},
+    {"target": "000000017627", "type": "instance_merge", "box": [5, 13], "segment": 8553344, "note": "Hai box car tách biệt (D5, D13) bị gộp chung 1 segment (id 8553344)."},
+    {"target": "000000018380", "type": "class_swap", "box": 31, "segment": 6437897, "note": "Lệch lớp tại D31: YOLO=cup vs Panoptic=wine glass (IoU=0.87)"},
+    {"target": "000000018575", "type": "instance_merge", "box": [3, 4], "segment": 10655373, "note": "Hai box bottle tách biệt (D3, D4) bị gộp chung 1 segment (id 10655373)."},
+    {"target": "000000019109", "type": "instance_merge", "box": [20, 21], "segment": 5918787, "note": "Hai box motorcycle tách biệt (D20, D21) bị gộp chung 1 segment (id 5918787)."},
+    {"target": "000000020553", "type": "class_swap", "box": 2, "segment": 1849190, "note": "Lệch lớp tại D2: YOLO=bottle vs Panoptic=vase (IoU=0.77)"},
+    {"target": "000000025057", "type": "bbox_drift", "box": 3, "segment": 6382449, "note": "Box person tại D3 lệch: IoU=0.73, tỷ lệ pixel trong box=0.96"}
+  ]
+}

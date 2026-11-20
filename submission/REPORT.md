@@ -11,7 +11,10 @@
     - Seed luyện tập `runs/r30007`: **5 lỗi** (`scene_leak`: 1, `guideline_mismatch`: 1, `invalid_category_id`: 1, `thing_overlap`: 2).
     - Lô kiểu đề ẩn `runs/opaque77` (`inject_release.py --seed 77 --opaque`: tên ảnh mã hoá, id đánh lại, byte ảnh/mask đổi): **4 lỗi**, mỗi loại 1.
   - Validator đã ghép đủ 9 loại lỗi luật (`validate.py` gọi `rules_file_det` + `rules_meta_pan`): lô sạch 0 lỗi; F1 lỗi luật ≈ 1.0 trên seed 30007, 11, 12, 13 và `opaque77` (`score_findings.py`, F1 làm tròn).
-- Số ứng viên trên lô sạch (`--no-faults`): <<...>>; hàng đợi trên seed luyện tập: <<... ảnh>>
+- Số ứng viên trên lô sạch (`--no-faults`): **1** ứng viên / 50 ảnh (`instance_merge`, lệch tự nhiên của COCO), 0 lỗi luật; hàng đợi trên seed luyện tập: **24 ảnh** (`instance_merge` 10, `class_swap` 9, `missing_box` 4, `bbox_drift` 1).
+  - Xem ảnh (Huỳnh làm công cụ `tools/viewer.py`, chia đều 5 người, gộp bằng `tools/gop_review.py`): **18 confirmed, 6 rejected**. Cả 6 ảnh bị bác đều là `instance_merge`: hai khung detection chồng lên nhau nên khung sau "dính" màu của segment bên cạnh, nhưng vật thứ hai thật ra có segment riêng (vd. `000000007108` đàn voi, `000000010707` hai cốc, `000000017627` hai xe ô tô).
+  - 4 ảnh validator đoán `class_swap` nhưng xem ảnh thì detection đúng, panoptic sai, nên đổi thành `category_swap`: `000000001532` (car/truck), `000000006723` (truck/bus), `000000015079` (knife/fork), `000000018380` (cốc nhựa: cup/wine glass).
+  - `errors.json` cuối: **29 lỗi** = 11 lỗi luật + 18 lỗi gán nhãn đã xác nhận (`class_swap` 5, `category_swap` 4, `instance_merge` 4, `missing_box` 4, `bbox_drift` 1).
 - Ngưỡng đã chọn và cách chọn (không dùng `_private`):
   - **Luật file + detection (`rules_file_det.py`):** Chọn theo định nghĩa ở `docs/DELIVERY.md` và kiểm bằng lô sạch `runs/clean` (50 ảnh calib):
     - `BOUND_EPS = 1e-4` (toạ độ chuẩn hoá, tương đương ~0,064 px trên ảnh 640 px): bỏ qua sai số làm tròn 6 chữ số thập phân của nhãn YOLO gốc (trên lô sạch và `r30007`, box sát mép tự nhiên chỉ lệch tối đa ~0,0003 px, không gây FP), nhưng bắt được mọi box tràn mép thật (ở `r30007` tràn ~27,2 px).
@@ -24,7 +27,19 @@
   - **Đối chiếu detection ↔ panoptic:** <<phần của Việt>>
 
 ## 2. Vì sao báo hết ứng viên làm F1 giảm?
-<<Trả lời bằng số của nhóm.>>
+Ứng viên chỉ là chỗ detection và panoptic **bất đồng**, không phải lỗi chắc chắn. Bất đồng có thể do lệch tự nhiên (vật chồng nhau, bị che), và khi lớp khác nhau thì máy không biết bên nào sai. Số của nhóm trên seed 30007 (phần lỗi gán nhãn, coi kết quả xem ảnh là đúng):
+
+| | Báo hết 24 ứng viên theo type máy đoán | Báo sau khi xem ảnh |
+|---|---|---|
+| Đúng (TP) | 14 | 18 |
+| Báo nhầm (FP) | 10 = 6 ảnh bị bác + 4 ảnh sai type | 0 |
+| Bỏ sót (FN) | 4 (4 `category_swap` không được khai) | 0 |
+| Precision / Recall / F1 | 0,58 / 0,78 / **0,67** | 1 / 1 / 1 |
+
+- **6 ảnh bị bác** (25% hàng đợi) thành báo nhầm nếu khai hết, làm precision giảm.
+- **4 ảnh sai type** bị phạt **hai lần**: khai `class_swap` không có trong đáp án (FP), còn `category_swap` thật thì không được khai (FN). F1 chấm theo cặp (type, ảnh) nên đúng ảnh mà sai type vẫn tính là sai.
+- Sai type còn ảnh hưởng bàn giao: `class_swap` là lỗi detection nên ảnh bị **bỏ khỏi v2**, còn `category_swap` chỉ lỗi panoptic nên ảnh **ở lại v2**. Khai theo máy sẽ loại oan 4 ảnh.
+- Lô sạch ra 1 ứng viên / 50 ảnh, cho thấy hàng đợi luôn có lệch tự nhiên, nên bước xem ảnh là bắt buộc chứ không chỉ để cho đẹp.
 
 ## 3. Quyết định và lineage
 <<QC v1 a/b, kết luận, vì sao R-021 phải xem lại hoặc train lại.>>

@@ -1,0 +1,26 @@
+image,type,verdict,note,reviewer
+000000000872,missing_box,confirmed,"Hai cầu thủ bóng chày, người áo trắng đội mũ bảo hiểm ở phía trước chạy tới. Khung D1 person chỉ bao người áo xanh phía sau (đỉnh mũ tới chân), chân người áo trắng thò ra ngoài khung. Panoptic có segment vàng riêng cho người áo trắng mà detection không có box",Tung
+000000001353,instance_merge,confirmed,segmentation đang tô lan ra cả phần đàu của người phía trước cậu bé,Huong
+000000001532,category_swap,confirmed,"xe o to con chay tren cao toc, detection D5 ghi car dung, panoptic gan nham truck",Viet
+000000001584,instance_merge,confirmed,"Xe buýt 2 tầng đỏ to (D0) và xe buýt trắng sát mép phải (D7) là 2 xe tách rời, ở giữa còn xe đỏ nhỏ D13 có màu riêng, nhưng panoptic tô chung 1 vùng vàng cho cả D0 lẫn D7, xe trắng không có segment riêng",Huynh
+000000001818,missing_box,confirmed,Trong ảnh thiếu box cho con ngựa vằn được tô Panoptic màu vàng,Khanh
+000000002157,instance_merge,confirmed,"Cụm ly rượu trong suốt chồng lên nhau trên bàn tiệc. D8 và D4 là hai khung wine glass tách biệt, nhưng panoptic chỉ có một mask vàng dài kéo từ ly phía trên xuống ly bên dưới, gộp hai ly làm một.",Tung
+000000002532,missing_box,confirmed,thiếu box của person,Huong
+000000006723,category_swap,confirmed,"xe tai thung cho hang o phia xa, detection D4 ghi truck dung, panoptic gan nham bus",Viet
+000000007108,instance_merge,rejected,"Vùng vàng chỉ là con voi thứ hai đứng giữa (D1). Khung D4 là con voi bên mép phải, nằm đè lên khung D1 nên dính màu vàng, nhưng con D4 có segment màu hồng riêng, panoptic tách đúng",Huynh
+000000007816,instance_merge,rejected,"Người áo cam bị hàng rào che khuất nên Panoptic vẽ đè lên hàng rào, trong khi Detection bắt đúng người",Khanh
+000000008277,class_swap,confirmed,"Hộp súp bông cải sốt phô mai màu vàng trong khay đen, thịt gà xé trên đĩa. D11 detection ghi fork nhưng vùng đó chỉ là sốt vàng và bông cải trong khay, không có cái nĩa nào. Nĩa thật nằm ở mép phải đĩa. Panoptic ghi broccoli hợp lý hơn.",Tung
+000000009590,class_swap,confirmed,vật là bowl nhưng yolo đang đánh box là cup,Huong
+000000009914,class_swap,confirmed,"nua banh mi kep hat me ben mep phai dia, detection D6 ghi nham hot dog, panoptic ghi sandwich dung",Viet
+000000010707,instance_merge,rejected,"Hai cốc trên bàn: cốc nước xanh phía trước (D7) và cốc thủy tinh phía sau (D10). Cốc sau có segment cup riêng, chỉ dính màu vàng ở phần khung D10 chồng lên cốc trước, không bị gộp",Huynh
+000000012748,missing_box,confirmed,Thiếu box detection của người cha mặc áo đỏ.,Khanh
+000000015079,category_swap,confirmed,"Bánh sandwich kẹp mứt trên đĩa, bên phải có vật dụng đen dạng lưỡi dao dẹt, cán có khía, không có răng nĩa. Detection D0 ghi knife là đúng, panoptic ghi fork là sai, nên lỗi nằm ở panoptic.",Tung
+000000016010,instance_merge,rejected,đã tách riêng zebra màu vàng và ở sau màu xanh,Huong
+000000017207,class_swap,confirmed,Người đi xe máy (góc phải bị truncated) trong khi panoptic nhận diện đúng motorcyle thì thì box detection nhận diện sai thành clock,Khanh
+000000017207,class_swap,confirmed,"xe may chay sat mep trai anh ben canh xe buyt, detection D4 ghi nham clock, panoptic ghi motorcycle dung",Viet
+000000017627,instance_merge,rejected,"Xe trắng đỗ bên phải (D5) có vùng vàng vừa khít khung. D13 là xe bạc nhỏ phía sau nóc xe trắng, có segment car riêng khớp đúng khung D13, chỉ dính vàng ở chỗ hai khung chồng lên nhau",Huynh
+000000018380,category_swap,confirmed,"Bữa tiệc gia đình bàn dài khăn tím. D31 là cốc nhựa xanh dương thành thẳng, không có chân, giống các cốc xanh khác trên bàn. Detection ghi cup là đúng, panoptic ghi wine glass là sai nên lỗi ở panoptic",Huynh
+000000018575,instance_merge,confirmed,"Khay đồ ăn có burger, khoai chiên, salad và ba lọ gia vị nhỏ ở góc phải trên. Hai lọ màu vàng chồng lên nhau là D3 và D4, detection có hai khung riêng nhưng panoptic chỉ có một mask vàng bao cả hai. Lọ tím bên cạnh (D0) thì có segment riêng.",Tung
+000000019109,instance_merge,rejected,segmentation tách màu 1 cái màu vàng cái sau màu xanh,Huong
+000000020553,class_swap,confirmed,"binh cam hoa mau vang tren ban, detection D2 ghi nham bottle, panoptic ghi vase dung",Viet
+000000025057,bbox_drift,confirmed,"Người đàn ông cởi trần cầm đĩa frisbee: khung D3 bị dịch sang phải khoảng 44px so với vùng panoptic, bàn tay trái dang ra bị thò ra ngoài khung, còn bên phải khung thừa khoảng trống trời xanh",Huynh

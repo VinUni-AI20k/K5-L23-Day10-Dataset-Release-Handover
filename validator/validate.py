@@ -55,10 +55,11 @@ def main() -> int:
     if args.candidates:
         try:
             import cross_check
-            cands = cross_check.extract_candidates(delivery)
+            rule_targets = {g for _, g in found if not g.startswith("scene_")}
+            cands = cross_check.extract_candidates(delivery, exclude_targets=rule_targets)
             cand_path = Path(args.candidates)
             cand_path.parent.mkdir(parents=True, exist_ok=True)
-            cand_path.write_text(json.dumps({"candidates": cands}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+            cand_path.write_text(json.dumps({"candidates": cands}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
             print(f"Trích xuất {len(cands)} ứng viên gán nhãn -> {cand_path}")
         except Exception:
             print("[LỖI] Trích xuất candidates thất bại:", file=sys.stderr)
