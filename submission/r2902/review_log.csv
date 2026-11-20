@@ -1,0 +1,25 @@
+image,type,verdict,note
+000000004134,bbox_drift,rejected,Lệch tự nhiên COCO: người đứng trong đám đông có ranh giới bbox chấp nhận được
+000000006723,class_swap,rejected,"Lệch tự nhiên COCO: xe tải thùng lớn có hình dáng lai xe bus, ranh giới phân loại mập mờ"
+000000006723,category_swap,rejected,Lệch tự nhiên COCO: cả hai nguồn nhãn đều có lý do hợp lý do xe có kiểu dáng hỗn hợp
+000000007818,category_swap,confirmed,"Ảnh chụp ly rượu vang thủy tinh cao rõ ràng trên bàn tiệc, panoptic gán nhầm thành bowl"
+000000007818,class_swap,rejected,"Detection ghi đúng wine glass theo quan sát thực tế trong ảnh, lỗi thuộc về panoptic"
+000000009378,missing_box,rejected,Ảnh này mang lỗi invalid_class ở detection (class 80) chứ không phải cố ý thiếu nhãn
+000000009590,class_swap,rejected,Lệch tự nhiên COCO: chiếc chén nhỏ có thể coi là cup hoặc bowl tùy người gán
+000000009590,category_swap,rejected,Lệch tự nhiên COCO: vật thể dạng chén/cốc nhỏ mập mờ giữa hai phân loại
+000000009914,class_swap,rejected,Lệch tự nhiên COCO: bánh kẹp xúc xích có cấu trúc trung gian giữa hot dog và sandwich
+000000009914,category_swap,rejected,Lệch tự nhiên COCO: định nghĩa món ăn kẹp xúc xích mập mờ giữa hai nguồn
+000000014888,class_swap,confirmed,"Ảnh chụp một con bò lớn đứng trên đồng cỏ, detection gán nhầm thành toothbrush"
+000000014888,category_swap,rejected,"Panoptic gán đúng con bò (cow), lỗi thuộc về nhãn detection bị hoán đổi lớp"
+000000015440,instance_merge,confirmed,Panoptic gộp 2 chiếc xe bus riêng biệt đang đỗ cạnh nhau thành một segment duy nhất
+000000015440,bbox_drift,rejected,"Box detection tách riêng 2 xe là đúng, lỗi thuộc về panoptic bị merge cá thể"
+000000017207,bbox_drift,confirmed,Box detection của xe bus lớn bị lệch tâm đáng kể và phình to bất thường ra ngoài thân xe
+000000018380,class_swap,rejected,"Lệch tự nhiên COCO: ly cốc uống nước có chân nhưng miệng rộng, ranh giới cup/glass không rõ"
+000000018380,category_swap,rejected,Lệch tự nhiên COCO: khác biệt tự nhiên trong quy ước đặt tên ly/cốc
+000000019924,missing_box,confirmed,"Người đàn ông mặc vest thắt cà vạt chiếm toàn bộ ảnh nhưng detection chỉ có box tie, thiếu hẳn box person"
+000000020553,class_swap,rejected,Lệch tự nhiên COCO: bình gốm trang trí có hình dáng trung gian giữa lọ hoa và chai lọ
+000000020553,category_swap,rejected,Lệch tự nhiên COCO: quy ước gọi tên vật thể trang trí trong nội thất
+000000023937,missing_box,confirmed,"Đàn bò trên đồng cỏ có 5 con rõ ràng trong panoptic, nhưng detection chỉ có 4 box, thiếu 1 con"
+000000000872,missing_box,rejected,Lệch tự nhiên COCO: vật thể ở rìa ảnh quá nhỏ và bị cắt xén nên không coi là lỗi thiếu box
+000000001818,missing_box,rejected,Lệch tự nhiên COCO: vật thể bị che khuất phần lớn bởi tiền cảnh
+000000012748,missing_box,rejected,Lệch tự nhiên COCO: phân đoạn mờ ở hậu cảnh xa xôi
