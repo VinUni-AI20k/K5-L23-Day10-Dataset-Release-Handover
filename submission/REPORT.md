@@ -11,15 +11,22 @@ Lô sạch vẫn sinh 6 ứng viên do hai nguồn nhãn có thể lệch tự n
 CP2: Mỹ Tâm xem ban đầu toàn bộ 21 thẻ. Bốn thành viên xem lại và đồng ý với kết luận: Trần Tuấn Anh (#1, #2, #3), Doãn Tùng Lâm (#4, #5, #9), Trần Thị Ngọc Ánh (#6, #7, #10), Lương Quốc Việt (#8, #11, #12).
 
 ## 3. Quyết định và lineage
+- QC v1 có **22 lỗi trên 250 ảnh**, tức `22/250 = 8,8%`. Vì 8,8% lớn hơn
+  ngưỡng 2%, kết luận của nhóm cho lô v1 là **HOLD**, không được Release.
+- Quyết định này được ghi append-only vào `lineage.jsonl` với event
+  `decision`, `decision=HOLD`, và đúng `release_id` của v1. Không sửa hoặc
+  ghi đè các event trước đó.
+- Lệnh kiểm tra ảnh hưởng:
+  `python scripts/lineage.py impact --release-id <release_id_v1>`.
+  Kết quả mong đợi là `R-021: affected=True action=review_or_retrain`.
+- `R-021` phải được xem lại hoặc train lại vì model đã học từ release v1;
+  thay đổi dataset sau đó không thể tự sửa các trọng số đã học. Khi phát hiện
+  v1 bị giữ, lineage giúp truy ra đúng training run bị ảnh hưởng và ngăn dùng
+  kết quả cũ như thể dữ liệu vẫn hợp lệ.
 
-**Quyết định**
-- QC v1 = 22 / 250 = 8,8%. Tử số là số mục trong `submission/r76/errors.json` (11 lỗi luật và 11 lỗi gán nhãn đã xác nhận). Mỗi ảnh mang nhiều nhất một lỗi, và `scene_leak` được tính là một ảnh. Mẫu số là 250 ảnh của lô `lab250_689a2db4b8e7`.
-- Ngưỡng Day 7 là 2%. 8,8% vượt ngưỡng (khoảng 4,4 lần), nên kết luận cho v1 là **HOLD**, không Release.
-- Con số 22 là số lỗi nhóm đã tìm thấy, chưa chắc là toàn bộ. F1 lỗi gán nhãn tự đo chỉ khoảng 0,4, nên có thể còn lỗi chưa phát hiện. Số lỗi thật chỉ có thể cao hơn 22, không thấp hơn, nên kết luận HOLD không đổi.
-- Run R-021 được train trên lô v1 (nhật ký lineage có sự kiện `train` ghi release `lab250_689a2db4b8e7`). Mô hình đã học cả các nhãn sai của lô này, nên phải được xem lại hoặc train lại. Đổi hay sửa dataset sau đó không tự sửa mô hình đã học.
-
-**Lineage (Lương Quốc Việt).**
-<<Việt ghi: lệnh `lineage.py record --event decision ... HOLD`, dòng kết quả của `lineage.py impact` (mong đợi `R-021: affected=True action=review_or_retrain`).>>
+Việc ghi event được thực hiện bởi `scripts/record_cp3.py`. Script đọc
+`runs/r76/delivery/release.json`, nên không phải tự điền hoặc đoán
+`release_id`.
 
 ## 4. Hash chứng minh gì, không chứng minh gì?
 <<>>
