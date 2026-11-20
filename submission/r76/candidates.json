@@ -1,0 +1,337 @@
+{
+ "candidates": [
+  {
+   "image": "000000001000",
+   "type": "instance_merge",
+   "reason": "2 box 'person' cùng ghép vào một segment",
+   "detection": "person",
+   "segment": 6053739,
+   "boxes": [
+    [
+     209,
+     175,
+     309,
+     424
+    ],
+    [
+     183,
+     121,
+     279,
+     394
+    ]
+   ]
+  },
+  {
+   "image": "000000001353",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'person' nhưng segment ghi 'pizza' (IoU-mask 0.62)",
+   "detection": "person",
+   "panoptic": "pizza",
+   "box": [
+    62,
+    214,
+    179,
+    357
+   ],
+   "segment": 988966,
+   "iou": 0.615
+  },
+  {
+   "image": "000000001993",
+   "type": "missing_box",
+   "reason": "segment 'dining table' 9918 pixel không có box nào phủ (tối đa 17%)",
+   "panoptic": "dining table",
+   "segment": 5922667,
+   "pixels": 9918
+  },
+  {
+   "image": "000000006460",
+   "type": "missing_box",
+   "reason": "segment 'person' 1804 pixel không có box nào phủ (tối đa 2%)",
+   "panoptic": "person",
+   "segment": 1973790,
+   "pixels": 1804
+  },
+  {
+   "image": "000000006723",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'truck' nhưng segment ghi 'bus' (IoU-mask 0.84)",
+   "detection": "truck",
+   "panoptic": "bus",
+   "box": [
+    362,
+    193,
+    390,
+    223
+   ],
+   "segment": 6050903,
+   "iou": 0.839
+  },
+  {
+   "image": "000000009400",
+   "type": "instance_merge",
+   "reason": "2 box 'cup' cùng ghép vào một segment",
+   "detection": "cup",
+   "segment": 4015183,
+   "boxes": [
+    [
+     251,
+     417,
+     315,
+     480
+    ],
+    [
+     252,
+     380,
+     328,
+     476
+    ]
+   ]
+  },
+  {
+   "image": "000000009590",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'cup' nhưng segment ghi 'bowl' (IoU-mask 0.72)",
+   "detection": "cup",
+   "panoptic": "bowl",
+   "box": [
+    423,
+    275,
+    472,
+    306
+   ],
+   "segment": 5066309,
+   "iou": 0.716
+  },
+  {
+   "image": "000000009914",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'hot dog' nhưng segment ghi 'sandwich' (IoU-mask 0.69)",
+   "detection": "hot dog",
+   "panoptic": "sandwich",
+   "box": [
+    519,
+    186,
+    640,
+    464
+   ],
+   "segment": 4220302,
+   "iou": 0.69
+  },
+  {
+   "image": "000000011051",
+   "type": "bbox_drift",
+   "reason": "chỉ 55% pixel segment 'person' nằm trong box (IoU-mask 0.42)",
+   "detection": "person",
+   "box": [
+    249,
+    77,
+    635,
+    536
+   ],
+   "segment": 1712176,
+   "inside_frac": 0.548
+  },
+  {
+   "image": "000000011051",
+   "type": "bbox_drift",
+   "reason": "chỉ 66% pixel segment 'person' nằm trong box (IoU-mask 0.50)",
+   "detection": "person",
+   "box": [
+    7,
+    2,
+    394,
+    528
+   ],
+   "segment": 1712176,
+   "inside_frac": 0.658
+  },
+  {
+   "image": "000000011051",
+   "type": "instance_merge",
+   "reason": "2 box 'person' cùng ghép vào một segment",
+   "detection": "person",
+   "segment": 1712176,
+   "boxes": [
+    [
+     249,
+     77,
+     635,
+     536
+    ],
+    [
+     7,
+     2,
+     394,
+     528
+    ]
+   ]
+  },
+  {
+   "image": "000000011813",
+   "type": "bbox_drift",
+   "reason": "chỉ 71% pixel segment 'chair' nằm trong box (IoU-mask 0.53)",
+   "detection": "chair",
+   "box": [
+    1,
+    333,
+    95,
+    391
+   ],
+   "segment": 4672598,
+   "inside_frac": 0.707
+  },
+  {
+   "image": "000000012280",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'backpack' nhưng segment ghi 'suitcase' (IoU-mask 0.54)",
+   "detection": "backpack",
+   "panoptic": "suitcase",
+   "box": [
+    174,
+    314,
+    224,
+    373
+   ],
+   "segment": 7565431,
+   "iou": 0.538
+  },
+  {
+   "image": "000000017182",
+   "type": "bbox_drift",
+   "reason": "chỉ 39% pixel segment 'book' nằm trong box (IoU-mask 0.30)",
+   "detection": "book",
+   "box": [
+    276,
+    229,
+    311,
+    302
+   ],
+   "segment": 3944728,
+   "inside_frac": 0.389
+  },
+  {
+   "image": "000000017182",
+   "type": "instance_merge",
+   "reason": "2 box 'book' cùng ghép vào một segment",
+   "detection": "book",
+   "segment": 3944728,
+   "boxes": [
+    [
+     241,
+     231,
+     299,
+     306
+    ],
+    [
+     276,
+     229,
+     311,
+     302
+    ]
+   ]
+  },
+  {
+   "image": "000000017182",
+   "type": "instance_merge",
+   "reason": "2 box 'book' cùng ghép vào một segment",
+   "detection": "book",
+   "segment": 4671284,
+   "boxes": [
+    [
+     305,
+     227,
+     334,
+     297
+    ],
+    [
+     315,
+     229,
+     346,
+     295
+    ]
+   ]
+  },
+  {
+   "image": "000000018380",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'cup' nhưng segment ghi 'wine glass' (IoU-mask 0.70)",
+   "detection": "cup",
+   "panoptic": "wine glass",
+   "box": [
+    292,
+    184,
+    309,
+    207
+   ],
+   "segment": 6437897,
+   "iou": 0.696
+  },
+  {
+   "image": "000000020553",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'bottle' nhưng segment ghi 'vase' (IoU-mask 0.70)",
+   "detection": "bottle",
+   "panoptic": "vase",
+   "box": [
+    407,
+    132,
+    418,
+    186
+   ],
+   "segment": 1849190,
+   "iou": 0.697
+  },
+  {
+   "image": "000000022892",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'chair' nhưng segment ghi 'cat' (IoU-mask 0.57)",
+   "detection": "chair",
+   "panoptic": "cat",
+   "box": [
+    314,
+    0,
+    500,
+    260
+   ],
+   "segment": 7562331,
+   "iou": 0.566
+  },
+  {
+   "image": "000000024243",
+   "type": "instance_merge",
+   "reason": "2 box 'cup' cùng ghép vào một segment",
+   "detection": "cup",
+   "segment": 7966110,
+   "boxes": [
+    [
+     0,
+     308,
+     29,
+     347
+    ],
+    [
+     0,
+     317,
+     23,
+     359
+    ]
+   ]
+  },
+  {
+   "image": "000000025560",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'tv' nhưng segment ghi 'laptop' (IoU-mask 0.63)",
+   "detection": "tv",
+   "panoptic": "laptop",
+   "box": [
+    156,
+    1,
+    556,
+    262
+   ],
+   "segment": 3485742,
+   "iou": 0.632
+  }
+ ]
+}
