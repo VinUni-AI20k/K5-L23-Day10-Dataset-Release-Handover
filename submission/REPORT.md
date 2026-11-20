@@ -11,7 +11,15 @@ Lô sạch vẫn sinh 6 ứng viên do hai nguồn nhãn có thể lệch tự n
 CP2: Mỹ Tâm xem ban đầu toàn bộ 21 thẻ. Bốn thành viên xem lại và đồng ý với kết luận: Trần Tuấn Anh (#1, #2, #3), Doãn Tùng Lâm (#4, #5, #9), Trần Thị Ngọc Ánh (#6, #7, #10), Lương Quốc Việt (#8, #11, #12).
 
 ## 3. Quyết định và lineage
-<<QC v1 a/b, kết luận, vì sao R-021 phải xem lại hoặc train lại.>>
+
+**Quyết định**
+- QC v1 = 22 / 250 = 8,8%. Tử số là số mục trong `submission/r76/errors.json` (11 lỗi luật và 11 lỗi gán nhãn đã xác nhận). Mỗi ảnh mang nhiều nhất một lỗi, và `scene_leak` được tính là một ảnh. Mẫu số là 250 ảnh của lô `lab250_689a2db4b8e7`.
+- Ngưỡng Day 7 là 2%. 8,8% vượt ngưỡng (khoảng 4,4 lần), nên kết luận cho v1 là **HOLD**, không Release.
+- Con số 22 là số lỗi nhóm đã tìm thấy, chưa chắc là toàn bộ. F1 lỗi gán nhãn tự đo chỉ khoảng 0,4, nên có thể còn lỗi chưa phát hiện. Số lỗi thật chỉ có thể cao hơn 22, không thấp hơn, nên kết luận HOLD không đổi.
+- Run R-021 được train trên lô v1 (nhật ký lineage có sự kiện `train` ghi release `lab250_689a2db4b8e7`). Mô hình đã học cả các nhãn sai của lô này, nên phải được xem lại hoặc train lại. Đổi hay sửa dataset sau đó không tự sửa mô hình đã học.
+
+**Lineage (Lương Quốc Việt).**
+<<Việt ghi: lệnh `lineage.py record --event decision ... HOLD`, dòng kết quả của `lineage.py impact` (mong đợi `R-021: affected=True action=review_or_retrain`).>>
 
 ## 4. Hash chứng minh gì, không chứng minh gì?
 <<>>
