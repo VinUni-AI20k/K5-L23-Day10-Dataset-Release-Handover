@@ -1,0 +1,365 @@
+{
+  "delivery": "runs/r12007/delivery",
+  "thresholds": {
+    "min_box_area_ratio": 0.0035,
+    "min_seg_px": 600,
+    "exact_match_iou": 0.8,
+    "exact_match_mask": 0.9,
+    "swap_min_iou": 0.6,
+    "swap_min_mask_in_box": 0.75,
+    "drift_max_mask_in_box": 0.95,
+    "drift_spill_max_iou": 0.92,
+    "drift_low_iou": 0.78,
+    "drift_low_iou_max_mask": 0.99,
+    "drift_min_center_shift": 0.08,
+    "drift_min_abs_seg_px": 150,
+    "missing_min_seg_px": 800,
+    "missing_min_area_ratio": 0.004,
+    "missing_min_abs_seg_px": 250,
+    "missing_max_same_mask_in_box": 0.45,
+    "merge_min_seg_px": 600,
+    "merge_max_box_iou": 0.65,
+    "merge_min_part_px": 150,
+    "merge_min_part_ratio": 0.12,
+    "merge_min_union_gain": 0.12,
+    "strong_match_iou": 0.5,
+    "strong_match_mask": 0.5,
+    "relaxed_match_iou": 0.12,
+    "relaxed_match_mask": 0.22
+  },
+  "summary": {
+    "total_manifest_images": 250,
+    "scanned_images": 249,
+    "skipped_missing_images": 1,
+    "total_candidates": 10,
+    "unique_candidate_images": 10,
+    "by_suggested_type": {
+      "missing_box": 3,
+      "class_swap/category_swap": 3,
+      "bbox_drift": 2,
+      "instance_merge": 2
+    }
+  },
+  "candidates": [
+    {
+      "image": "000000001532",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "reason": "Segment panoptic 'car' đáng kể (3984 px, 1.30% ảnh) không có box detection cùng lớp phù hợp (max mask_in_box cùng lớp=0.17)",
+      "det_boxes_px": [],
+      "det_class": null,
+      "pan_segment_id": 7960693,
+      "pan_bbox_px": [
+        106.0,
+        376.0,
+        185.0,
+        435.0
+      ],
+      "pan_class": "car",
+      "metrics": {
+        "seg_area_px": 3984,
+        "seg_area_ratio": 0.01297,
+        "max_same_class_mask_in_box": 0.1687
+      },
+      "warnings": [],
+      "candidate_id": "C001"
+    },
+    {
+      "image": "000000003501",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "reason": "Segment panoptic 'bowl' đáng kể (237060 px, 63.29% ảnh) không có box detection cùng lớp phù hợp (max mask_in_box cùng lớp=0.00)",
+      "det_boxes_px": [],
+      "det_class": null,
+      "pan_segment_id": 9872311,
+      "pan_bbox_px": [
+        12.0,
+        8.0,
+        604.0,
+        583.0
+      ],
+      "pan_class": "bowl",
+      "metrics": {
+        "seg_area_px": 237060,
+        "seg_area_ratio": 0.63293,
+        "max_same_class_mask_in_box": 0.0
+      },
+      "warnings": [],
+      "candidate_id": "C002"
+    },
+    {
+      "image": "000000007278",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "reason": "Cùng vị trí nhưng khác tên lớp: Detection='surfboard' vs Panoptic='elephant' (IoU=0.98, mask_in_box=1.00, seg=1917 px). Mở ảnh xác định bên sai.",
+      "det_boxes_px": [
+        [
+          283.8,
+          57.9,
+          337.6,
+          119.3
+        ]
+      ],
+      "det_class": "surfboard",
+      "pan_segment_id": 12960199,
+      "pan_bbox_px": [
+        284.0,
+        58.0,
+        338.0,
+        119.0
+      ],
+      "pan_class": "elephant",
+      "metrics": {
+        "iou": 0.9835,
+        "mask_in_box": 1.0,
+        "inter_px": 1917,
+        "box_area_ratio": 0.01072,
+        "seg_area_px": 1917
+      },
+      "warnings": [],
+      "candidate_id": "C003"
+    },
+    {
+      "image": "000000009590",
+      "suggested_types": [
+        "missing_box"
+      ],
+      "reason": "Segment panoptic 'person' đáng kể (3830 px, 1.40% ảnh) không có box detection cùng lớp phù hợp (max mask_in_box cùng lớp=0.00)",
+      "det_boxes_px": [],
+      "det_class": null,
+      "pan_segment_id": 2237478,
+      "pan_bbox_px": [
+        372.0,
+        169.0,
+        458.0,
+        265.0
+      ],
+      "pan_class": "person",
+      "metrics": {
+        "seg_area_px": 3830,
+        "seg_area_ratio": 0.01401,
+        "max_same_class_mask_in_box": 0.0
+      },
+      "warnings": [],
+      "candidate_id": "C004"
+    },
+    {
+      "image": "000000013729",
+      "suggested_types": [
+        "bbox_drift"
+      ],
+      "reason": "Box 'dining table' lệch khỏi mask cùng lớp: mask_in_box=0.82 (18% pixel mask ra ngoài box), IoU=0.68, lệch tâm=0.11",
+      "det_boxes_px": [
+        [
+          496.2,
+          388.4,
+          630.5,
+          480.0
+        ]
+      ],
+      "det_class": "dining table",
+      "pan_segment_id": 6130621,
+      "pan_bbox_px": [
+        478.0,
+        369.0,
+        640.0,
+        479.0
+      ],
+      "pan_class": "dining table",
+      "metrics": {
+        "iou": 0.6776,
+        "mask_in_box": 0.8229,
+        "center_shift": 0.1054,
+        "box_area_ratio": 0.04004,
+        "seg_area_px": 11678
+      },
+      "warnings": [],
+      "candidate_id": "C005"
+    },
+    {
+      "image": "000000015338",
+      "suggested_types": [
+        "instance_merge"
+      ],
+      "reason": "1 segment panoptic (bus, 12111 px) phủ lên 2 box cùng lớp tách biệt (box IoU=0.00, tỷ lệ mask trong từng box=0.68/0.32, hợp 2 box phủ=1.00, tăng thêm=0.32)",
+      "det_boxes_px": [
+        [
+          444.9,
+          171.7,
+          536.0,
+          271.8
+        ],
+        [
+          264.6,
+          201.2,
+          348.8,
+          260.4
+        ]
+      ],
+      "det_class": "bus",
+      "pan_segment_id": 2633778,
+      "pan_bbox_px": [
+        265.0,
+        172.0,
+        536.0,
+        272.0
+      ],
+      "pan_class": "bus",
+      "metrics": {
+        "pair_box_iou": 0.0,
+        "mask_in_box_1": 0.6795,
+        "mask_in_box_2": 0.3205,
+        "union_mask_coverage": 1.0,
+        "union_gain": 0.3205,
+        "seg_area_px": 12111
+      },
+      "warnings": [],
+      "candidate_id": "C006"
+    },
+    {
+      "image": "000000015746",
+      "suggested_types": [
+        "bbox_drift"
+      ],
+      "reason": "Box 'fire hydrant' lệch khỏi mask cùng lớp: mask_in_box=0.93 (7% pixel mask ra ngoài box), IoU=0.60, lệch tâm=0.19",
+      "det_boxes_px": [
+        [
+          116.9,
+          158.9,
+          395.5,
+          536.6
+        ]
+      ],
+      "det_class": "fire hydrant",
+      "pan_segment_id": 4081534,
+      "pan_bbox_px": [
+        72.0,
+        198.0,
+        350.0,
+        575.0
+      ],
+      "pan_class": "fire hydrant",
+      "metrics": {
+        "iou": 0.602,
+        "mask_in_box": 0.9332,
+        "center_shift": 0.1921,
+        "box_area_ratio": 0.38499,
+        "seg_area_px": 48215
+      },
+      "warnings": [],
+      "candidate_id": "C007"
+    },
+    {
+      "image": "000000017714",
+      "suggested_types": [
+        "instance_merge"
+      ],
+      "reason": "1 segment panoptic (cup, 10255 px) phủ lên 2 box cùng lớp tách biệt (box IoU=0.00, tỷ lệ mask trong từng box=0.60/0.40, hợp 2 box phủ=1.00, tăng thêm=0.40)",
+      "det_boxes_px": [
+        [
+          199.4,
+          118.3,
+          308.9,
+          202.2
+        ],
+        [
+          314.2,
+          177.0,
+          412.7,
+          253.1
+        ]
+      ],
+      "det_class": "cup",
+      "pan_segment_id": 5066841,
+      "pan_bbox_px": [
+        200.0,
+        118.0,
+        413.0,
+        253.0
+      ],
+      "pan_class": "cup",
+      "metrics": {
+        "pair_box_iou": 0.0,
+        "mask_in_box_1": 0.6022,
+        "mask_in_box_2": 0.3978,
+        "union_mask_coverage": 1.0,
+        "union_gain": 0.3978,
+        "seg_area_px": 10255
+      },
+      "warnings": [],
+      "candidate_id": "C008"
+    },
+    {
+      "image": "000000022371",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "reason": "Cùng vị trí nhưng khác tên lớp: Detection='tv' vs Panoptic='laptop' (IoU=0.99, mask_in_box=1.00, seg=14714 px). Mở ảnh xác định bên sai.",
+      "det_boxes_px": [
+        [
+          0.6,
+          130.8,
+          196.3,
+          273.7
+        ]
+      ],
+      "det_class": "tv",
+      "pan_segment_id": 5130306,
+      "pan_bbox_px": [
+        1.0,
+        131.0,
+        196.0,
+        274.0
+      ],
+      "pan_class": "laptop",
+      "metrics": {
+        "iou": 0.9939,
+        "mask_in_box": 1.0,
+        "inter_px": 14714,
+        "box_area_ratio": 0.23324,
+        "seg_area_px": 14714
+      },
+      "warnings": [],
+      "candidate_id": "C009"
+    },
+    {
+      "image": "000000025394",
+      "suggested_types": [
+        "class_swap",
+        "category_swap"
+      ],
+      "reason": "Cùng vị trí nhưng khác tên lớp: Detection='cup' vs Panoptic='bowl' (IoU=0.99, mask_in_box=1.00, seg=19907 px). Mở ảnh xác định bên sai.",
+      "det_boxes_px": [
+        [
+          244.5,
+          438.2,
+          375.4,
+          628.1
+        ]
+      ],
+      "det_class": "cup",
+      "pan_segment_id": 3884381,
+      "pan_bbox_px": [
+        244.0,
+        438.0,
+        375.0,
+        628.0
+      ],
+      "pan_class": "bowl",
+      "metrics": {
+        "iou": 0.9921,
+        "mask_in_box": 1.0,
+        "inter_px": 19907,
+        "box_area_ratio": 0.08088,
+        "seg_area_px": 19907
+      },
+      "warnings": [],
+      "candidate_id": "C010"
+    }
+  ]
+}
