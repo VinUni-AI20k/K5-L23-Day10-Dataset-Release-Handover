@@ -1,10 +1,10 @@
-image,type,annotator,reviewer,job_id,note
-000000004134,bbox_out_of_bounds,A02,Q01,J02,"Lỗi detection (bbox_out_of_bounds), chuyển trả gán lại"
-000000005529,duplicate_box,A05,Q03,J03,"Lỗi detection (duplicate_box), chuyển trả gán lại"
-000000007511,missing_box,A05,Q03,J03,"Lỗi detection (missing_box), chuyển trả gán lại"
-000000007795,missing_box,A04,Q01,J04,"Lỗi detection (missing_box), chuyển trả gán lại"
-000000009483,class_swap,A04,Q01,J04,"Lỗi detection (class_swap), chuyển trả gán lại"
-000000013546,invalid_class,A04,Q02,J06,"Lỗi detection (invalid_class), chuyển trả gán lại"
-000000013923,duplicate_box,A04,Q02,J06,"Lỗi detection (duplicate_box), chuyển trả gán lại"
-000000022589,bbox_drift,A03,Q01,J09,"Lỗi detection (bbox_drift), chuyển trả gán lại"
-000000023272,class_swap,A05,Q01,J10,"Lỗi detection (class_swap), chuyển trả gán lại"
+image,type,annotator,reviewer,action
+000000004134,bbox_out_of_bounds,A02,Q01,Gan lai nhan detection (bbox_out_of_bounds)
+000000005529,duplicate_box,A05,Q03,Gan lai nhan detection (duplicate_box)
+000000007511,missing_box,A05,Q03,Gan lai nhan detection (missing_box)
+000000007795,missing_box,A04,Q01,Gan lai nhan detection (missing_box)
+000000009483,class_swap,A04,Q01,Gan lai nhan detection (class_swap)
+000000013546,invalid_class,A04,Q02,Gan lai nhan detection (invalid_class)
+000000013923,duplicate_box,A04,Q02,Gan lai nhan detection (duplicate_box)
+000000022589,bbox_drift,A03,Q01,Gan lai nhan detection (bbox_drift)
+000000023272,class_swap,A05,Q01,Gan lai nhan detection (class_swap)

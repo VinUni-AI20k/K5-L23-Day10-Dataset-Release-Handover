@@ -148,8 +148,8 @@ def build_v2(run_path: Path) -> Path:
     # 2. Tạo rework_queue.csv (H5, H6)
     rework_file = v2_dir / "rework_queue.csv"
     with rework_file.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(["image", "type", "annotator", "reviewer", "job_id", "note"])
+        writer = csv.writer(f, lineterminator="\n")
+        writer.writerow(["image", "type", "annotator", "reviewer", "action"])
         for stem in rework_images:
             m = metadata.get(stem, {})
             job = jobs.get(m.get("job_id"), {})
@@ -159,8 +159,7 @@ def build_v2(run_path: Path) -> Path:
                 err_types,
                 job.get("annotator", ""),
                 job.get("reviewer", ""),
-                m.get("job_id", ""),
-                f"Lỗi detection ({err_types}), chuyển trả gán lại"
+                f"Gan lai nhan detection ({err_types})"
             ])
 
     # 3. Tạo manifest.csv với đường dẫn POSIX và sha256 thật (H8)
@@ -174,7 +173,7 @@ def build_v2(run_path: Path) -> Path:
 
     manifest_file = v2_dir / "manifest.csv"
     with manifest_file.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["file", "sha256"])
+        writer = csv.DictWriter(f, fieldnames=["file", "sha256"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(manifest_rows)
 
@@ -193,7 +192,7 @@ def build_v2(run_path: Path) -> Path:
     total_boxes = sum(counts.values())
     summary_file = v2_dir / "label_summary.csv"
     with summary_file.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow(["class", "count"])
         for c_name, count in counts.items():
             writer.writerow([c_name, count])
@@ -216,8 +215,8 @@ def build_v2(run_path: Path) -> Path:
 
     truyvet_file = v2_dir / "truyvet.csv"
     with truyvet_file.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(["image", "split", "scene_id", "job_id", "annotator", "reviewer", "guideline"])
+        writer = csv.writer(f, lineterminator="\n")
+        writer.writerow(["image", "scene_id", "split", "job_id", "annotator", "reviewer", "guideline"])
         for stem in v2_stems:
             m = metadata.get(stem, {})
             job = jobs.get(m.get("job_id"), {})
@@ -226,8 +225,8 @@ def build_v2(run_path: Path) -> Path:
             fixed_guideline = job.get("guideline", "")
             writer.writerow([
                 stem,
-                fixed_split,
                 sc,
+                fixed_split,
                 m.get("job_id", ""),
                 job.get("annotator", ""),
                 job.get("reviewer", ""),
@@ -253,9 +252,10 @@ Guideline: v1.2 (J01-J03), v1.3 (J04-J10)
 QC v1: {num_err_imgs}/{total_v1} = {qc_rate:.1%}
 Kết luận v1: {v1_decision} — tỷ lệ lỗi {num_err_imgs}/{total_v1} ({qc_rate:.1%}) vượt ngưỡng 2%
 Kết luận v2: {v2_decision} — đã tách {len(rework_images)} ảnh lỗi detection sang rework_queue.csv, chuẩn hóa split cảnh, sửa sha256 manifest và cập nhật guideline theo jobs.csv
-Ghi chú: Đã sửa split cảnh rò rỉ về đa số trong truyvet.csv; sửa guideline_mismatch theo jobs.csv; mở ảnh kiểm tra nguyên vẹn các file dính wrong_hash và cập nhật mã sha256 thật trong manifest.csv; {len(rework_images)} ảnh lỗi detection giao lại đúng annotator/reviewer trong rework_queue.csv; {len(pan_only_images)} ảnh lỗi panoptic ở lại v2 và báo team panoptic.
+Ghi chú: Đã sửa split cảnh rò rỉ về đa số trong truyvet.csv; sửa guideline_mismatch theo jobs.csv; mở ảnh kiểm tra nguyên vẹn các file dính wrong_hash và cập nhật mã sha256 thật trong manifest.csv; {len(rework_images)} ảnh lỗi detection ({rework_list_str}) giao lại đúng annotator/reviewer trong rework_queue.csv; {len(pan_only_images)} ảnh lỗi panoptic ({pan_list_str}) ở lại v2 và báo team panoptic.
 """
-    (v2_dir / "README.txt").write_text(readme_content, encoding="utf-8")
+    with (v2_dir / "README.txt").open("w", encoding="utf-8", newline="\n") as f:
+        f.write(readme_content)
     print(f"=> Hoàn tất tạo 7 thành phần của {rid}_v2 thành công!")
     return v2_dir
 

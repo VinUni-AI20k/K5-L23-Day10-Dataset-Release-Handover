@@ -29,7 +29,7 @@
   - Kết quả: Precision bị tụt từ 1.0 xuống 0.73, kéo F1 tổng thể giảm từ **0.9** xuống **~0.7**. Do đó, quy trình xem ảnh bằng mắt (human review) và ghi nhận `verdict=rejected` kèm lý do cụ thể trong `review_log.csv` là mắt xích bắt buộc để đạt F1 tối đa.
 
 ### Quy trình kiểm duyệt thủ công bằng mắt của 5 thành viên (Human-in-the-loop Review):
-Để đảm bảo tính trung thực và đáp ứng yêu cầu vấn đáp 3 phút (Rubric Mục 6), nhóm tuyệt đối **không dùng AI tự động quyết định lỗi gán nhãn**, mà phân chia toàn bộ hàng đợi ứng viên cho 5 thành viên trực tiếp mở giao diện Review Board (`runs/r3007/review_board.html` và `docs/review_board_dean.html`) để xem xét bằng mắt:
+Để đảm bảo tính trung thực và đáp ứng yêu cầu vấn đáp 3 phút (Rubric Mục 6), nhóm tuyệt đối **không dùng AI tự động quyết định lỗi gán nhãn**, mà phân chia toàn bộ hàng đợi ứng viên cho 5 thành viên trực tiếp mở giao diện Review Board (`runs/r3007/review_board.html` và `runs/de_an_13/review_board.html` — lưu cục bộ trong `runs/` đã `.gitignore` để không lộ dữ liệu đề ẩn lên repo public) để xem xét bằng mắt:
 1. **Phân bổ trách nhiệm 5 thành viên (Mỗi người kiểm tra 4–5 ảnh độc lập):**
    - **TV1 (Lã Thái Hòa):** Phụ trách các ca phân định lớp phức tạp và sót người trong phòng khách (`000000000872`, `000000001818`, `img_0028`, `img_0036`).
    - **TV2 (Trịnh Đức Mạnh):** Phụ trách đối chiếu góc nghiêng bàn phím 3D, sót bồn cầu và sót giường phòng ngủ (`000000007511`, `000000007795`, `img_0045`, `img_0061`, `img_0245`).
@@ -69,6 +69,7 @@
 ## 6. Ghi chú kỹ thuật & Tối ưu hóa
 - **Tối ưu tốc độ tải COCO:** Khi tải từ AWS S3 qua kênh đơn luồng tiêu chuẩn (`urllib`), tốc độ thường bị nghẽn mạng ở mức 15–30 KB/s. Nhóm đã xây dựng cơ chế tải phân đoạn đa luồng song song (HTTP Range Requests, 24 luồng) giúp tăng tốc độ tải lên 4.5 MB/s, hoàn tất trọn vẹn bộ ảnh mẫu trong hơn 8 phút mà không làm gián đoạn bài làm.
 - **Tối ưu bảng Review Board:** Công cụ `render_review.py` của TV3 đã được bổ sung cơ chế tính toán ranh giới nhãn thông minh (bounding label calculations) tránh đè chữ lên bounding box, và xuất giao diện HTML tự chứa CSS/JS trực quan giúp cả nhóm duyệt ứng viên nhanh chóng và chính xác.
+- **Chuẩn hóa LF & Phát hiện bug tương thích đa HĐH khi đóng gói:** Nhóm cấu hình `.gitattributes` (`submission/r*/handover/** -text`) và chuẩn hóa ghi LF cho các file CSV/`README.txt` trong `tools/build_v2.py` để ngăn Git trên Windows (`core.autocrlf=true`) làm sai lệch SHA-256 (H7/H8/H15). Đồng thời ghi nhận bug thực tế tại `scripts/pack_release.py` dòng 23 (`sorted(p for p in folder.rglob("*"))` sắp xếp `Path` không phân biệt hoa/thường trên Windows nhưng phân biệt hoa/thường trên Linux, khiến vị trí `README.txt` trong zip và mã `.sha256` khác nhau giữa 2 HĐH); nhóm giữ nguyên `scripts/` theo `RULES.md` và báo cáo lại tại đây.
 
 ## 7. Kết quả triển khai Đề ẩn (de_an_13 — Release ID: lab250_62d7641abb98)
 - **Lỗi luật phát hiện (12 lỗi):**
