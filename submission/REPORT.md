@@ -11,7 +11,7 @@ Lô sạch vẫn sinh 6 ứng viên do hai nguồn nhãn có thể lệch tự n
 CP2: Mỹ Tâm xem ban đầu toàn bộ 21 thẻ. Bốn thành viên xem lại và đồng ý với kết luận: Trần Tuấn Anh (#1, #2, #3), Doãn Tùng Lâm (#4, #5, #9), Trần Thị Ngọc Ánh (#6, #7, #10), Lương Quốc Việt (#8, #11, #12).
 
 ## 3. Quyết định và lineage
-- QC v1 có **22 lỗi trên 250 ảnh**, tức `22/250 = 8,8%`. Vì 8,8% lớn hơn
+- QC v1 có **21 lỗi trên 250 ảnh**, tức `21/250 = 8,4%`. Vì 8,4% lớn hơn
   ngưỡng 2%, kết luận của nhóm cho lô v1 là **HOLD**, không được Release.
 - Quyết định này được ghi append-only vào `lineage.jsonl` với event
   `decision`, `decision=HOLD`, và đúng `release_id` của v1. Không sửa hoặc

@@ -32,7 +32,7 @@ def main() -> int:
         "--decision",
         "HOLD",
         "--detail",
-        "QC 22/250 = 8.8%, above 2% threshold",
+        "QC 21/250 = 8.4%, above 2% threshold",
     ]
     subprocess.run(command, cwd=ROOT, check=True)
     subprocess.run(
