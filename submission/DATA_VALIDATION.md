@@ -55,3 +55,10 @@ Không chạy test_pipeline.py vì các bài test nội bộ đó có đọc gro
 - Phần đề ẩn chưa thực hiện vì chưa có delivery đề ẩn được giao.
 
 Không sửa scripts hay delivery v1. Không thay đổi phân công đang có trong work/01-data-validation.md.
+
+
+## Cập nhật sau khi tích hợp PR #3 và review seed 12007
+
+- `validator/validate.py` hiện tích hợp cờ `--candidates`; lần chạy hiện tại tạo `runs/r12007/rules.json` (12 lỗi luật) và `runs/r12007/candidates.json` (10 ứng viên).
+- Review log được cung cấp đã được đưa vào `runs/r12007/review_log.csv`; `scripts/merge_review.py` tạo `errors.json` với 22 finding (12 luật + 10 review confirmed).
+- Handover đã hoàn tất và `scripts/check_handover.py --run runs/r12007` đạt 17 PASS, 0 FAIL. Các kết quả luật trước đó vẫn cần thành viên tự đọc hiểu và xác nhận; AI không thay nhóm review ảnh.

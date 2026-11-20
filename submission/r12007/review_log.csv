@@ -1,0 +1,12 @@
+image,type,verdict,note
+000000001532,missing_box,confirmed,"Hà Khánh xem: xe ô tô trắng (nhìn từ phía sau) ở góc dưới bên trái, ngay cạnh xe taxi; panoptic gán nhãn car đúng nhưng thiếu box detection"
+000000002153,instance_merge,rejected,"Lê Tuấn Khôi : ảnh có 3 người đứng trước sau chồng lên nhau; mask xanh panoptic chỉ tô riêng trọng tài đứng giữa phía trước, không tô gộp người đánh bóng khung đỏ hay người bắt bóng khung vàng; cả 3 người đều có nhãn riêng nên là chồng lấn tự nhiên, không phải lỗi instance_merge"
+000000003501,missing_box,confirmed,Nguyễn Trường Giang xem: trong ảnh có thịt rau ; panoptic gán nhãn bowl đúng nhưng detection chỉ vẽ box cho thịt rau  và thiếu box bowl bao quanh
+000000007278,category_swap,confirmed,Nguyễn Viết Quang xem: nhận diện nhầm ảnh ván lướt thành elephant
+000000009590,missing_box,confirmed,"Hà Khánh xem: người đàn ông đeo kính ngồi cạnh cửa sổ tại bàn ăn; panoptic tách rõ khỏi chai và cốc phía trước, gán nhãn person đúng nhưng thiếu box detection"
+000000013729,bbox_drift,confirmed,"Lê Tuấn Khôi xem: khung detection của bàn bị trượt lệch về phía trái , cắt hụt một phần thân vật thật và ôm thừa khoảng trống ở phía ngược lại"
+000000015338,instance_merge,confirmed,Nguyễn Trường Giang xem: trên đường có 2 xe buýt tách biệt rõ xe trắng  và xe xanh ; detection tách đúng 2 box bus riêng nhưng panoptic gộp chung thành 1 segment
+000000015746,bbox_drift,confirmed,Nguyễn Viết Quang xem: trụ nước bị đánh lệch
+000000017714,instance_merge,confirmed,"Hà Khánh xem: trên bàn gỗ có 2 chiếc cốc trắng tách biệt rõ (một cốc đựng đồ uống tối màu bên trái, một cốc có thìa bên phải); detection tách đúng 2 box cup riêng nhưng panoptic gộp chung thành 1 segment"
+000000022371,class_swap,confirmed,"Lê Tuấn Khôi : vật đặt trên bàn phía dưới bên trái là máy tính xách tay (laptop) có cả màn hình và bàn phím; detection gán nhầm thành tv, panoptic gán laptop đúng"
+000000025394,category_swap,confirmed,Nguyễn Trường Giang xem: trên quầy bar có cốc ( cup ) ; detection gán nhãn cup đúng còn panoptic gán nhầm thành bowl
