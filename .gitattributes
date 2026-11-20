@@ -1,0 +1,3 @@
+# Lô bàn giao phải giữ nguyên từng byte: sha256 trong manifest.csv và hash nhãn v1 (H7, H8)
+# sẽ lệch nếu Git đổi LF thành CRLF khi checkout trên Windows (core.autocrlf=true).
+submission/*/handover/** -text
