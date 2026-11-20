@@ -1,0 +1,12 @@
+image,type,annotator,reviewer,action
+000000001532,missing_box,A02,Q03,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000002431,bbox_out_of_bounds,A02,Q03,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000003501,invalid_class; missing_box,A02,Q03,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000006771,duplicate_box,A04,Q03,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000009590,missing_box,A04,Q03,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000013729,bbox_drift,A01,Q03,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000015079,duplicate_box,A01,Q03,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000015746,bbox_drift,A03,Q02,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000017115,bbox_out_of_bounds,A03,Q02,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.
+000000021839,missing_image,A02,Q01,Bổ sung/kiểm tra ảnh nguồn rồi gán lại detection; hiện ảnh thiếu nên không đưa vào v2.
+000000022371,class_swap,A02,Q01,Gán lại nhãn detection; loại ảnh khỏi v2 đến khi rework và review hoàn tất.

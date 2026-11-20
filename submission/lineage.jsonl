@@ -1,0 +1,5 @@
+{"event": "inject", "release_id": "lab250_7fa680a7413b", "seed": 12007, "detail": "r12007"}
+{"event": "train", "release_id": "lab250_7fa680a7413b", "run_id": "R-021"}
+{"event": "inject", "release_id": "lab250_7fa680a7413b", "seed": 12007, "detail": "r12007"}
+{"event": "decision", "release_id": "lab250_7fa680a7413b", "decision": "HOLD", "detail": "21/250 unique error targets = 8.4%, above the 2% release threshold; R-021 requires review or retraining."}
+{"event": "release", "release_id": "lab250_7fa680a7413b_v2", "parent": "lab250_7fa680a7413b"}

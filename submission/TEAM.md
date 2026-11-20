@@ -1,7 +1,7 @@
-# Nhóm <<XX>>
+# Nhóm 12
 
-- Seed luyện tập: <<số>>
-- Repo: <<URL>>
+- Seed luyện tập: 12007
+- Repo: https://github.com/rifujin123/K5-L23-DAY10-NHOM012-Release
 
 | Họ và tên | MSHV | Tài khoản GitHub | Phần chính |
 |---|---|---|---|
