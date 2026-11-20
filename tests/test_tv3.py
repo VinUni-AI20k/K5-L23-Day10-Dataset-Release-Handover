@@ -1,4 +1,4 @@
-"""Synthetic tests: no COCO annotations, no private truth, no network."""
+
 
 from __future__ import annotations
 
