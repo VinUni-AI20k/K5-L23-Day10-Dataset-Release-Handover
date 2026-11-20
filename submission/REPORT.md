@@ -1,7 +1,7 @@
 # Báo cáo nhóm 30
 
 ## 1. Số liệu luyện tập
-- F1 theo seed (rule / cross_check / overall): <<seed 30007: ≈ 1.0 / ... / ... (chờ review_log.csv)>>
+- F1 theo seed (rule / cross_check / overall): seed 30007: lỗi luật ≈ 1.0 / lỗi gán nhãn ≈ 0.6 / F1 tổng ≈ 0.8; Truy vết F1: tier_a 1.0 / tier_b 1.0 / notify 1.0.
   - Riêng phần lỗi luật file + detection (`rules_file_det.py` — Tùng):
     - Lô sạch `runs/clean` (`--seed 5 --no-faults`, 50 ảnh): **0 lỗi** (FP = 0).
     - Seed luyện tập `runs/r30007` (250 ảnh): **6 lỗi** (`missing_image`: 2, `wrong_hash`: 1, `bbox_out_of_bounds`: 1, `duplicate_box`: 2, `invalid_class`: 0).
@@ -42,13 +42,21 @@
 - Lô sạch ra 1 ứng viên / 50 ảnh, cho thấy hàng đợi luôn có lệch tự nhiên, nên bước xem ảnh là bắt buộc chứ không chỉ để cho đẹp.
 
 ## 3. Quyết định và lineage
-<<QC v1 a/b, kết luận, vì sao R-021 phải xem lại hoặc train lại.>>
+- **QC v1:** Phát hiện 29 lỗi trên tổng số 250 ảnh (tỉ lệ 29/250 = **11,6%**). Theo quy tắc nghiệm thu (ngưỡng tối đa cho phép là 2%), kết luận bắt buộc là **HOLD** lô v1 (không Release).
+- **Lineage:** Nhóm đã ghi nhận quyết định `HOLD` cho `lab250_70a563f4cf6f` vào `lineage.jsonl`. Sau khi xử lý bàn giao bản sửa đổi v2 (`lab250_70a563f4cf6f_v2`), nhóm tiếp tục ghi nhận sự kiện phát hành release v2 với lô cha (parent) là v1.
+- **Vì sao training run R-021 phải xem lại hoặc train lại:** Khi truy vết tác động bằng lệnh `lineage.py impact --release-id lab250_70a563f4cf6f`, hệ thống báo `R-021: affected=True action=review_or_retrain`. Lý do kỹ thuật là mô hình máy học học trực tiếp trọng số từ các phân phối và nhãn dữ liệu của lô huấn luyện. Việc phát hành lô dữ liệu mới (v2) không tự động làm thay đổi hay sửa chữa trọng số của model đã được huấn luyện trên lô v1 (vốn chứa tới 11,6% dữ liệu sai lệch). Do đó, mô hình `R-021` đã bị nhiễm sai số và bắt buộc phải được đánh giá lại hiệu năng trên tập kiểm thử độc lập hoặc phải được train lại hoàn toàn trên tập dữ liệu v2 sạch.
 
 ## 4. Hash chứng minh gì, không chứng minh gì?
-<<>>
+- **Hash chứng minh điều gì:** Mã băm mật mã (SHA-256) chứng minh **tính toàn vẹn kỹ thuật (integrity)** và **tính bất biến** của tệp dữ liệu. Nó chứng thực rằng file ảnh/nhãn mà người nhận tải về hoàn toàn trùng khớp từng byte với tệp lúc người bàn giao lập `manifest.csv`, đảm bảo không có sự sai lệch do đường truyền, lưu trữ hỏng hay bị can thiệp trái phép.
+- **Hash KHÔNG chứng minh điều gì:** Mã băm **không chứng minh được tính đúng đắn về mặt ngữ nghĩa (semantic correctness)** của dữ liệu. Một tệp nhãn bị gán sai lớp đối tượng (ví dụ dán nhãn xe con thành xe tải), bounding box bị trôi lệch, hoặc một bức ảnh chụp nội dung rác/sai quy cách vẫn sinh ra một mã SHA-256 hoàn toàn hợp lệ. Hash bảo vệ tính nguyên vẹn của nội dung, nhưng chỉ có quy trình kiểm định chất lượng (QC), đối chiếu đa nguồn và review bằng mắt người mới xác minh được nhãn có đúng hay không.
 
 ## 5. Truy vết
-<<Tiêu chí tầng a/b, vì sao lấy guideline theo job.>>
+- **Lớp bị thay đổi quy tắc (`rule_class`):** Qua đối chiếu `guideline/changelog.md` và `incoming/ticket.md`, lớp bị thay đổi quy chuẩn gán nhãn giữa v1.2 và v1.3 là `surfboard` (ở v1.3 quy định vật bị che trên 50% hoặc cắt ở mép ảnh vẫn phải gán box, còn v1.2 cho phép bỏ qua).
+- **Tiêu chí phân tầng truy vết:**
+  - **Tầng A (tier_a - 2 ảnh):** Ảnh thuộc các cảnh mà team AI đã nêu đích danh trong ticket (`scene_497`, `scene_734`), thuộc các job áp dụng guideline cũ v1.2 (J01-J04), và trong file nhãn detection thực tế có chứa ít nhất một bounding box thuộc lớp `surfboard`.
+  - **Tầng B (tier_b - 4 ảnh):** Các ảnh khác cũng thuộc job áp dụng guideline cũ v1.2 và có nhãn `surfboard`, nhưng nằm ở các cảnh khác chưa bị team AI phát hiện.
+  - **Danh sách cảnh báo (`notify`):** Toàn bộ người gán (`annotator`) và người kiểm (`reviewer`) của các job chứa ảnh thuộc tầng a và b. Nhóm xác định gồm 3 nhân sự: `A03`, `A05`, `Q03`.
+- **Vì sao lấy guideline theo job (`jobs.csv`) thay vì lấy theo `metadata.json`:** Vì trong lô dữ liệu có thể tồn tại lỗi `guideline_mismatch` (metadata của ảnh bị ghi sai phiên bản guideline so với phiên bản ban hành của job). Guideline là chính sách quản lý được phân bổ và thống nhất theo từng đợt công việc (Job), do đó thông tin tại `jobs.csv` là căn cứ xác thực gốc; việc lấy theo job giúp đảm bảo không bị bỏ sót hoặc khoanh vùng sai các ảnh cần truy vết.
 
 ## 6. Bug hoặc điểm chưa rõ trong lab (nếu có)
 <<>>
