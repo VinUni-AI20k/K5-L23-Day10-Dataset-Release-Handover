@@ -1,0 +1,20 @@
+image,type,verdict,note
+000000002685,bbox,confirmed, Ảnh được đánh rất rõ.
+000000002685,mask,confirmed, Ảnh được đánh rất rõ.
+
+000000009590,bbox_class_swap,rejected,Đánh nhầm bóng của chiếc bàn thành spoon
+000000009590,mask_swap,rejected,Đánh nhầm bóng của chiếc bàn thành spoon
+
+000000005193,bbox,confirmed,Không phát hiện box vượt biên theo phép kiểm tra cơ bản.
+000000005193,mask,confirmed,Không phát hiện box vượt biên theo phép kiểm tra cơ bản.
+
+000000006471,bbox_drift,confirmed,Dòng 8: box vượt khỏi biên ảnh, quá nhỏ để đánh.
+000000006471,mask_drift,confirmed,Dòng 8: box vượt khỏi biên ảnh,quá nhỏ để đánh.
+
+000000007574,bbox_drift,confirmed,refrigerator bị đánh dư lên mặt bàn
+000000007574,mask_drift,confirmed,refrigerator bị đánh dư lên mặt bàn, do nhầm lẫn phần đổ bóng lên bàn là một phần của refrigerator
+
+000000008021,bbox_drift,rejected,Đánh nhãn sai person,tie cho màn hình máy chiếu nơi vốn dĩ không nên đánh
+000000008021,mask,rejected,Đánh nhãn sai person,tie cho màn hình máy chiếu nơi vốn dĩ không nên đánh cho phần segmentation
+
+
