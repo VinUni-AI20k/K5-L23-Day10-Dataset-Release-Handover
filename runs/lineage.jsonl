@@ -1,3 +1,0 @@
-{"event": "inject", "release_id": "lab250_f95ccfbc1285", "seed": 76, "detail": "r76"}
-{"event": "train", "release_id": "lab250_f95ccfbc1285", "run_id": "R-021"}
-{"event": "decision", "release_id": "lab250_f95ccfbc1285", "decision": "HOLD", "detail": "QC 21/250 = 8.4%, above 2% threshold"}
