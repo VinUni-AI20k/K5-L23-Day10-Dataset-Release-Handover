@@ -1,10 +1,6 @@
 {
  "errors": [
   {
-   "type": "bbox_drift",
-   "target": "000000011813"
-  },
-  {
    "type": "bbox_out_of_bounds",
    "target": "000000021839"
   },
