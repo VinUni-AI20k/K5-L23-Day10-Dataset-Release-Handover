@@ -10,7 +10,7 @@ image,type,verdict,note
 "000000011051","bbox_drift","rejected","#9 · Mỹ Tâm (xem ban đầu), Doãn Tùng Lâm (xem lại) · “Box cam bao đúng người phụ nữ. Segment xanh phủ sang người đàn ông bên cạnh nên một phần segment nằm ngoài box.”"
 "000000011051","bbox_drift","rejected","#10 · Mỹ Tâm (xem ban đầu), Trần Thị Ngọc Ánh (xem lại) · “Box cam bao đúng người đàn ông. Segment xanh phủ sang người phụ nữ bên cạnh nên một phần segment nằm ngoài box.”"
 "000000011051","instance_merge","confirmed","#11 · Mỹ Tâm (xem ban đầu), Lương Quốc Việt (xem lại) · Hai box cam bao hai người riêng biệt. Cùng một segment xanh phủ lên cả hai người."
-"000000011813","bbox_drift","confirmed","#12 · Mỹ Tâm (xem ban đầu), Lương Quốc Việt (xem lại) · Box cam chỉ bao một phần chiếc ghế, còn phần ghế còn lại nhìn thấy nằm ngoài box. Segment xanh còn lấn lên một phần laptop đặt trên ghế"
+"000000011813","bbox_drift","rejected","#12 · Mỹ Tâm (xem ban đầu), Lương Quốc Việt (xem lại) · Nhận xét ban đầu: box cam có vẻ chỉ bao một phần ghế và segment xanh lấn lên laptop. Đối chiếu lại với nhãn COCO gốc: box trùng tọa độ và bao toàn bộ mask ghế gốc. Mask bàn giao gán 1.554 pixel của laptop sang ghế, giữ thing_overlap."
 "000000012280","class_swap","confirmed","#13 · Mỹ Tâm · Box cam và segment xanh cùng chỉ một chiếc vali. Detection ghi backpack, còn panoptic ghi đúng suitcase"
 "000000017182","bbox_drift","rejected","#14 · Mỹ Tâm · Trong ảnh có sáu quyển sách xếp sát nhau. Box cam bao quyển ngoài cùng, còn segment xanh phủ quyển thứ hai liền kề."
 "000000017182","instance_merge","rejected","#15 · Mỹ Tâm · Hai box cam bao hai quyển sách nằm sát nhau. Segment xanh chỉ phủ quyển ngoài cùng và không phủ sang quyển liền kề"
