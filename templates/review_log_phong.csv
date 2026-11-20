@@ -6,7 +6,7 @@ image,type,verdict,note
 000000009590,mask_swap,rejected,Đánh nhầm bóng của chiếc bàn thành spoon
 
 000000005193,bbox,confirmed,Không phát hiện box vượt biên theo phép kiểm tra cơ bản.
-000000005193,mask,confirmed,Không phát hiện box vượt biên theo phép kiểm tra cơ bản.
+000000005193,mask,confirmed,Không phát hiện segmentation vượt biên theo phép kiểm tra cơ bản.
 
 000000006471,bbox_drift,confirmed,Dòng 8: box vượt khỏi biên ảnh, quá nhỏ để đánh.
 000000006471,mask_drift,confirmed,Dòng 8: box vượt khỏi biên ảnh,quá nhỏ để đánh.
