@@ -9,3 +9,9 @@ __pycache__/
 /hidden
 /delivery
 /review_out
+
+# Scripts pha 4, 5
+scripts/build_handover.py
+scripts/solve_trace.py
+tests/test_build_handover.py
+

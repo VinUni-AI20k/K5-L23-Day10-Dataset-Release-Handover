@@ -1,0 +1,16 @@
+image,type,annotator,reviewer,action
+000000000872,missing_box,A03,Q03,Bổ sung bounding box cho đối tượng còn thiếu trong ảnh
+000000001818,missing_box,A03,Q03,Bổ sung bounding box cho đối tượng còn thiếu trong ảnh
+000000002532,missing_box,A05,Q03,Bổ sung bounding box cho đối tượng còn thiếu trong ảnh
+000000006763,duplicate_box,A03,Q03,Xóa bounding box bị lặp (trùng kích thước và vị trí)
+000000007991,duplicate_box,A01,Q02,Xóa bounding box bị lặp (trùng kích thước và vị trí)
+000000008277,class_swap,A01,Q02,Kiểm tra ảnh và sửa lại lớp detection đúng với đối tượng
+000000009590,class_swap,A01,Q02,Kiểm tra ảnh và sửa lại lớp detection đúng với đối tượng
+000000009914,class_swap,A03,Q03,Kiểm tra ảnh và sửa lại lớp detection đúng với đối tượng
+000000012748,missing_box,A03,Q03,Bổ sung bounding box cho đối tượng còn thiếu trong ảnh
+000000014831,missing_image,A02,Q01,Bổ sung ảnh bị thiếu và gán nhãn detection
+000000017207,class_swap,A01,Q03,Kiểm tra ảnh và sửa lại lớp detection đúng với đối tượng
+000000020553,class_swap,A04,Q02,Kiểm tra ảnh và sửa lại lớp detection đúng với đối tượng
+000000022705,missing_image,A04,Q02,Bổ sung ảnh bị thiếu và gán nhãn detection
+000000025057,bbox_drift,A05,Q03,Điều chỉnh lại bounding box khớp sát với đối tượng
+000000025424,bbox_out_of_bounds,A05,Q03,"Điều chỉnh bounding box về trong giới hạn ảnh [0, 1]"
