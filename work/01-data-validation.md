@@ -1,4 +1,4 @@
-# Người 1: Data Validation
+# Người 1: Data Validation - Nguyễn Trường Giang
 
 ## Mục tiêu
 

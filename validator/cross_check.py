@@ -34,25 +34,28 @@ if str(_SCRIPTS_DIR) not in sys.path:
 import pngutil  # noqa: E402
 
 
-# Ngưỡng mặc định ban đầu dựa trên hình học box & tỷ lệ phủ pixel mask.
-# QUAN TRỌNG: Cần đo trên lô sạch (runs/clean) và tinh chỉnh nếu cần, rồi ghi lý do vào REPORT.md.
+# Ngưỡng mặc định đã hiệu chỉnh dựa trên phân bố thực tế của lô sạch (runs/clean: 50 ảnh, 435 vật sạch).
+# Trên runs/clean: 100% vật sạch có mask_in_box=1.0; vật nhìn rõ (>=0.3%) có IoU>=0.908, lệch tâm<=0.040.
 DEFAULT_THRESHOLDS: dict[str, float] = {
     # Lọc đối tượng đủ lớn để con người nhìn rõ khi review
     "min_box_area_ratio": 0.0035,        # box chiếm >= 0.35% diện tích ảnh (swap / drift)
     "min_seg_px": 600,                   # segment >= 600 pixel (swap / drift / merge)
+    # Khóa ghép 1-1 rất chắc trước khi xét instance_merge để tránh báo nhầm vật chồng lấn góc nhìn
+    "exact_match_iou": 0.80,
+    "exact_match_mask": 0.90,
     # REV-03: class_swap / category_swap (khớp vị trí tốt nhưng khác tên lớp)
     "swap_min_iou": 0.60,
     "swap_min_mask_in_box": 0.75,
     # REV-04: bbox_drift (cùng lớp nhưng mask tràn khỏi box hoặc box lệch mạnh)
-    "drift_max_mask_in_box": 0.85,       # < 85% pixel mask nằm trong box -> dấu hiệu box lệch
-    "drift_spill_max_iou": 0.85,         # tránh báo nhầm khi IoU bbox vẫn rất cao
-    "drift_low_iou": 0.62,               # IoU quá thấp dù cùng lớp
-    "drift_low_iou_max_mask": 0.96,      # tránh báo nhầm vật bị che (mask nằm gọn ~100% trong box lớn)
-    "drift_min_center_shift": 0.10,      # độ lệch tâm chuẩn hóa theo kích thước trung bình box/segment
+    "drift_max_mask_in_box": 0.95,       # < 95% pixel mask nằm trong box -> dấu hiệu box lệch
+    "drift_spill_max_iou": 0.92,         # tránh báo nhầm khi IoU bbox vẫn rất cao
+    "drift_low_iou": 0.78,               # IoU giảm rõ rệt dù cùng lớp
+    "drift_low_iou_max_mask": 0.99,      # tránh báo nhầm vật bị che (mask nằm gọn 100% trong box lớn)
+    "drift_min_center_shift": 0.08,      # độ lệch tâm chuẩn hóa theo kích thước trung bình box/segment
     "drift_min_abs_seg_px": 150,         # sàn pixel tối thiểu để tránh nhiễu ảnh nhỏ
     # REV-05: missing_box (segment thing đáng kể không có box cùng lớp phù hợp)
-    "missing_min_seg_px": 1200,          # segment đủ lớn để là vật đáng kể
-    "missing_min_area_ratio": 0.006,     # hoặc chiếm >= 0.6% diện tích ảnh
+    "missing_min_seg_px": 800,           # segment đủ lớn để là vật đáng kể (lô sạch max unmatched=299 px)
+    "missing_min_area_ratio": 0.004,     # hoặc chiếm >= 0.4% diện tích ảnh
     "missing_min_abs_seg_px": 250,       # sàn pixel tối thiểu trên ảnh kích thước nhỏ
     "missing_max_same_mask_in_box": 0.45,
     # REV-06: instance_merge (1 segment chứa pixel của >= 2 box cùng lớp tách biệt)
@@ -67,6 +70,14 @@ DEFAULT_THRESHOLDS: dict[str, float] = {
     "relaxed_match_iou": 0.12,
     "relaxed_match_mask": 0.22,
 }
+
+
+def _delivery_path(delivery: Path, relative: str) -> Path:
+    """Bảo đảm đường dẫn từ manifest nằm hoàn toàn trong thư mục delivery/."""
+    path = (delivery / relative).resolve()
+    if not path.is_relative_to(delivery.resolve()):
+        raise ValueError(f"Path outside delivery: {relative}")
+    return path
 
 
 def load_classes(delivery: Path) -> dict[int, str]:
@@ -296,16 +307,41 @@ def _analyze_image(
     candidates: list[dict[str, Any]] = []
     used_boxes: set[int] = set()
     used_segs: set[int] = set()
+    same_matches: list[tuple[int, int]] = []
 
     # ------------------------------------------------------------------
-    # Bước 1 (REV-06): Tìm dấu hiệu instance_merge
-    # Một segment thing là segment cùng lớp chủ đạo của >= 2 box tách biệt.
+    # Bước 1: Khóa trước các cặp cùng lớp khớp 1-1 rất chắc (IoU & mask_in_box cao)
+    # Tránh lỗi chồng lấn trước/sau (3 vật cùng lớp che đè góc nhìn) bị báo nhầm instance_merge.
+    # Các cặp này vẫn đi vào same_matches để Bước 5 kiểm tra bbox_drift.
+    # ------------------------------------------------------------------
+    exact_same_pairs = []
+    for (bi, si), (iou, mask_in_box, inter_px) in pair_stats.items():
+        if boxes[bi]["class_name"] != segments[si]["class_name"]:
+            continue
+        if iou >= cfg["exact_match_iou"] and mask_in_box >= cfg["exact_match_mask"]:
+            exact_same_pairs.append((0.5 * iou + 0.5 * mask_in_box, inter_px, bi, si))
+
+    exact_same_pairs.sort(reverse=True)
+    for _, _, bi, si in exact_same_pairs:
+        if bi in used_boxes or si in used_segs:
+            continue
+        used_boxes.add(bi)
+        used_segs.add(si)
+        same_matches.append((bi, si))
+
+    # ------------------------------------------------------------------
+    # Bước 2 (REV-06): Tìm dấu hiệu instance_merge trên các box/segment chưa khớp 1-1 chắc
+    # Một segment thing là segment cùng lớp phù hợp nhất của >= 2 box tách biệt.
     # ------------------------------------------------------------------
     best_same_seg_for_box: dict[int, int] = {}
     for bi, box in enumerate(boxes):
+        if bi in used_boxes:
+            continue
         best_si = None
-        best_key = (0, 0.0)
+        best_key = (0.0, 0)
         for si, seg in enumerate(segments):
+            if si in used_segs:
+                continue
             if seg["class_name"] != box["class_name"]:
                 continue
             stat = pair_stats.get((bi, si))
@@ -314,7 +350,8 @@ def _analyze_image(
             iou, mask_in_box, inter_px = stat
             if inter_px < cfg["merge_min_part_px"]:
                 continue
-            key = (inter_px, iou)
+            # Xếp hạng theo độ khớp tổng hợp (IoU + mask_in_box) thay vì số pixel thô
+            key = (0.5 * iou + 0.5 * mask_in_box, inter_px)
             if key > best_key:
                 best_key = key
                 best_si = si
@@ -391,9 +428,8 @@ def _analyze_image(
             )
 
     # ------------------------------------------------------------------
-    # Bước 2: Ghép 1-1 mạnh cho các cặp cùng tên lớp
+    # Bước 2b: Ghép 1-1 mạnh cho các cặp cùng tên lớp còn lại
     # ------------------------------------------------------------------
-    same_matches: list[tuple[int, int]] = []
     strong_same_pairs = []
     for (bi, si), (iou, mask_in_box, inter_px) in pair_stats.items():
         if bi in used_boxes or si in used_segs:
@@ -613,7 +649,7 @@ def find_candidates(
     for stem in sorted(manifest.keys()):
         item = manifest[stem]
         # Bỏ qua ảnh bị thiếu file (lỗi luật missing_image, không thể mở ảnh review)
-        if not (delivery / item["image"]).is_file():
+        if not _delivery_path(delivery, item["image"]).is_file():
             skipped_missing_images += 1
             continue
 
@@ -626,8 +662,8 @@ def find_candidates(
 
         width = int(im_info.get("width", 0))
         height = int(im_info.get("height", 0))
-        label_path = delivery / item["label"]
-        mask_path = delivery / item["mask"]
+        label_path = _delivery_path(delivery, item["label"])
+        mask_path = _delivery_path(delivery, item["mask"])
         boxes = load_yolo_boxes(label_path, width, height, det_classes)
 
         img_cands = _analyze_image(

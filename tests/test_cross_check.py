@@ -352,6 +352,154 @@ class CrossCheckAndViewerTest(unittest.TestCase):
             self.assertEqual(doc["thresholds"]["missing_min_seg_px"], 1000)
             self.assertEqual(doc["summary"]["total_candidates"], 4)
 
+    def test_overlapping_three_same_class_objects_not_false_merge(self):
+        """3 vật cùng lớp chồng lấn trước/sau (mỗi vật đều có box + mask khớp 1-1) -> không báo nhầm instance_merge."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            d = root / "delivery"
+            for sub in ("images", "labels", "masks"):
+                (d / sub).mkdir(parents=True)
+            W, H = 300, 200
+            (d / "classes.txt").write_text("0 person\n", encoding="utf-8")
+            Image.new("RGB", (W, H), (100, 120, 100)).save(d / "images" / "img_0001.jpg", format="JPEG")
+
+            # Người 1 (phía sau trái): [40, 60, 130, 180]
+            # Người 2 (phía sau phải): [130, 40, 210, 170]
+            # Người 3 (phía trước giữa, che đè cả 2 khung phía sau): [80, 70, 200, 185]
+            b1 = (40, 60, 130, 180)
+            b2 = (130, 40, 210, 170)
+            b3 = (80, 70, 200, 185)
+            (d / "labels" / "img_0001.txt").write_text(
+                "\n".join(_yolo_line(0, b, W, H) for b in (b1, b2, b3)) + "\n",
+                encoding="utf-8",
+            )
+            pixels = bytearray(W * H * 3)
+            # Tô 2 người phía sau trước, rồi người phía trước đè lên đúng như occlusion thực tế
+            _paint_rect(pixels, W, b1, 10)
+            _paint_rect(pixels, W, b2, 20)
+            _paint_rect(pixels, W, b3, 30)
+            pngutil.write_rgb(d / "masks" / "img_0001.png", W, H, bytes(pixels))
+
+            # Đếm lại diện tích thực từng segment sau khi bị đè
+            r_c, g_c, b_c = pixels[0::3], pixels[1::3], pixels[2::3]
+            from collections import Counter
+            cnt = Counter(zip(r_c, g_c, b_c))
+            seg_infos = []
+            for sid, rect in ((10, b1), (20, b2), (30, b3)):
+                x1, y1, x2, y2 = rect
+                seg_infos.append(
+                    {
+                        "id": sid,
+                        "category_id": 1,
+                        "area": cnt[pngutil.segment_rgb(sid)],
+                        "bbox": [x1, y1, x2 - x1, y2 - y1],
+                        "iscrowd": 0,
+                    }
+                )
+            (d / "manifest.json").write_text(
+                json.dumps(
+                    {
+                        "dataset": "synthetic",
+                        "num_classes": 1,
+                        "items": {
+                            "img_0001": {
+                                "image": "images/img_0001.jpg",
+                                "label": "labels/img_0001.txt",
+                                "mask": "masks/img_0001.png",
+                                "image_sha256": "0" * 64,
+                                "label_sha256": "0" * 64,
+                                "mask_sha256": "0" * 64,
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (d / "panoptic.json").write_text(
+                json.dumps(
+                    {
+                        "categories": [{"id": 1, "name": "person", "isthing": 1}],
+                        "images": [{"id": 1, "file_name": "img_0001.jpg", "width": W, "height": H}],
+                        "annotations": [{"image_id": 1, "file_name": "img_0001.png", "segments_info": seg_infos}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            res = cross_check.find_candidates(d)
+            merge_cands = [c for c in res["candidates"] if "instance_merge" in c["suggested_types"]]
+            self.assertEqual(merge_cands, [])
+
+    def test_validate_cli_rules_and_candidates_integration(self):
+        """Kiểm tra tích hợp CLI chung validator/validate.py xuất cả --out và --candidates."""
+        import hashlib
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            delivery = _build_synthetic_delivery(root)
+            # Bổ sung metadata.json, jobs.csv và sha256 thật cho fixture để validate_rules chạy trọn vẹn
+            man_path = delivery / "manifest.json"
+            man_doc = json.loads(man_path.read_text(encoding="utf-8"))
+            meta_items = []
+            for stem, it in man_doc["items"].items():
+                for kind in ("image", "label", "mask"):
+                    p = delivery / it[kind]
+                    if p.is_file():
+                        it[f"{kind}_sha256"] = hashlib.sha256(p.read_bytes()).hexdigest()
+                meta_items.append(
+                    {"image": stem, "scene_id": "scene_1", "split": "train", "job_id": "J01", "guideline_version": "v1.2"}
+                )
+            man_path.write_text(json.dumps(man_doc, indent=2), encoding="utf-8")
+            (delivery / "metadata.json").write_text(json.dumps({"items": meta_items}, indent=2), encoding="utf-8")
+            (delivery / "jobs.csv").write_text("job_id,annotator,reviewer,guideline\nJ01,A01,Q01,v1.2\n", encoding="utf-8")
+
+            rules_out = root / "rules.json"
+            cands_out = root / "candidates.json"
+            proc = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "validator" / "validate.py"),
+                    str(delivery),
+                    "--out",
+                    str(rules_out),
+                    "--candidates",
+                    str(cands_out),
+                ],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                check=True,
+            )
+            self.assertIn("Rules:", proc.stdout)
+            self.assertIn("Candidates:", proc.stdout)
+            rules_doc = json.loads(rules_out.read_text(encoding="utf-8"))
+            cands_doc = json.loads(cands_out.read_text(encoding="utf-8"))
+            # --out chỉ chứa lỗi luật (img_0006 duplicate_box, img_0007 missing_image/invalid_class/invalid_category_id)
+            rule_types = {e["type"] for e in rules_doc["errors"]}
+            self.assertIn("duplicate_box", rule_types)
+            self.assertIn("missing_image", rule_types)
+            self.assertNotIn("class_swap", rule_types)
+            self.assertNotIn("missing_box", rule_types)
+            # --candidates chứa đủ 4 ứng viên lỗi gán nhãn
+            self.assertEqual(cands_doc["summary"]["total_candidates"], 4)
+
+            # Kiểm tra chặn ghi --candidates vào trong thư mục delivery/
+            bad_proc = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "validator" / "validate.py"),
+                    str(delivery),
+                    "--out",
+                    str(rules_out),
+                    "--candidates",
+                    str(delivery / "candidates.json"),
+                ],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            )
+            self.assertNotEqual(bad_proc.returncode, 0)
+
 
 if __name__ == "__main__":
     unittest.main()
