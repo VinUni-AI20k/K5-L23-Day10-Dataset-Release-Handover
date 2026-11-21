@@ -41,7 +41,23 @@ Việc ghi event được thực hiện bởi `scripts/record_cp3.py`. Script đ
 - **Ảnh thuộc đúng lô hay đúng phiên bản dữ liệu.** `release_id` là hash của `manifest.json` + `metadata.json`; cùng seed 76 nhưng máy các thành viên ra mã khác nhau (`689a…`, `6ed6…`), nên nhóm phải thống nhất dùng lô trên máy lead (`lab250_f95ccfbc1285`) và kiểm mã trước khi làm.
 
 ## 5. Truy vết
-<<Tiêu chí tầng a/b, vì sao lấy guideline theo job.>>
+**Đọc ticket và changelog:** team AI báo model bỏ sót một lớp khi vật bị che hoặc ở mép ảnh; `guideline/changelog.md` cho biết v1.3 bắt buộc gán box cho vật bị che trên 50% hoặc cắt ở mép, còn v1.2 cho phép bỏ qua. Vậy ảnh có nguy cơ thiếu box là ảnh thuộc job làm theo **v1.2** và có lớp đó.
+
+**Tiêu chí:**
+- **`tier_a`:** ảnh nằm trong các cảnh team AI đã nêu, thuộc job guideline v1.2, có ít nhất một box detection của lớp bị đổi quy tắc.
+- **`tier_b`:** các ảnh còn lại cùng điều kiện (job v1.2, có box lớp đó) nhưng chưa ai báo. Đây là phần trả lời câu "còn ảnh nào khác bị như vậy không".
+- **`notify`:** người gán và người kiểm của các job chứa ảnh tầng a và b, lấy theo `jobs.csv`. Chỉ báo đúng những người đó, không báo cả lô.
+
+**Kết quả:**
+
+| Lô | Lớp | Cảnh được báo | Ảnh có lớp đó | Thuộc job v1.2 | `tier_a` | `tier_b` | `notify` |
+|---|---|---|---|---|---|---|---|
+| Seed 76 | `wine glass` | scene_336, scene_528 | 13 | 7 | 3 | 4 | A04, Q03 |
+| Đề ẩn | `tie` | scene_133, scene_347 | 15 | 8 | 2 | 6 | A03, A04, Q01, Q02 |
+
+Ảnh có lớp đó nhưng thuộc job v1.3 bị loại, vì người gán đã phải theo quy tắc mới.
+
+**Vì sao lấy guideline theo job, không theo từng ảnh:** guideline là thứ giao cho cả job, người gán làm theo bản ghi ở `jobs.csv`. Trường `guideline_version` trong `metadata.json` của từng ảnh có thể ghi sai, và đó chính là lỗi luật `guideline_mismatch` (seed 76 có 2 ảnh như vậy: `7977` ghi v1.3 nhưng job J04 là v1.2, `16451` ngược lại). Lọc theo metadata thì ảnh ghi sai sẽ bị xếp nhầm tầng: ảnh thật ra làm theo v1.2 bị bỏ sót, hoặc ngược lại. Lọc theo job thì đúng với cách người gán đã làm. `truyvet.csv` của v2 cũng ghi guideline theo job vì lý do này.
 
 ## 6. Bug hoặc điểm chưa rõ trong lab (nếu có)
 1. **Cùng seed 76, mỗi máy ra một `release_id`.** `inject_release.py` ghi "cùng seed, cùng pool, cùng dữ liệu thì cùng kết quả", nhưng ba máy trong nhóm chạy seed 76 ra ba mã: `lab250_f95ccfbc1285` (máy lead), `lab250_689a2db4b8e7` và `lab250_6ed613d36080`. `release_id` là hash của `manifest.json` + `metadata.json`, nên chỉ cần dữ liệu tải về hoặc môi trường khác một chút là mã đổi. Nhóm chưa xác định được nguyên nhân. Hệ quả thấy được: lineage CP3 ban đầu ghi HOLD cho mã của máy khác nên H14 sẽ FAIL; nhóm xử lý bằng cách cả nhóm dùng chung lô trên máy lead (gửi `delivery/` nội bộ, kiểm mã và hash `manifest.json` trước khi làm). Nếu người chấm tạo lại lô bằng `export_submission.py --import` mà ra mã khác `lab250_f95ccfbc1285`, thư mục `handover/` và lineage của nhóm sẽ không khớp.
