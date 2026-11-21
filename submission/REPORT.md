@@ -29,7 +29,16 @@ Việc ghi event được thực hiện bởi `scripts/record_cp3.py`. Script đ
 `release_id`.
 
 ## 4. Hash chứng minh gì, không chứng minh gì?
-<<>>
+**Chứng minh:** sha256 tính trên bytes của file, nên hash khớp nghĩa là file **giống hệt từng byte** với lúc ghi hash; chỉ cần đổi một byte là hash khác.
+- Lô v2 không bị sửa sau khi đóng gói: `pack_release.py` tạo zip tái lập, `lab250_f95ccfbc1285_v2.sha256` ghi `c3c7a822…`, đóng gói lại ra đúng mã đó (H15).
+- Nhãn trong v2 không bị sửa tay: hash của 241 file nhãn trong v2 trùng `label_sha256` của manifest v1 (H7); `manifest.csv` v2 liệt kê đủ 482 file với sha256 tính lại từ file thật (H8).
+- Hash bắt được cả thay đổi mắt thường không thấy: khi pull trên Windows, Git đổi xuống dòng LF thành CRLF làm hash nhãn lệch dù nội dung đọc vẫn y hệt; nhóm thêm `.gitattributes` để giữ nguyên bytes.
+
+**Không chứng minh:**
+- **Nhãn đúng.** 13 lỗi gán nhãn của đề ẩn và 10 lỗi của seed 76 (đổi lớp, lệch box, thiếu box) đều có hash khớp manifest. Hash chỉ nói file không đổi, không nói người gán gán đúng; phải xem ảnh mới biết (`check_handover.py` cũng ghi "PASS không có nghĩa nhãn đúng").
+- **File hỏng hay không khi hash lệch.** Ảnh `000000004795` bị `wrong_hash`, nhưng nhóm mở ảnh thấy hiển thị đầy đủ, 3 box khớp đối tượng: sai là hash ghi trong manifest v1, không phải ảnh. Hash lệch chỉ báo "có gì đó khác", phải mở file mới biết bên nào sai.
+- **Ai tạo hay sửa file, và manifest có đáng tin không.** Hash không gắn với người; ai sửa file rồi tính lại hash ghi vào manifest thì hash vẫn khớp. Truy trách nhiệm phải dựa vào `jobs.csv`, lineage và lịch sử commit.
+- **Ảnh thuộc đúng lô hay đúng phiên bản dữ liệu.** `release_id` là hash của `manifest.json` + `metadata.json`; cùng seed 76 nhưng máy các thành viên ra mã khác nhau (`689a…`, `6ed6…`), nên nhóm phải thống nhất dùng lô trên máy lead (`lab250_f95ccfbc1285`) và kiểm mã trước khi làm.
 
 ## 5. Truy vết
 <<Tiêu chí tầng a/b, vì sao lấy guideline theo job.>>
