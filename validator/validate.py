@@ -31,8 +31,10 @@ from pngutil import read_rgb  # noqa: E402  (đọc PNG bằng thư viện chu�
 # Box bị "tràn mép một chút" do lỗi gài thì lệch cỡ pixel (>= ~1e-3), nên lấy 1e-4.
 OOB_EPS = 1e-4
 # duplicate_box: box lặp cùng lớp, CÙNG kích thước, tâm lệch 1–2 px.
-# Cho sai số kích thước <= 1 px (làm tròn) và tâm lệch <= 3 px mỗi trục.
-DUP_SIZE_PX = 1.0
+# "Cùng kích thước" là bản sao: YOLO ghi 6 chữ số nên sai số làm tròn chỉ ~0,001 px.
+# Bản đầu cho lệch 1 px thì báo nhầm các box rất nhỏ nằm sát nhau (sách 2x14 px, xe 11x6 px
+# trong ảnh đông vật), nên siết còn 0,01 px. Tâm lệch <= 3 px mỗi trục.
+DUP_SIZE_PX = 0.01
 DUP_SHIFT_PX = 3.0
 
 

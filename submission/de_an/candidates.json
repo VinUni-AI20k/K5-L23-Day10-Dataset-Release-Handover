@@ -1,0 +1,499 @@
+{
+ "candidates": [
+  {
+   "image": "img_0003",
+   "type": "missing_box",
+   "reason": "segment 'giraffe' 10332 pixel không có box nào phủ (tối đa 0%)",
+   "panoptic": "giraffe",
+   "segment": 2633882,
+   "pixels": 10332
+  },
+  {
+   "image": "img_0004",
+   "type": "bbox_drift",
+   "reason": "chỉ 58% pixel segment 'person' nằm trong box (IoU-mask 0.31)",
+   "detection": "person",
+   "box": [
+    14,
+    210,
+    37,
+    293
+   ],
+   "segment": 14395157,
+   "inside_frac": 0.575
+  },
+  {
+   "image": "img_0004",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'handbag' nhưng segment ghi 'backpack' (IoU-mask 0.55)",
+   "detection": "handbag",
+   "panoptic": "backpack",
+   "box": [
+    48,
+    257,
+    69,
+    281
+   ],
+   "segment": 11811885,
+   "iou": 0.552
+  },
+  {
+   "image": "img_0004",
+   "type": "instance_merge",
+   "reason": "2 box 'person' cùng ghép vào một segment",
+   "detection": "person",
+   "segment": 14395157,
+   "boxes": [
+    [
+     4,
+     218,
+     30,
+     297
+    ],
+    [
+     14,
+     210,
+     37,
+     293
+    ]
+   ]
+  },
+  {
+   "image": "img_0013",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'truck' nhưng segment ghi 'car' (IoU-mask 0.77)",
+   "detection": "truck",
+   "panoptic": "car",
+   "box": [
+    207,
+    238,
+    272,
+    287
+   ],
+   "segment": 11936312,
+   "iou": 0.767
+  },
+  {
+   "image": "img_0037",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'chair' nhưng segment ghi 'person' (IoU-mask 0.62)",
+   "detection": "chair",
+   "panoptic": "person",
+   "box": [
+    107,
+    73,
+    426,
+    597
+   ],
+   "segment": 7621848,
+   "iou": 0.618
+  },
+  {
+   "image": "img_0051",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'couch' nhưng segment ghi 'teddy bear' (IoU-mask 0.53)",
+   "detection": "couch",
+   "panoptic": "teddy bear",
+   "box": [
+    0,
+    2,
+    413,
+    494
+   ],
+   "segment": 6673295,
+   "iou": 0.526
+  },
+  {
+   "image": "img_0055",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'pizza' nhưng segment ghi 'sandwich' (IoU-mask 0.54)",
+   "detection": "pizza",
+   "panoptic": "sandwich",
+   "box": [
+    145,
+    525,
+    316,
+    602
+   ],
+   "segment": 7769147,
+   "iou": 0.538
+  },
+  {
+   "image": "img_0056",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'cup' nhưng segment ghi 'bowl' (IoU-mask 0.69)",
+   "detection": "cup",
+   "panoptic": "bowl",
+   "box": [
+    78,
+    298,
+    114,
+    343
+   ],
+   "segment": 5119500,
+   "iou": 0.693
+  },
+  {
+   "image": "img_0060",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'bowl' nhưng segment ghi 'sandwich' (IoU-mask 0.62)",
+   "detection": "bowl",
+   "panoptic": "sandwich",
+   "box": [
+    1,
+    43,
+    639,
+    421
+   ],
+   "segment": 5662197,
+   "iou": 0.623
+  },
+  {
+   "image": "img_0062",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'cup' nhưng segment ghi 'vase' (IoU-mask 0.70)",
+   "detection": "cup",
+   "panoptic": "vase",
+   "box": [
+    257,
+    319,
+    286,
+    344
+   ],
+   "segment": 10120621,
+   "iou": 0.695
+  },
+  {
+   "image": "img_0062",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'cup' nhưng segment ghi 'vase' (IoU-mask 0.92)",
+   "detection": "cup",
+   "panoptic": "vase",
+   "box": [
+    470,
+    312,
+    487,
+    336
+   ],
+   "segment": 2900680,
+   "iou": 0.925
+  },
+  {
+   "image": "img_0063",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'chair' nhưng segment ghi 'couch' (IoU-mask 0.60)",
+   "detection": "chair",
+   "panoptic": "couch",
+   "box": [
+    449,
+    197,
+    585,
+    325
+   ],
+   "segment": 9917735,
+   "iou": 0.596
+  },
+  {
+   "image": "img_0065",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'person' nhưng segment ghi 'tennis racket' (IoU-mask 0.68)",
+   "detection": "person",
+   "panoptic": "tennis racket",
+   "box": [
+    40,
+    66,
+    416,
+    589
+   ],
+   "segment": 698194,
+   "iou": 0.685
+  },
+  {
+   "image": "img_0069",
+   "type": "bbox_drift",
+   "reason": "chỉ 54% pixel segment 'chair' nằm trong box (IoU-mask 0.38)",
+   "detection": "chair",
+   "box": [
+    0,
+    202,
+    41,
+    232
+   ],
+   "segment": 3430733,
+   "inside_frac": 0.54
+  },
+  {
+   "image": "img_0069",
+   "type": "instance_merge",
+   "reason": "2 box 'chair' cùng ghép vào một segment",
+   "detection": "chair",
+   "segment": 3430733,
+   "boxes": [
+    [
+     0,
+     202,
+     41,
+     232
+    ],
+    [
+     0,
+     207,
+     39,
+     270
+    ]
+   ]
+  },
+  {
+   "image": "img_0108",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'car' nhưng segment ghi 'truck' (IoU-mask 0.61)",
+   "detection": "car",
+   "panoptic": "truck",
+   "box": [
+    3,
+    319,
+    122,
+    369
+   ],
+   "segment": 2700974,
+   "iou": 0.609
+  },
+  {
+   "image": "img_0116",
+   "type": "instance_merge",
+   "reason": "2 box 'sheep' cùng ghép vào một segment",
+   "detection": "sheep",
+   "segment": 8230140,
+   "boxes": [
+    [
+     271,
+     174,
+     414,
+     291
+    ],
+    [
+     238,
+     121,
+     403,
+     282
+    ]
+   ]
+  },
+  {
+   "image": "img_0134",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'wine glass' nhưng segment ghi 'cup' (IoU-mask 0.53)",
+   "detection": "wine glass",
+   "panoptic": "cup",
+   "box": [
+    322,
+    154,
+    342,
+    214
+   ],
+   "segment": 1993461,
+   "iou": 0.527
+  },
+  {
+   "image": "img_0153",
+   "type": "bbox_drift",
+   "reason": "chỉ 49% pixel segment 'pizza' nằm trong box (IoU-mask 0.36)",
+   "detection": "pizza",
+   "box": [
+    52,
+    140,
+    207,
+    192
+   ],
+   "segment": 4864917,
+   "inside_frac": 0.492
+  },
+  {
+   "image": "img_0155",
+   "type": "bbox_drift",
+   "reason": "chỉ 65% pixel segment 'person' nằm trong box (IoU-mask 0.39)",
+   "detection": "person",
+   "box": [
+    493,
+    0,
+    608,
+    475
+   ],
+   "segment": 8928936,
+   "inside_frac": 0.655
+  },
+  {
+   "image": "img_0155",
+   "type": "instance_merge",
+   "reason": "2 box 'person' cùng ghép vào một segment",
+   "detection": "person",
+   "segment": 8928936,
+   "boxes": [
+    [
+     528,
+     3,
+     639,
+     476
+    ],
+    [
+     493,
+     0,
+     608,
+     475
+    ]
+   ]
+  },
+  {
+   "image": "img_0156",
+   "type": "instance_merge",
+   "reason": "2 box 'bicycle' cùng ghép vào một segment",
+   "detection": "bicycle",
+   "segment": 9413320,
+   "boxes": [
+    [
+     270,
+     457,
+     311,
+     483
+    ],
+    [
+     278,
+     462,
+     301,
+     485
+    ]
+   ]
+  },
+  {
+   "image": "img_0168",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'chair' nhưng segment ghi 'person' (IoU-mask 0.53)",
+   "detection": "chair",
+   "panoptic": "person",
+   "box": [
+    26,
+    236,
+    143,
+    418
+   ],
+   "segment": 15231363,
+   "iou": 0.531
+  },
+  {
+   "image": "img_0193",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'remote' nhưng segment ghi 'cell phone' (IoU-mask 0.52)",
+   "detection": "remote",
+   "panoptic": "cell phone",
+   "box": [
+    380,
+    372,
+    416,
+    388
+   ],
+   "segment": 11658176,
+   "iou": 0.522
+  },
+  {
+   "image": "img_0205",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'couch' nhưng segment ghi 'chair' (IoU-mask 0.71)",
+   "detection": "couch",
+   "panoptic": "chair",
+   "box": [
+    19,
+    285,
+    209,
+    500
+   ],
+   "segment": 8446315,
+   "iou": 0.709
+  },
+  {
+   "image": "img_0209",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'car' nhưng segment ghi 'truck' (IoU-mask 0.72)",
+   "detection": "car",
+   "panoptic": "truck",
+   "box": [
+    21,
+    336,
+    211,
+    420
+   ],
+   "segment": 2759887,
+   "iou": 0.717
+  },
+  {
+   "image": "img_0222",
+   "type": "instance_merge",
+   "reason": "2 box 'book' cùng ghép vào một segment",
+   "detection": "book",
+   "segment": 10796608,
+   "boxes": [
+    [
+     28,
+     177,
+     32,
+     192
+    ],
+    [
+     28,
+     172,
+     34,
+     191
+    ]
+   ]
+  },
+  {
+   "image": "img_0224",
+   "type": "class_or_category_swap",
+   "reason": "box ghi 'dining table' nhưng segment ghi 'cake' (IoU-mask 0.63)",
+   "detection": "dining table",
+   "panoptic": "cake",
+   "box": [
+    0,
+    30,
+    640,
+    467
+   ],
+   "segment": 2769889,
+   "iou": 0.626
+  },
+  {
+   "image": "img_0226",
+   "type": "bbox_drift",
+   "reason": "chỉ 65% pixel segment 'cat' nằm trong box (IoU-mask 0.49)",
+   "detection": "cat",
+   "box": [
+    218,
+    174,
+    334,
+    228
+   ],
+   "segment": 721371,
+   "inside_frac": 0.655
+  },
+  {
+   "image": "img_0227",
+   "type": "instance_merge",
+   "reason": "2 box 'bird' cùng ghép vào một segment",
+   "detection": "bird",
+   "segment": 13032122,
+   "boxes": [
+    [
+     260,
+     180,
+     298,
+     214
+    ],
+    [
+     259,
+     168,
+     293,
+     206
+    ]
+   ]
+  }
+ ]
+}

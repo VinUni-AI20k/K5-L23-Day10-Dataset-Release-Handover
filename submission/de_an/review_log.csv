@@ -1,0 +1,32 @@
+image,type,verdict,note
+img_0003,missing_box,confirmed,"Đầu và cổ hươu cao cổ nhô rõ trên bụi cây giữa ảnh, segment giraffe 10.332 pixel nhưng không có box nào phủ."
+img_0004,bbox_drift,rejected,Box person bao đúng người đàn ông đứng sau. Segment xanh là của người phụ nữ phía trước nên nằm lệch ra ngoài box.
+img_0004,category_swap,confirmed,Vật trong box là túi xách cầm tay (túi nhựa hoa văn) đúng nhãn handbag; panoptic ghi backpack là sai.
+img_0004,instance_merge,rejected,Segment chỉ phủ người phụ nữ và chút vai người đứng sau chỗ hai người chồng nhau; thân và chân người sau không bị gộp.
+img_0013,class_swap,confirmed,"Xe trong box là xe con dạng MPV/SUV màu xanh, segment ghi đúng car; detection ghi truck là sai."
+img_0037,class_or_category_swap,rejected,"Box chair bao chiếc ghế người phụ nữ đang ngồi; segment person là của người. Hai vật khác nhau chồng lên nhau, lệch tự nhiên."
+img_0051,class_or_category_swap,rejected,Box couch bao cả chiếc ghế sofa phủ khăn ren phía sau; segment teddy bear là con gấu ngồi trên đó. Hai vật khác nhau.
+img_0055,category_swap,confirmed,"Vật trong box là một miếng pizza sốt cà chua trên đĩa, đúng nhãn detection pizza; panoptic ghi sandwich là sai."
+img_0056,category_swap,confirmed,"Vật trong box là chiếc cốc giấy cao, thuôn đáy, đúng nhãn detection cup; panoptic ghi bowl là sai."
+img_0060,class_or_category_swap,rejected,Box bowl bao cả hộp xốp đựng đồ ăn; segment sandwich là ổ bánh mì bên trong hộp. Hai vật khác nhau chồng nhau.
+img_0062,class_or_category_swap,rejected,"Bình gốm đỏ nhỏ trên kệ, hình dáng giữa cốc và bình, không đủ chắc nguồn nào sai; ảnh đã có ca rõ hơn ở bình mặt người."
+img_0062,class_swap,confirmed,"Box bao đúng chiếc bình gốm hình mặt người trên kệ trưng bình (IoU-mask 0,92), panoptic ghi vase đúng; detection ghi cup là sai."
+img_0063,category_swap,confirmed,"Vật là một ghế bành đơn một chỗ ngồi màu nâu cạnh đèn, đúng nhãn chair của detection; panoptic ghi couch là sai."
+img_0065,category_swap,confirmed,"Box bao người phụ nữ tóc xoăn mặc sơ mi trắng, segment phủ đúng người đó nhưng panoptic ghi tennis racket là sai."
+img_0069,bbox_drift,rejected,"Ảnh tối, box chair nhỏ bao phần lưng ghế phía trên; segment là cùng dãy ghế da phía dưới. Lệch do hai ghế sát nhau."
+img_0069,instance_merge,rejected,"Segment ghế chỉ là một khối lưng ghế liền, không thấy hai ghế bị gộp; hai box chồng nhau trên dãy ghế da tối."
+img_0108,category_swap,confirmed,"Xe đỏ trong box là xe con hatchback 5 cửa, đúng nhãn detection car; panoptic ghi truck là sai."
+img_0116,instance_merge,rejected,Segment chỉ phủ con cừu sừng xoắn đang cúi gặm cỏ phía trước; con đứng sau có box riêng và không bị phủ.
+img_0134,class_or_category_swap,rejected,Ảnh đã có lỗi luật invalid_category_id; mỗi ảnh tối đa một lỗi nên không ghi thêm lỗi gán nhãn.
+img_0153,bbox_drift,rejected,Ảnh đã có lỗi luật thing_overlap; mỗi ảnh tối đa một lỗi nên không ghi thêm lỗi gán nhãn.
+img_0155,bbox_drift,rejected,Box person bao người mặc áo đỏ đứng khuất phía sau; segment xanh là người mặc sơ mi sọc bên phải. Hai người khác nhau.
+img_0155,instance_merge,rejected,Segment chỉ phủ người mặc sơ mi sọc; người áo đỏ phía sau không bị phủ nên không phải gộp hai người.
+img_0156,instance_merge,rejected,"Dãy xe đạp dựng sát nhau trong khu chợ, segment nhỏ chỉ phủ một phần một chiếc xe; không thấy hai xe bị gộp."
+img_0168,class_or_category_swap,rejected,Box chair bao hàng ghế xám phía sau; segment person là người đàn ông mặc vest đen phía trước. Hai vật chồng nhau.
+img_0193,class_swap,confirmed,"Vật nhỏ trên cuốn sổ là điện thoại nắp gập màu bạc đen, panoptic ghi cell phone đúng; detection ghi remote là sai."
+img_0205,class_swap,confirmed,"Box bao đúng chiếc ghế bành trắng một chỗ ngồi (IoU-mask 0,71), panoptic ghi chair đúng; detection ghi couch là sai."
+img_0209,category_swap,confirmed,"Xe bạc mờ phía sau là xe SUV/xe con, đúng nhãn detection car; panoptic ghi truck là sai."
+img_0222,instance_merge,rejected,"Hai box book rất nhỏ trên giá sách đông sách; segment chỉ phủ một gáy sách, không thấy hai cuốn bị gộp."
+img_0224,class_or_category_swap,rejected,Box dining table bao cả bàn bên dưới; segment cake là chiếc bánh võ đài trên bàn. Hai vật khác nhau chồng nhau.
+img_0226,bbox_drift,confirmed,"Box cat lệch sang trái: mép trái phủ chăn trống, còn đầu mèo con bên phải nằm ngoài box (chỉ 65% pixel trong box)."
+img_0227,instance_merge,rejected,"Segment chỉ phủ một con cò trắng; con đứng sau có box riêng và không bị phủ, không phải gộp hai con."
