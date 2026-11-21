@@ -6,6 +6,7 @@ from pathlib import Path
 from detection import validate_detection
 from panoptic import validate_panoptic
 from metadata import validate_metadata
+from cross_check import generate_candidates
 
 
 def main():
@@ -57,10 +58,14 @@ def main():
     print(f"Da ghi {len(errors)} loi vao {output}")
 
     if args.candidates:
-        print(
-            "Chua sinh candidates: "
-            "cho module doi chieu cua Giang."
+        candidates = generate_candidates(delivery)
+        candidate_output = Path(args.candidates)
+        candidate_output.parent.mkdir(parents=True, exist_ok=True)
+        candidate_output.write_text(
+            json.dumps({"candidates": candidates}, indent=2, ensure_ascii=False),
+            encoding="utf-8",
         )
+        print(f"Da ghi {len(candidates)} ung vien vao {candidate_output}")
 
 
 if __name__ == "__main__":
