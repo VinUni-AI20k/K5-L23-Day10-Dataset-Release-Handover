@@ -1,0 +1,195 @@
+{
+  "candidates": [
+    {
+      "image": "000000000872",
+      "type": "missing_box",
+      "class": "person",
+      "area": 47692,
+      "norm_area": 0.3207,
+      "suggested_note": "Thiếu box detection cho person (diện tích segment 47692 px)"
+    },
+    {
+      "image": "000000001818",
+      "type": "missing_box",
+      "class": "zebra",
+      "area": 120106,
+      "norm_area": 0.9945,
+      "suggested_note": "Thiếu box detection cho zebra (diện tích segment 120106 px)"
+    },
+    {
+      "image": "000000004134",
+      "type": "bbox_drift",
+      "class": "person",
+      "iou": 0.67,
+      "drift_ratio": 0.088,
+      "suggested_note": "Box detection person bị lệch tâm 8.8%, IoU đạt 0.67"
+    },
+    {
+      "image": "000000006723",
+      "type": "category_swap",
+      "detection_class": "truck",
+      "panoptic_class": "bus",
+      "iou": 0.912,
+      "suggested_note": "Lệch lớp: panoptic ghi bus, detection ghi truck (IoU 0.91)"
+    },
+    {
+      "image": "000000006723",
+      "type": "class_swap",
+      "detection_class": "truck",
+      "panoptic_class": "bus",
+      "iou": 0.912,
+      "suggested_note": "Lệch lớp: detection ghi truck, panoptic ghi bus (IoU 0.91)"
+    },
+    {
+      "image": "000000007818",
+      "type": "category_swap",
+      "detection_class": "wine glass",
+      "panoptic_class": "bowl",
+      "iou": 0.994,
+      "suggested_note": "Lệch lớp: panoptic ghi bowl, detection ghi wine glass (IoU 0.99)"
+    },
+    {
+      "image": "000000007818",
+      "type": "class_swap",
+      "detection_class": "wine glass",
+      "panoptic_class": "bowl",
+      "iou": 0.994,
+      "suggested_note": "Lệch lớp: detection ghi wine glass, panoptic ghi bowl (IoU 0.99)"
+    },
+    {
+      "image": "000000009378",
+      "type": "missing_box",
+      "class": "person",
+      "area": 65217,
+      "norm_area": 0.5887,
+      "suggested_note": "Thiếu box detection cho person (diện tích segment 65217 px)"
+    },
+    {
+      "image": "000000009590",
+      "type": "category_swap",
+      "detection_class": "cup",
+      "panoptic_class": "bowl",
+      "iou": 0.92,
+      "suggested_note": "Lệch lớp: panoptic ghi bowl, detection ghi cup (IoU 0.92)"
+    },
+    {
+      "image": "000000009590",
+      "type": "class_swap",
+      "detection_class": "cup",
+      "panoptic_class": "bowl",
+      "iou": 0.92,
+      "suggested_note": "Lệch lớp: detection ghi cup, panoptic ghi bowl (IoU 0.92)"
+    },
+    {
+      "image": "000000009914",
+      "type": "category_swap",
+      "detection_class": "hot dog",
+      "panoptic_class": "sandwich",
+      "iou": 0.815,
+      "suggested_note": "Lệch lớp: panoptic ghi sandwich, detection ghi hot dog (IoU 0.81)"
+    },
+    {
+      "image": "000000009914",
+      "type": "class_swap",
+      "detection_class": "hot dog",
+      "panoptic_class": "sandwich",
+      "iou": 0.815,
+      "suggested_note": "Lệch lớp: detection ghi hot dog, panoptic ghi sandwich (IoU 0.81)"
+    },
+    {
+      "image": "000000012748",
+      "type": "missing_box",
+      "class": "person",
+      "area": 56935,
+      "norm_area": 0.4156,
+      "suggested_note": "Thiếu box detection cho person (diện tích segment 56935 px)"
+    },
+    {
+      "image": "000000014888",
+      "type": "category_swap",
+      "detection_class": "toothbrush",
+      "panoptic_class": "cow",
+      "iou": 0.998,
+      "suggested_note": "Lệch lớp: panoptic ghi cow, detection ghi toothbrush (IoU 1.00)"
+    },
+    {
+      "image": "000000014888",
+      "type": "class_swap",
+      "detection_class": "toothbrush",
+      "panoptic_class": "cow",
+      "iou": 0.998,
+      "suggested_note": "Lệch lớp: detection ghi toothbrush, panoptic ghi cow (IoU 1.00)"
+    },
+    {
+      "image": "000000015440",
+      "type": "bbox_drift",
+      "class": "bus",
+      "iou": 0.468,
+      "drift_ratio": 0.375,
+      "suggested_note": "Box detection bus bị lệch tâm 37.5%, IoU đạt 0.47"
+    },
+    {
+      "image": "000000015440",
+      "type": "instance_merge",
+      "class": "bus",
+      "num_boxes": 2,
+      "suggested_note": "Panoptic gộp 2 vật thể bus thành một segment"
+    },
+    {
+      "image": "000000017207",
+      "type": "bbox_drift",
+      "class": "bus",
+      "iou": 0.686,
+      "drift_ratio": 0.089,
+      "suggested_note": "Box detection bus bị lệch tâm 8.9%, IoU đạt 0.69"
+    },
+    {
+      "image": "000000018380",
+      "type": "category_swap",
+      "detection_class": "cup",
+      "panoptic_class": "wine glass",
+      "iou": 0.867,
+      "suggested_note": "Lệch lớp: panoptic ghi wine glass, detection ghi cup (IoU 0.87)"
+    },
+    {
+      "image": "000000018380",
+      "type": "class_swap",
+      "detection_class": "cup",
+      "panoptic_class": "wine glass",
+      "iou": 0.867,
+      "suggested_note": "Lệch lớp: detection ghi cup, panoptic ghi wine glass (IoU 0.87)"
+    },
+    {
+      "image": "000000019924",
+      "type": "missing_box",
+      "class": "person",
+      "area": 141581,
+      "norm_area": 0.8813,
+      "suggested_note": "Thiếu box detection cho person (diện tích segment 141581 px)"
+    },
+    {
+      "image": "000000020553",
+      "type": "category_swap",
+      "detection_class": "bottle",
+      "panoptic_class": "vase",
+      "iou": 0.771,
+      "suggested_note": "Lệch lớp: panoptic ghi vase, detection ghi bottle (IoU 0.77)"
+    },
+    {
+      "image": "000000020553",
+      "type": "class_swap",
+      "detection_class": "bottle",
+      "panoptic_class": "vase",
+      "iou": 0.771,
+      "suggested_note": "Lệch lớp: detection ghi bottle, panoptic ghi vase (IoU 0.77)"
+    },
+    {
+      "image": "000000023937",
+      "type": "missing_box",
+      "class": "cow",
+      "area": 1313,
+      "norm_area": 0.0151,
+      "suggested_note": "Thiếu box detection cho cow (diện tích segment 1313 px)"
+    }
+  ]
+}

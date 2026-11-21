@@ -1,0 +1,9 @@
+image,type,annotator,reviewer,action
+000000000885,bbox_out_of_bounds,A05,Q02,reannotate_detection_then_review
+000000009378,invalid_class,A04,Q02,reannotate_detection_then_review
+000000012639,duplicate_box,A05,Q01,reannotate_detection_then_review
+000000014888,class_swap,A01,Q03,reannotate_detection_then_review
+000000016228,bbox_out_of_bounds,A03,Q03,reannotate_detection_then_review
+000000017207,bbox_drift,A03,Q03,reannotate_detection_then_review
+000000019924,missing_box,A03,Q03,reannotate_detection_then_review
+000000023937,missing_box,A02,Q03,reannotate_detection_then_review
